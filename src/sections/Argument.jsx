@@ -42,7 +42,11 @@ const POINTS = [
 
 export default function Argument() {
   return (
-    <Section id="why-us" size="lg">
+    // `deep`, not `paper` — the calculator section above is on paper, and two
+    // adjacent sections sharing a ground is exactly the flatness DESIGN.md
+    // § Layout exists to prevent. The homepage now alternates cleanly:
+    // photo · deep · paper · dark · deep · paper · deep · photo · deep · photo.
+    <Section id="why-us" tone="deep" size="lg">
       <div className="container-page">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           {/* The photograph is sticky on desktop, so it holds the reader's place
