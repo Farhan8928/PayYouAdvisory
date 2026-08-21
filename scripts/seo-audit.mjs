@@ -85,6 +85,25 @@ async function main() {
     // ── Language ───────────────────────────────────────────────────────────
     if (!/<html[^>]+lang="en-IN"/.test(html)) fail(`${name}: <html> is missing lang="en-IN"`)
 
+    // ── Every logo is a link home ──────────────────────────────────────────
+    // The logo renders three times per page — the bar, the mobile drawer, the
+    // footer — and tapping it is how people get home, especially on a phone
+    // where the drawer covers the bar and the drawer's logo is the only one on
+    // screen. Two of the three shipped as bare artwork and did nothing when
+    // tapped; nothing else here caught it, because a missing link is not a
+    // broken link. So: count the logo images, count the ones wrapped in an
+    // anchor to `/`, and require the two to agree.
+    const logoImgs = html.match(/<img[^>]+src="\/brand\/payyou-logo\.png"/gi) ?? []
+    const linkedLogos =
+      html.match(
+        /<a[^>]+href="\/"[^>]*>(?:(?!<\/a>)[\s\S]){0,200}?<img[^>]+src="\/brand\/payyou-logo\.png"/gi,
+      ) ?? []
+    if (logoImgs.length !== linkedLogos.length) {
+      fail(
+        `${name}: ${logoImgs.length - linkedLogos.length} of ${logoImgs.length} logo images are not wrapped in a link to "/" — tapping them does nothing`,
+      )
+    }
+
     // ── Title ──────────────────────────────────────────────────────────────
     const title = decode(html.match(/<title>([^<]*)<\/title>/)?.[1] ?? '')
     if (!title) {

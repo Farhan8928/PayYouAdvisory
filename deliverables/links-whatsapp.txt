@@ -1,0 +1,169 @@
+*PayYou Advisory — the new website*
+https://pay-you-advisory.vercel.app/
+
+Every page below is live now. 137 pages in total.
+
+*Main pages*
+Home: https://pay-you-advisory.vercel.app/
+All loans compared: https://pay-you-advisory.vercel.app/loans/
+Our lender panel: https://pay-you-advisory.vercel.app/lenders/
+About PayYou: https://pay-you-advisory.vercel.app/about/
+Careers: https://pay-you-advisory.vercel.app/careers/
+Contact: https://pay-you-advisory.vercel.app/contact/
+Questions answered: https://pay-you-advisory.vercel.app/faq/
+
+*Loan & insurance products (8)*
+Personal Loan: https://pay-you-advisory.vercel.app/personal-loan/
+Business Loan: https://pay-you-advisory.vercel.app/business-loan/
+Home Loan: https://pay-you-advisory.vercel.app/home-loan/
+Loan Against Property: https://pay-you-advisory.vercel.app/loan-against-property/
+Car Loan: https://pay-you-advisory.vercel.app/car-loan/
+Gold Loan: https://pay-you-advisory.vercel.app/gold-loan/
+Working Capital & LRD: https://pay-you-advisory.vercel.app/working-capital-loan/
+Insurance Plans: https://pay-you-advisory.vercel.app/insurance/
+
+*Calculators*
+EMI calculator: https://pay-you-advisory.vercel.app/emi-calculator/
+Eligibility calculator: https://pay-you-advisory.vercel.app/eligibility-calculator/
+Balance transfer calculator: https://pay-you-advisory.vercel.app/balance-transfer-calculator/
+All three: https://pay-you-advisory.vercel.app/calculators/
+
+*Local pages (112)*
+Written for each area individually, not one page with the name swapped.
+
+*Personal Loan — by area*
+Pimpri: https://pay-you-advisory.vercel.app/personal-loan-pimpri/
+Chinchwad: https://pay-you-advisory.vercel.app/personal-loan-chinchwad/
+Nigdi: https://pay-you-advisory.vercel.app/personal-loan-nigdi/
+Akurdi: https://pay-you-advisory.vercel.app/personal-loan-akurdi/
+Bhosari: https://pay-you-advisory.vercel.app/personal-loan-bhosari/
+Chakan: https://pay-you-advisory.vercel.app/personal-loan-chakan/
+Wakad: https://pay-you-advisory.vercel.app/personal-loan-wakad/
+Hinjewadi: https://pay-you-advisory.vercel.app/personal-loan-hinjewadi/
+Ravet: https://pay-you-advisory.vercel.app/personal-loan-ravet/
+Moshi: https://pay-you-advisory.vercel.app/personal-loan-moshi/
+Talegaon Dabhade: https://pay-you-advisory.vercel.app/personal-loan-talegaon-dabhade/
+Baner: https://pay-you-advisory.vercel.app/personal-loan-baner/
+Kothrud: https://pay-you-advisory.vercel.app/personal-loan-kothrud/
+Hadapsar: https://pay-you-advisory.vercel.app/personal-loan-hadapsar/
+Baramati: https://pay-you-advisory.vercel.app/personal-loan-baramati/
+Phaltan: https://pay-you-advisory.vercel.app/personal-loan-phaltan/
+
+*Business Loan — by area*
+Pimpri: https://pay-you-advisory.vercel.app/business-loan-pimpri/
+Chinchwad: https://pay-you-advisory.vercel.app/business-loan-chinchwad/
+Nigdi: https://pay-you-advisory.vercel.app/business-loan-nigdi/
+Akurdi: https://pay-you-advisory.vercel.app/business-loan-akurdi/
+Bhosari: https://pay-you-advisory.vercel.app/business-loan-bhosari/
+Chakan: https://pay-you-advisory.vercel.app/business-loan-chakan/
+Wakad: https://pay-you-advisory.vercel.app/business-loan-wakad/
+Hinjewadi: https://pay-you-advisory.vercel.app/business-loan-hinjewadi/
+Ravet: https://pay-you-advisory.vercel.app/business-loan-ravet/
+Moshi: https://pay-you-advisory.vercel.app/business-loan-moshi/
+Talegaon Dabhade: https://pay-you-advisory.vercel.app/business-loan-talegaon-dabhade/
+Baner: https://pay-you-advisory.vercel.app/business-loan-baner/
+Kothrud: https://pay-you-advisory.vercel.app/business-loan-kothrud/
+Hadapsar: https://pay-you-advisory.vercel.app/business-loan-hadapsar/
+Baramati: https://pay-you-advisory.vercel.app/business-loan-baramati/
+Phaltan: https://pay-you-advisory.vercel.app/business-loan-phaltan/
+
+*Home Loan — by area*
+Pimpri: https://pay-you-advisory.vercel.app/home-loan-pimpri/
+Chinchwad: https://pay-you-advisory.vercel.app/home-loan-chinchwad/
+Nigdi: https://pay-you-advisory.vercel.app/home-loan-nigdi/
+Akurdi: https://pay-you-advisory.vercel.app/home-loan-akurdi/
+Bhosari: https://pay-you-advisory.vercel.app/home-loan-bhosari/
+Chakan: https://pay-you-advisory.vercel.app/home-loan-chakan/
+Wakad: https://pay-you-advisory.vercel.app/home-loan-wakad/
+Hinjewadi: https://pay-you-advisory.vercel.app/home-loan-hinjewadi/
+Ravet: https://pay-you-advisory.vercel.app/home-loan-ravet/
+Moshi: https://pay-you-advisory.vercel.app/home-loan-moshi/
+Talegaon Dabhade: https://pay-you-advisory.vercel.app/home-loan-talegaon-dabhade/
+Baner: https://pay-you-advisory.vercel.app/home-loan-baner/
+Kothrud: https://pay-you-advisory.vercel.app/home-loan-kothrud/
+Hadapsar: https://pay-you-advisory.vercel.app/home-loan-hadapsar/
+Baramati: https://pay-you-advisory.vercel.app/home-loan-baramati/
+Phaltan: https://pay-you-advisory.vercel.app/home-loan-phaltan/
+
+*Loan Against Property — by area*
+Pimpri: https://pay-you-advisory.vercel.app/loan-against-property-pimpri/
+Chinchwad: https://pay-you-advisory.vercel.app/loan-against-property-chinchwad/
+Nigdi: https://pay-you-advisory.vercel.app/loan-against-property-nigdi/
+Akurdi: https://pay-you-advisory.vercel.app/loan-against-property-akurdi/
+Bhosari: https://pay-you-advisory.vercel.app/loan-against-property-bhosari/
+Chakan: https://pay-you-advisory.vercel.app/loan-against-property-chakan/
+Wakad: https://pay-you-advisory.vercel.app/loan-against-property-wakad/
+Hinjewadi: https://pay-you-advisory.vercel.app/loan-against-property-hinjewadi/
+Ravet: https://pay-you-advisory.vercel.app/loan-against-property-ravet/
+Moshi: https://pay-you-advisory.vercel.app/loan-against-property-moshi/
+Talegaon Dabhade: https://pay-you-advisory.vercel.app/loan-against-property-talegaon-dabhade/
+Baner: https://pay-you-advisory.vercel.app/loan-against-property-baner/
+Kothrud: https://pay-you-advisory.vercel.app/loan-against-property-kothrud/
+Hadapsar: https://pay-you-advisory.vercel.app/loan-against-property-hadapsar/
+Baramati: https://pay-you-advisory.vercel.app/loan-against-property-baramati/
+Phaltan: https://pay-you-advisory.vercel.app/loan-against-property-phaltan/
+
+*Car Loan — by area*
+Pimpri: https://pay-you-advisory.vercel.app/car-loan-pimpri/
+Chinchwad: https://pay-you-advisory.vercel.app/car-loan-chinchwad/
+Nigdi: https://pay-you-advisory.vercel.app/car-loan-nigdi/
+Akurdi: https://pay-you-advisory.vercel.app/car-loan-akurdi/
+Bhosari: https://pay-you-advisory.vercel.app/car-loan-bhosari/
+Chakan: https://pay-you-advisory.vercel.app/car-loan-chakan/
+Wakad: https://pay-you-advisory.vercel.app/car-loan-wakad/
+Hinjewadi: https://pay-you-advisory.vercel.app/car-loan-hinjewadi/
+Ravet: https://pay-you-advisory.vercel.app/car-loan-ravet/
+Moshi: https://pay-you-advisory.vercel.app/car-loan-moshi/
+Talegaon Dabhade: https://pay-you-advisory.vercel.app/car-loan-talegaon-dabhade/
+Baner: https://pay-you-advisory.vercel.app/car-loan-baner/
+Kothrud: https://pay-you-advisory.vercel.app/car-loan-kothrud/
+Hadapsar: https://pay-you-advisory.vercel.app/car-loan-hadapsar/
+Baramati: https://pay-you-advisory.vercel.app/car-loan-baramati/
+Phaltan: https://pay-you-advisory.vercel.app/car-loan-phaltan/
+
+*Gold Loan — by area*
+Pimpri: https://pay-you-advisory.vercel.app/gold-loan-pimpri/
+Chinchwad: https://pay-you-advisory.vercel.app/gold-loan-chinchwad/
+Nigdi: https://pay-you-advisory.vercel.app/gold-loan-nigdi/
+Akurdi: https://pay-you-advisory.vercel.app/gold-loan-akurdi/
+Bhosari: https://pay-you-advisory.vercel.app/gold-loan-bhosari/
+Chakan: https://pay-you-advisory.vercel.app/gold-loan-chakan/
+Wakad: https://pay-you-advisory.vercel.app/gold-loan-wakad/
+Hinjewadi: https://pay-you-advisory.vercel.app/gold-loan-hinjewadi/
+Ravet: https://pay-you-advisory.vercel.app/gold-loan-ravet/
+Moshi: https://pay-you-advisory.vercel.app/gold-loan-moshi/
+Talegaon Dabhade: https://pay-you-advisory.vercel.app/gold-loan-talegaon-dabhade/
+Baner: https://pay-you-advisory.vercel.app/gold-loan-baner/
+Kothrud: https://pay-you-advisory.vercel.app/gold-loan-kothrud/
+Hadapsar: https://pay-you-advisory.vercel.app/gold-loan-hadapsar/
+Baramati: https://pay-you-advisory.vercel.app/gold-loan-baramati/
+Phaltan: https://pay-you-advisory.vercel.app/gold-loan-phaltan/
+
+*Working Capital & LRD — by area*
+Pimpri: https://pay-you-advisory.vercel.app/working-capital-loan-pimpri/
+Chinchwad: https://pay-you-advisory.vercel.app/working-capital-loan-chinchwad/
+Nigdi: https://pay-you-advisory.vercel.app/working-capital-loan-nigdi/
+Akurdi: https://pay-you-advisory.vercel.app/working-capital-loan-akurdi/
+Bhosari: https://pay-you-advisory.vercel.app/working-capital-loan-bhosari/
+Chakan: https://pay-you-advisory.vercel.app/working-capital-loan-chakan/
+Wakad: https://pay-you-advisory.vercel.app/working-capital-loan-wakad/
+Hinjewadi: https://pay-you-advisory.vercel.app/working-capital-loan-hinjewadi/
+Ravet: https://pay-you-advisory.vercel.app/working-capital-loan-ravet/
+Moshi: https://pay-you-advisory.vercel.app/working-capital-loan-moshi/
+Talegaon Dabhade: https://pay-you-advisory.vercel.app/working-capital-loan-talegaon-dabhade/
+Baner: https://pay-you-advisory.vercel.app/working-capital-loan-baner/
+Kothrud: https://pay-you-advisory.vercel.app/working-capital-loan-kothrud/
+Hadapsar: https://pay-you-advisory.vercel.app/working-capital-loan-hadapsar/
+Baramati: https://pay-you-advisory.vercel.app/working-capital-loan-baramati/
+Phaltan: https://pay-you-advisory.vercel.app/working-capital-loan-phaltan/
+
+*Policies*
+Privacy policy: https://pay-you-advisory.vercel.app/privacy-policy/
+Terms of use: https://pay-you-advisory.vercel.app/terms/
+Disclaimer: https://pay-you-advisory.vercel.app/disclaimer/
+Cookie policy: https://pay-you-advisory.vercel.app/cookie-policy/
+Grievance redressal: https://pay-you-advisory.vercel.app/grievance-redressal/
+Photo credits: https://pay-you-advisory.vercel.app/photo-credits/
+
+*For Google Search Console*
+Site map: https://pay-you-advisory.vercel.app/sitemap.xml

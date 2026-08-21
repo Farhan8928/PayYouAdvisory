@@ -45,7 +45,9 @@ export default function Footer() {
       {/* ── Link columns ────────────────────────────────────────────────── */}
       <div className="container-page grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
         <div className="lg:col-span-4">
-          <Wordmark className="h-9" invert />
+          <a href="/" className="inline-flex" aria-label={`${COMPANY.shortName} — home`}>
+            <Wordmark className="h-9" invert />
+          </a>
           <p className="mt-5 max-w-xs text-sm leading-relaxed text-paper/60">
             One application, compared across {''}
             <span className="fig text-paper/80">25+</span> banks and NBFCs. One credit enquiry, not

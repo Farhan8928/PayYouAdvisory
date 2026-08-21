@@ -227,7 +227,16 @@ export default function Nav({ path = '/' }) {
           }`}
         >
           <div className="flex h-16 shrink-0 items-center justify-between border-b border-ink/10 px-5">
-            <Wordmark className="h-8" />
+            {/* The drawer covers the bar, so this is the only logo on screen
+                while the menu is open. It has to be the link home — that is
+                what everyone taps. */}
+            <a
+              href="/"
+              className="-my-2 flex shrink-0 items-center py-2"
+              aria-label={`${COMPANY.shortName} — home`}
+            >
+              <Wordmark className="h-8" />
+            </a>
             <button
               type="button"
               onClick={() => setDrawer(false)}

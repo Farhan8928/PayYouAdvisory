@@ -1,0 +1,22 @@
+*PayYou Advisory — the new website*
+https://pay-you-advisory.vercel.app/
+
+137 pages, all live. A few worth opening first:
+
+*The products*
+Personal Loan: https://pay-you-advisory.vercel.app/personal-loan/
+Business Loan: https://pay-you-advisory.vercel.app/business-loan/
+Home Loan: https://pay-you-advisory.vercel.app/home-loan/
+Loan Against Property: https://pay-you-advisory.vercel.app/loan-against-property/
+
+*Local pages — one for every area we cover*
+Business loan in Bhosari: https://pay-you-advisory.vercel.app/business-loan-bhosari/
+Home loan in Hinjewadi: https://pay-you-advisory.vercel.app/home-loan-hinjewadi/
+Gold loan in Baramati: https://pay-you-advisory.vercel.app/gold-loan-baramati/
+Loan against property in Chakan: https://pay-you-advisory.vercel.app/loan-against-property-chakan/
+
+*The calculators*
+EMI: https://pay-you-advisory.vercel.app/emi-calculator/
+What you could borrow: https://pay-you-advisory.vercel.app/eligibility-calculator/
+
+Full list of all 137 pages: https://pay-you-advisory.vercel.app/sitemap.xml
