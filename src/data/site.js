@@ -16,8 +16,28 @@
  * Values transcribed from payyouadvisory.com as published on 2026-08-21.
  */
 
-/** The canonical origin. Referenced by robots.txt, sitemap.xml and all JSON-LD. */
-export const SITE_URL = 'https://payyouadvisory.com'
+/**
+ * The canonical origin — the single place the deployed domain is written.
+ *
+ * Everything derives from this: every page's `<link rel="canonical">`, the
+ * hreflang pair, the Open Graph URLs, every `@id` and `url` in the JSON-LD,
+ * `sitemap.xml`, `robots.txt` and `llms.txt`. `npm run audit:seo` fails the
+ * build if a canonical does not match `SITE_URL + path`, so a half-finished
+ * domain change cannot ship.
+ *
+ * ── TODO(client), before the real launch ────────────────────────────────────
+ * This currently points at the Vercel deployment. When payyouadvisory.com is
+ * pointed at this site, change the line below back to
+ * `https://payyouadvisory.com` and update the two `www` redirect entries in
+ * vercel.json to match. That is the whole change.
+ *
+ * Worth doing promptly. While this address is live and indexable it is a
+ * complete copy of what will eventually sit on payyouadvisory.com, and two
+ * identical sites competing for the same searches is a duplicate-content
+ * problem that costs both of them. Either finish the domain move, or ask and
+ * I will add `noindex` to the Vercel deployment until you do.
+ */
+export const SITE_URL = 'https://pay-you-advisory.vercel.app'
 
 export const COMPANY = {
   name: 'PayYou Advisory Private Limited',

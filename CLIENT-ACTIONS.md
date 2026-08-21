@@ -203,11 +203,29 @@ Specific items to confirm with counsel:
 
 ## Post-launch, in the first week
 
-1. **Google Search Console** — verify the domain, submit
-   `https://payyouadvisory.com/sitemap.xml`, and check the Coverage report after
-   ten days. All 136 URLs should be discovered; watch specifically for any
-   locality page marked "Crawled — currently not indexed", which is the early
-   signal that a page is reading as thin.
+0. **Point payyouadvisory.com at this site — first.**
+
+   The site is currently deployed at `https://pay-you-advisory.vercel.app`, and
+   every canonical, sitemap entry and JSON-LD URL now names that address. That
+   is correct for a live preview and wrong as a destination: while it is
+   indexable it is a complete duplicate of what will eventually sit on
+   payyouadvisory.com, and two identical sites competing for the same searches
+   costs both of them.
+
+   Two ways to close it, either is fine:
+
+   - **Attach the real domain** in Vercel, then change `SITE_URL` in
+     `src/data/site.js` back to `https://payyouadvisory.com` and rebuild. That
+     one line drives every canonical, the sitemap, robots.txt, llms.txt and all
+     structured data — `npm run audit:seo` fails the build if any of them
+     disagree, so it cannot half-apply.
+   - **Or tell me and I will add `noindex`** to the Vercel deployment, so it
+     stays available for review without competing with the real domain.
+
+1. **Google Search Console** — verify the domain, submit `/sitemap.xml`, and
+   check the Coverage report after ten days. All 137 URLs should be discovered;
+   watch specifically for any locality page marked "Crawled — currently not
+   indexed", which is the early signal that a page is reading as thin.
 2. **Confirm the 12 legacy redirects** resolve. Every old URL is in the index
    today; a 301 passes that authority on, a 404 throws it away. `npm run
    audit:seo` checks they are configured, but only production can prove they

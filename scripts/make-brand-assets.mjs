@@ -127,7 +127,7 @@ const ogSvg = (logoWidth, logoHeight) => `
 
   <text x="400" y="570" font-family="Arial, Helvetica, sans-serif" font-size="18"
         fill="#ffffff" opacity="0.5">
-    Chapekar Chowk, Chinchwad · payyouadvisory.com
+    Chapekar Chowk, Chinchwad · Pune
   </text>
 </svg>`
 

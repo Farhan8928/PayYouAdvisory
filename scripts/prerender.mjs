@@ -20,12 +20,16 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { join, dirname } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
+import { SITE_URL } from '../src/data/site.js'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const DIST = join(ROOT, 'dist')
 const SSR_ENTRY = join(ROOT, 'dist-ssr', 'entry-server.js')
 
-const SITE_URL = 'https://payyouadvisory.com'
+// SITE_URL is imported, not redeclared. It used to be a second copy of the
+// same string here, which meant a domain change had to be made in two files and
+// would silently half-apply if it was not — every canonical pointing at one
+// host while robots.txt advertised a sitemap on another.
 const OG_IMAGE = `${SITE_URL}/og-image.jpg`
 
 /** Escape a string for use inside a double-quoted HTML attribute. */
@@ -187,6 +191,44 @@ ${all
 `
   await writeFile(join(DIST, 'sitemap.xml'), sitemap, 'utf8')
 
+  // ── robots.txt ───────────────────────────────────────────────────────────
+  // Generated rather than kept in public/, for the same reason as the sitemap:
+  // it names the origin, and a static copy is one more place a domain change
+  // has to be remembered. `npm run audit:seo` checks the Sitemap line matches
+  // SITE_URL.
+  const robots = `# PayYou Advisory Private Limited
+#
+# Everything here is public marketing and reference content and is meant to be
+# crawled. There is no login area, no user data and no server-side application:
+# the whole site is static HTML rendered at build time.
+
+User-agent: *
+Allow: /
+
+# The previous site's URLs are 301-redirected (see vercel.json). Nothing needs
+# blocking — a redirect passes authority on, a Disallow throws it away.
+
+# AI crawlers are deliberately allowed. They increasingly answer questions like
+# "loan advisor in Pimpri Chinchwad" directly, and a business that blocks them is
+# invisible in that answer. /llms.txt is written for them specifically and states
+# plainly that PayYou is an intermediary rather than a lender, which is the one
+# thing a summary must not get wrong.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: ${SITE_URL}/sitemap.xml
+`
+  await writeFile(join(DIST, 'robots.txt'), robots, 'utf8')
+
   // ── llms.txt ─────────────────────────────────────────────────────────────
   // A plain-text summary for the AI crawlers, which increasingly answer
   // "personal loan advisor in Pimpri Chinchwad" directly rather than sending a
@@ -246,8 +288,8 @@ Full sitemap: ${SITE_URL}/sitemap.xml
 `
   await writeFile(join(DIST, 'llms.txt'), llms, 'utf8')
 
-  console.log(`✓ prerendered ${all.length} pages`)
-  console.log(`✓ 404.html, sitemap.xml (${all.length} URLs) and llms.txt written`)
+  console.log(`✓ prerendered ${all.length} pages to ${SITE_URL}`)
+  console.log(`✓ 404.html, robots.txt, sitemap.xml (${all.length} URLs) and llms.txt written`)
 }
 
 main().catch((err) => {
