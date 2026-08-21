@@ -225,7 +225,7 @@ export default function EmiCalculator({ compact = false, initial }) {
                     <tr key={y.year}>
                       <td className="fig">{y.year}</td>
                       <td className="fig text-right">{inr(y.principal)}</td>
-                      <td className="fig text-right text-brass-deep">{inr(y.interest)}</td>
+                      <td className="fig text-right text-accent-deep">{inr(y.interest)}</td>
                       <td className="fig text-right font-medium">{inr(y.balance)}</td>
                     </tr>
                   ))}

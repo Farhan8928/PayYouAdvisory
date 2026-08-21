@@ -109,3 +109,112 @@ export const Download = (p) => (
     <path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5M4 19.5h16" />
   </Svg>
 )
+
+export const ShieldCheck = (p) => (
+  <Svg {...p}>
+    <path d="M12 3 5 6v5.5c0 4 2.9 7.7 7 9.5 4.1-1.8 7-5.5 7-9.5V6l-7-3Z" />
+    <path d="m9 12 2.2 2.2L15.5 10" />
+  </Svg>
+)
+
+/* ── Product marks ──────────────────────────────────────────────────────────
+   One line-drawn mark per product, on the same 24x24 grid and the same 1.6
+   stroke as the functional icons above, so a product mark and a chevron look
+   like they came from the same hand.
+
+   These are drawn rather than pulled from an icon library on purpose. A library
+   gives you a house, a car and a shield that were each designed to different
+   optical weights, and the mismatch shows the moment you put eight of them in a
+   row — which is exactly where these are used.
+
+   They are marks, not illustrations: no fills, no gradients, no little floating
+   rupee symbols. At 28px in a card header the only thing that survives is the
+   silhouette, and a busy icon at that size reads as a smudge. */
+
+export const IconPersonal = (p) => (
+  <Svg {...p}>
+    <circle cx="12" cy="8" r="3.4" />
+    <path d="M5 20a7 7 0 0 1 14 0" />
+  </Svg>
+)
+
+export const IconBusiness = (p) => (
+  <Svg {...p}>
+    <path d="M3 20h18" />
+    <path d="M5 20V8.5L11 5v15" />
+    <path d="M11 11h6.5a1.5 1.5 0 0 1 1.5 1.5V20" />
+    <path d="M8 9.5v0M8 13v0M8 16.5v0M14.5 14v0M14.5 17v0" />
+  </Svg>
+)
+
+export const IconHome = (p) => (
+  <Svg {...p}>
+    <path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9.5Z" />
+    <path d="M9.5 21v-6h5v6" />
+  </Svg>
+)
+
+export const IconProperty = (p) => (
+  <Svg {...p}>
+    <path d="M4 21V6.5L12 3l8 3.5V21" />
+    <path d="M3 21h18" />
+    <circle cx="12" cy="11" r="1.9" />
+    <path d="M12 12.9V16.5m0-1.2h1.6" />
+  </Svg>
+)
+
+export const IconCar = (p) => (
+  <Svg {...p}>
+    <path d="M4 16.5v2a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-2M20 16.5v2a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-2" />
+    <path d="M3 16.5v-3.2l1.7-4.4A2 2 0 0 1 6.6 7.6h10.8a2 2 0 0 1 1.9 1.3l1.7 4.4v3.2a.5.5 0 0 1-.5.5h-17a.5.5 0 0 1-.5-.5Z" />
+    <path d="M3.6 13h16.8" />
+    <path d="M7 15v0M17 15v0" />
+  </Svg>
+)
+
+export const IconGold = (p) => (
+  <Svg {...p}>
+    <ellipse cx="12" cy="6.5" rx="6.5" ry="2.6" />
+    <path d="M5.5 6.5v4c0 1.4 2.9 2.6 6.5 2.6s6.5-1.2 6.5-2.6v-4" />
+    <path d="M5.5 10.5v4c0 1.4 2.9 2.6 6.5 2.6s6.5-1.2 6.5-2.6v-4" />
+  </Svg>
+)
+
+export const IconWorkingCapital = (p) => (
+  <Svg {...p}>
+    <path d="M20 12a8 8 0 0 1-13.7 5.6M4 12a8 8 0 0 1 13.7-5.6" />
+    <path d="M4 20v-4h4M20 4v4h-4" />
+    <path d="M12 9v6M10.3 10.4h2.6a1.3 1.3 0 0 1 0 2.6h-1.8a1.3 1.3 0 0 0 0 2.6h2.6" />
+  </Svg>
+)
+
+export const IconInsurance = (p) => (
+  <Svg {...p}>
+    <path d="M12 3 5 6v5.5c0 4 2.9 7.7 7 9.5 4.1-1.8 7-5.5 7-9.5V6l-7-3Z" />
+    <path d="M12 8.5v5M9.5 11h5" />
+  </Svg>
+)
+
+/**
+ * The mark for a product slug.
+ *
+ * Keyed by slug so a product page, a card and the mega-menu all resolve the
+ * same mark from one place. An unknown slug renders nothing rather than a
+ * fallback question mark — a missing icon is a build mistake, and a placeholder
+ * glyph on a client's live site is worse than a gap.
+ */
+const PRODUCT_ICONS = {
+  'personal-loan': IconPersonal,
+  'business-loan': IconBusiness,
+  'home-loan': IconHome,
+  'loan-against-property': IconProperty,
+  'car-loan': IconCar,
+  'gold-loan': IconGold,
+  'working-capital-loan': IconWorkingCapital,
+  insurance: IconInsurance,
+}
+
+export function ProductIcon({ slug, ...rest }) {
+  const Mark = PRODUCT_ICONS[slug]
+  return Mark ? <Mark {...rest} /> : null
+}

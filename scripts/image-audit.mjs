@@ -135,10 +135,23 @@ async function main() {
         errors.push(`${name}: <img src="${src}"> does not exist in dist`)
     }
 
-    // Exactly one eagerly-loaded image per page: the LCP candidate. More than
-    // one and they compete for bandwidth; none and the hero arrives late.
-    const eager = (html.match(/loading="eager"/g) ?? []).length
-    if (eager > 1) warnings.push(`${name}: ${eager} eagerly-loaded images — only the LCP one should be`)
+    // At most one eagerly-loaded *photograph* per page — the LCP candidate.
+    //
+    // The first version of this check counted every eager image and warned on
+    // all 138 pages, because the header logo is also eager and legitimately so:
+    // it is a 19 kB brand asset above the fold on every page, and lazy-loading
+    // it delays the one thing a visitor uses to confirm they are in the right
+    // place. Two eager images was the correct state and the audit called it a
+    // fault on every page, which is how a check trains people to ignore it.
+    //
+    // What actually matters is that two large photographs never compete for the
+    // same early bandwidth, so the count is scoped to /images/ — the
+    // photography — and excludes /brand/ and /logos/.
+    const eagerPhotos = (html.match(/<img\b[^>]*>/g) ?? []).filter(
+      (tag) => /loading="eager"/i.test(tag) && /src="\/images\//.test(tag),
+    ).length
+    if (eagerPhotos > 1)
+      warnings.push(`${name}: ${eagerPhotos} eagerly-loaded photographs — only the LCP one should be`)
   }
 
   // ── Report ─────────────────────────────────────────────────────────────

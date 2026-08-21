@@ -44,7 +44,7 @@ export default function Accordion({ items, defaultOpen = 0, className = '' }) {
                   {item.q}
                 </span>
                 <ChevronDown
-                  className={`mt-1 h-4 w-4 shrink-0 text-gold transition-transform duration-200 ${
+                  className={`mt-1 h-4 w-4 shrink-0 text-accent transition-transform duration-200 ${
                     isOpen ? 'rotate-180' : ''
                   }`}
                 />

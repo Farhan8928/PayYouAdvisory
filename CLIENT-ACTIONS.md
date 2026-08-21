@@ -95,29 +95,65 @@ will know better.
 
 ---
 
-## 6. Photographs — **the biggest visible upgrade available**
+## 6. Logo files — **small ask, visible payoff**
 
-The site ships with **no photography, deliberately**. A stock photograph of a
-smiling couple holding house keys is the single clearest signal that a business
-has nothing real to show, and it is on every competitor's site in Pune. Where
-they put a stock photo, this site puts a number, a table or a chart.
+The site now uses your real logo, downloaded from payyouadvisory.com. The file
+there is **166 × 72 pixels**, which is small for the job it is doing. Three
+things would each fix something specific:
 
-Real photographs would beat all of it. What would earn its place:
+| What | Fixes |
+|---|---|
+| **The original vector** (AI / EPS / SVG) | The header logo is the most-seen graphic on the site. At 166px wide it is soft on any retina screen; a vector is crisp at every size forever. |
+| **A reversed (white / knockout) version** | The mark is blue on transparency, so on dark sections it currently sits on a white chip, and the navigation bar has to be white rather than transparent over the hero. A reversed version removes both constraints. |
+| **A square app-icon version** | The browser-tab icon and the Android home-screen icon are currently the full wide wordmark squeezed into a square — legible at 192px, a smudge at 16px. The swoosh alone, or a "P" monogram drawn properly, would be unmistakable at any size. |
 
-- The Chapekar Chowk office — exterior with signage, and the interior
-- The team at work, faces visible, not posed
-- The Baramati and Phaltan offices
-- Sachin Yadav, a proper portrait
-
-Please avoid: anything from a stock library, and anything AI-generated. Both are
-recognisable and both cost more trust than they buy.
-
-*Lands in:* a new `public/images/` set; `DESIGN.md § On photography` has the
-rules for how they would be used.
+All three are a short conversation with whoever designed the mark.
 
 ---
 
-## 7. Genuine job vacancies, if there are any
+## 7. Permission to use the lenders' marks
+
+The partner wall shows twelve bank and NBFC logos — the same files already
+published on your current site, so nothing new is being claimed. Worth
+confirming anyway: **most DSA agreements permit use of the lender's mark on
+marketing material, and a few require prior written approval of the creative.**
+
+It is a five-minute question to each relationship manager and it is much better
+asked before launch than after. If any lender declines, removing that tile is a
+one-line change in `src/data/lenders.js` — the name stays in the written index
+below the wall.
+
+Also worth noting: five partners (ICICI, Union Bank, HSBC, Shriram,
+Cholamandalam) have no logo file on your current site, so they appear as names
+rather than marks. Send those files and they join the wall.
+
+---
+
+## 8. Photographs — **the biggest visible upgrade available**
+
+The site currently carries **22 licensed stock photographs** (Unsplash License,
+free for commercial use, credited at `/photo-credits/`). They are correctly
+sourced and well-chosen — and they are not PayYou.
+
+Real photographs would beat every one of them, because they would be true. What
+would earn its place:
+
+- The Chapekar Chowk office — exterior with signage, and the interior
+- The team at work, faces visible, not posed
+- A real client meeting, with permission
+- The Baramati and Phaltan offices
+- Sachin Yadav, a proper portrait
+
+Anything usable off a decent phone in good light is enough; this does not need a
+studio. Please avoid anything AI-generated — it is recognisable, and on a
+financial site being caught costs more than the image could earn.
+
+*Lands in:* `src/data/photos.js`. Swapping one is a two-line change, then
+`npm run images`.
+
+---
+
+## 9. Genuine job vacancies, if there are any
 
 `/careers/` deliberately carries **no `JobPosting` structured data**. Marking up
 an evergreen "we're always hiring" page as a live posting is a documented
@@ -132,7 +168,7 @@ free, high-intent traffic for "financial advisor jobs Pune".
 
 ---
 
-## 8. Reviews
+## 10. Reviews
 
 `RATING.show` in `src/data/site.js` is **false**, and the JSON-LD carries no
 `aggregateRating`. Publishing a rating the business has not earned is a Google
@@ -148,7 +184,7 @@ change to this website.
 
 ---
 
-## 9. Legal review
+## 11. Legal review
 
 The five policy pages — privacy, terms, disclaimer, cookies, grievance — are
 drafted to describe how a DSA actually operates and to be plain enough that

@@ -21,7 +21,7 @@ export default function NotFound() {
   return (
     <Section size="lg">
       <div className="container-page">
-        <p className="fig mb-6 text-2xs tracking-[0.16em] text-gold">404</p>
+        <p className="fig mb-6 text-2xs tracking-[0.16em] text-accent">404</p>
         <h1 className="max-w-2xl text-4xl text-ink sm:text-5xl">
           That page is not here any more.
         </h1>
@@ -39,7 +39,7 @@ export default function NotFound() {
                 className="group flex h-full items-baseline justify-between gap-3 bg-paper p-5 transition-colors hover:bg-paper-deep"
               >
                 <span className="text-base font-semibold text-ink">{p.name}</span>
-                <ArrowRight className="h-4 w-4 shrink-0 text-gold transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="h-4 w-4 shrink-0 text-accent transition-transform group-hover:translate-x-1" />
               </a>
             </li>
           ))}

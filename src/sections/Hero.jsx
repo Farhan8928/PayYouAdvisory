@@ -1,129 +1,125 @@
-import { CONTACT, fmtMobile } from '../data/site.js'
+import { CONTACT, STATS } from '../data/site.js'
 import { PARTNER_COUNT_CLAIM } from '../data/lenders.js'
 import { telHref } from '../lib/format.js'
-import { Phone, ArrowRight, Check, ChevronDown } from '../components/Icon.jsx'
-import { PhotoBackdrop } from '../components/Photo.jsx'
-import EligibilityCalculator from '../widgets/EligibilityCalculator.jsx'
+import { Phone, ArrowRight, Check, ShieldCheck } from '../components/Icon.jsx'
+import Photo from '../components/Photo.jsx'
 
 /**
  * The hero.
  *
- * ── The composition ────────────────────────────────────────────────────────
- * A full-bleed photograph of an adviser and a client concluding a meeting,
- * behind a fixed navy scrim, with the headline set in Instrument Serif at
- * display size and a glass panel carrying a working eligibility calculator.
+ * ── What was wrong with the previous one ───────────────────────────────────
+ * It was a full-bleed photograph with a display-serif headline at 76px and the
+ * eligibility calculator beside it. On a 1080p laptop at 125% scaling — which
+ * is a very ordinary machine in this market — the viewport is about 730px tall,
+ * the header takes 116px of it, and the headline alone ate the rest. **The
+ * call-to-action was below the fold.** On a page whose entire job is to get
+ * someone to phone the office, that is not a styling problem, it is a broken
+ * hero.
  *
- * The scrim is a fixed gradient rather than a tint sampled from the image, so
- * the headline's contrast is guaranteed no matter which photograph is swapped
- * in — the failure mode of "darken the image a bit" is that someone later
- * chooses a brighter picture and the white type quietly becomes unreadable.
+ * ── How this one is sized ──────────────────────────────────────────────────
+ * Everything above is budgeted against ~614px of usable height:
  *
- * The photograph carries `data-parallax`, which drifts it about 6% across a
- * viewport of scroll via a CSS scroll-driven animation. No JavaScript, no
- * scroll listener, nothing on the main thread — and in browsers without support
- * it simply sits still, which nobody notices.
+ *   eyebrow 20 · headline 2 lines ≈ 120 · standfirst 2 lines ≈ 56
+ *   · buttons 56 · trust row 44 · gaps and padding ≈ 200        → ≈ 500px
  *
- * ── Why a calculator and not a lead form ───────────────────────────────────
- * The category convention is a form demanding a mobile number before it tells
- * you anything. This answers the question the visitor actually arrived with —
- * "how much could I get?" — before asking them for a thing. It converts
- * slightly worse and earns considerably more trust, and in a business where
- * trust is the product that is the trade worth making.
+ * The headline is two lines, not three, which is why it is shorter than the
+ * copy it replaced. `short:` (a height-based breakpoint, not a width one)
+ * tightens the padding further on genuinely short viewports.
+ *
+ * ── Why it is light, not dark ──────────────────────────────────────────────
+ * PayYou's logo is royal blue on transparency with no reversed version, so the
+ * navigation bar has to be white. A white bar sitting directly on a dark
+ * full-bleed hero draws a hard edge across the top of the page. Light hero,
+ * white bar, photograph as a framed element on the right — which is also the
+ * pattern every bank in the client's reference set uses.
  */
 export default function Hero() {
   return (
-    <PhotoBackdrop name="hero-advisory" scrim="left" priority className="-mt-20 text-paper">
-      {/* pt-20 restores the height the -mt-20 above removed, so the photograph
-          runs behind the transparent navigation bar while the content stays put.
-          See the note in PageHeader.jsx. */}
-      <div className="container-page grid gap-12 pb-16 pt-36 sm:pb-24 sm:pt-44 lg:grid-cols-12 lg:gap-14 lg:pb-28 lg:pt-48 short:pb-14 short:pt-32">
-        {/* ── The argument ───────────────────────────────────────────────── */}
-        <div className="lg:col-span-6 lg:pt-4">
-          <p className="eyebrow text-gold">Loan advisory · Pune &amp; Pimpri-Chinchwad</p>
+    <section className="relative overflow-hidden bg-paper-wash">
+      {/* A very quiet blue wash bleeding in from the right, so the white does
+          not read as an empty canvas behind the photograph. Not an orb — no
+          blur radius, no floating shape, just a soft directional tint. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 right-0 -z-10 w-2/3 bg-gradient-to-l from-ink/[0.07] to-transparent"
+      />
 
-          <h1 className="h-display text-paper">
-            Twenty-five lenders
+      <div className="container-page grid items-center gap-12 py-14 lg:grid-cols-12 lg:gap-14 lg:py-16 short:py-10">
+        {/* ── The argument ───────────────────────────────────────────────── */}
+        <div className="lg:col-span-6">
+          <p className="eyebrow">Loan advisory · Pune &amp; Pimpri-Chinchwad</p>
+
+          <h1 className="h-display text-ink">
+            Twenty-five lenders.
             <br />
-            will look at your file.
-            <br />
-            <span className="text-gold-sheen">One will see your name.</span>
+            <span className="text-accent-sheen">One application.</span>
           </h1>
 
-          <p className="mt-8 max-w-prose text-lg leading-relaxed text-paper/75">
-            Apply to eight banks yourself and your credit report carries eight hard enquiries — and
-            a lower score at exactly the wrong moment. We read your profile the way an underwriter
-            will, work out which of our {PARTNER_COUNT_CLAIM} partners would actually approve it,
-            and submit to one.
+          <p className="mt-6 max-w-prose text-lg leading-relaxed text-ink-soft">
+            Apply to eight banks yourself and your credit report carries eight hard enquiries — and a
+            lower score at exactly the wrong moment. We read your profile the way an underwriter
+            will, work out which of our {PARTNER_COUNT_CLAIM} partners would approve it, and submit
+            to one.
           </p>
 
-          <ul className="mt-9 grid gap-3 sm:grid-cols-2" data-stagger>
-            {[
-              ['One credit enquiry', 'not one per lender you hoped might say yes'],
-              ['Soft check first', 'nothing is submitted anywhere without your word'],
-              ['Cash income considered', 'several partners underwrite from bank statements'],
-              ['The lender pays us', 'our fee comes from them on disbursal, not from you'],
-            ].map(([title, sub]) => (
-              <li key={title} className="flex gap-3 rounded-lg border border-paper/12 bg-paper/[0.04] p-4 backdrop-blur-sm">
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brass/20">
-                  <Check className="h-3 w-3 text-gold" />
-                </span>
-                <span>
-                  <span className="block text-sm font-bold text-paper">{title}</span>
-                  <span className="mt-0.5 block text-sm leading-snug text-paper/55">{sub}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-10 flex flex-wrap items-center gap-3">
-            <a href={telHref(CONTACT.landline)} className="btn-brass btn-lg">
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <a href={telHref(CONTACT.landline)} className="btn-accent btn-lg">
               <Phone className="h-4 w-4" />
               <span className="fig">{CONTACT.landlineDisplay}</span>
             </a>
-            <a href="/loans/" className="btn-ghost-invert btn-lg">
-              See every product
+            <a href="/eligibility-calculator/" className="btn-ghost btn-lg">
+              Check what you could borrow
               <ArrowRight className="h-4 w-4" />
             </a>
           </div>
 
-          <p className="mt-6 text-2xs text-paper/45">
-            Chapekar Chowk, Chinchwad · {CONTACT.hours} ·{' '}
-            <a href={telHref(CONTACT.mobile)} className="fig transition-colors hover:text-brass">
-              {fmtMobile(CONTACT.mobile)}
-            </a>
-          </p>
+          {/* Three checkable claims, on one line at desktop width. */}
+          <ul className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-3 border-t border-ink/10 pt-6">
+            {[
+              'One credit enquiry, not one per lender',
+              'Soft check first — nothing submitted without your word',
+              'Our fee is paid by the lender',
+            ].map((claim) => (
+              <li key={claim} className="flex items-center gap-2 text-sm font-semibold text-ink-soft">
+                <Check className="h-4 w-4 shrink-0 text-accent" />
+                {claim}
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* ── The instrument ─────────────────────────────────────────────── */}
-        <div className="lg:col-span-6" data-reveal>
-          <div className="glass overflow-hidden p-1.5">
-            <div className="flex items-baseline justify-between gap-4 px-4 py-3">
-              <h2 className="h-card text-paper">What could you actually borrow?</h2>
-              <a
-                href="/eligibility-calculator/"
-                className="shrink-0 text-2xs text-gold underline decoration-brass/40 underline-offset-4 transition-colors hover:decoration-brass"
-              >
-                Full version
-              </a>
-            </div>
-            <div className="overflow-hidden rounded-lg">
-              <EligibilityCalculator compact />
+        {/* ── The photograph ─────────────────────────────────────────────── */}
+        <div className="lg:col-span-6">
+          <div className="relative">
+            <Photo
+              name="hero-advisory"
+              ratio="4 / 3"
+              priority
+              sizes="(min-width: 1024px) 46vw, 92vw"
+              className="photo-rule rounded-xl shadow-lift"
+            />
+
+            {/* A figure lifted onto the corner of the photograph. This is the
+                one piece of overlap on the page: it ties the two columns
+                together and gives the composition a foreground. */}
+            <div className="absolute -bottom-6 -left-4 hidden rounded-xl border border-ink/10 bg-paper p-5 shadow-lift sm:block lg:-left-8">
+              <div className="flex items-center gap-4">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent/10">
+                  <ShieldCheck className="h-5 w-5 text-accent" />
+                </span>
+                <span>
+                  <span className="fig block text-2xl font-semibold leading-none text-ink">
+                    {STATS[1].value}
+                  </span>
+                  <span className="mt-1 block text-2xs font-bold uppercase tracking-[0.14em] text-ink-faint">
+                    Bank &amp; NBFC partners
+                  </span>
+                </span>
+              </div>
             </div>
           </div>
-
-          <p className="mt-4 px-1 text-2xs leading-relaxed text-paper/45">
-            No name, no mobile number, no OTP. The figure appears as you type and never leaves your
-            browser.
-          </p>
         </div>
       </div>
-
-      {/* A scroll cue. Small, and the only purely decorative element on the
-          page — it earns its place because the hero is a full viewport on
-          desktop and there is no other signal that anything follows. */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-5 hidden justify-center lg:flex">
-        <ChevronDown className="h-5 w-5 animate-scroll-cue text-paper/40" />
-      </div>
-    </PhotoBackdrop>
+    </section>
   )
 }

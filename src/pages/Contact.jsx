@@ -34,39 +34,39 @@ export default function Contact({ trail }) {
         photo="office-window"
         aside={
           <div className="border border-paper/15 p-6">
-            <h2 className="mb-5 text-2xs font-semibold uppercase tracking-[0.14em] text-gold">
+            <h2 className="mb-5 text-2xs font-semibold uppercase tracking-[0.14em] text-accent">
               Reach us
             </h2>
             <ul className="space-y-3.5">
               <li>
                 <a
                   href={telHref(CONTACT.landline)}
-                  className="fig flex items-center gap-3 text-lg font-medium text-paper transition-colors hover:text-brass"
+                  className="fig flex items-center gap-3 text-lg font-medium text-paper transition-colors hover:text-accent"
                 >
-                  <Phone className="h-4 w-4 shrink-0 text-gold" />
+                  <Phone className="h-4 w-4 shrink-0 text-accent" />
                   {CONTACT.landlineDisplay}
                 </a>
               </li>
               <li>
                 <a
                   href={telHref(CONTACT.mobile)}
-                  className="fig flex items-center gap-3 text-lg font-medium text-paper transition-colors hover:text-brass"
+                  className="fig flex items-center gap-3 text-lg font-medium text-paper transition-colors hover:text-accent"
                 >
-                  <Phone className="h-4 w-4 shrink-0 text-gold" />
+                  <Phone className="h-4 w-4 shrink-0 text-accent" />
                   {fmtMobile(CONTACT.mobile)}
                 </a>
               </li>
               <li>
                 <a
                   href={`mailto:${CONTACT.email}`}
-                  className="flex items-center gap-3 text-base text-paper/80 transition-colors hover:text-brass"
+                  className="flex items-center gap-3 text-base text-paper/80 transition-colors hover:text-accent"
                 >
-                  <Mail className="h-4 w-4 shrink-0 text-gold" />
+                  <Mail className="h-4 w-4 shrink-0 text-accent" />
                   {CONTACT.email}
                 </a>
               </li>
               <li className="flex items-center gap-3 text-sm text-paper/60">
-                <Clock className="h-4 w-4 shrink-0 text-gold" />
+                <Clock className="h-4 w-4 shrink-0 text-accent" />
                 <span className="fig">{CONTACT.hours}</span>
               </li>
             </ul>
@@ -106,7 +106,7 @@ export default function Contact({ trail }) {
               ].map(([t, b]) => (
                 <li key={t} className="grid gap-x-8 gap-y-1 border-b border-ink/15 py-4 sm:grid-cols-12">
                   <span className="flex gap-2.5 text-base font-semibold text-ink sm:col-span-5">
-                    <Check className="mt-1.5 h-3.5 w-3.5 shrink-0 text-gold" />
+                    <Check className="mt-1.5 h-3.5 w-3.5 shrink-0 text-accent" />
                     {t}
                   </span>
                   <span className="text-sm leading-relaxed text-ink-soft sm:col-span-7">{b}</span>
@@ -114,7 +114,7 @@ export default function Contact({ trail }) {
               ))}
             </ul>
 
-            <div className="mt-8 border-l-[3px] border-brass bg-paper-deep px-5 py-4">
+            <div className="mt-8 border-l-[3px] border-accent bg-paper-deep px-5 py-4">
               <p className="text-sm leading-relaxed text-ink-soft">
                 <strong className="font-semibold text-ink">We will never</strong> ask you to pay a
                 fee in cash to secure a sanction, ask for an internet-banking password or an OTP, or
@@ -137,7 +137,7 @@ export default function Contact({ trail }) {
           <ul className="grid gap-px border border-ink/12 bg-ink/12 lg:grid-cols-3">
             {OFFICES.map((o) => (
               <li key={o.id} className="bg-paper p-7">
-                <p className="mb-3 flex items-center gap-1.5 text-2xs uppercase tracking-[0.14em] text-gold">
+                <p className="mb-3 flex items-center gap-1.5 text-2xs uppercase tracking-[0.14em] text-accent">
                   <Pin className="h-3.5 w-3.5" />
                   {o.kind}
                 </p>
@@ -154,7 +154,7 @@ export default function Contact({ trail }) {
                   href={o.directions}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-ink transition-colors hover:text-brass-deep"
+                  className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-ink transition-colors hover:text-accent-deep"
                 >
                   Directions
                   <ArrowRight className="h-3.5 w-3.5" />

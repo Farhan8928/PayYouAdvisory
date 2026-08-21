@@ -55,7 +55,7 @@ export default function LoansHub({ trail }) {
                 {PRODUCTS.map((p) => (
                   <tr key={p.slug}>
                     <th scope="row" className="border-b border-ink/10 py-3.5 pr-4 text-left align-top normal-case tracking-normal">
-                      <a href={`/${p.slug}/`} className="h-card text-ink transition-colors hover:text-brass-deep">
+                      <a href={`/${p.slug}/`} className="h-card text-ink transition-colors hover:text-accent-deep">
                         {p.name}
                       </a>
                     </th>
@@ -94,7 +94,7 @@ export default function LoansHub({ trail }) {
                   <span className="index-num lg:col-span-1">{p.index}</span>
                   <div className="lg:col-span-4">
                     <h3 className="text-2xl text-ink">{p.name}</h3>
-                    <p className="mt-1 text-2xs uppercase tracking-[0.12em] text-gold">
+                    <p className="mt-1 text-2xs uppercase tracking-[0.12em] text-accent">
                       {p.categoryLabel}
                     </p>
                   </div>
@@ -105,7 +105,7 @@ export default function LoansHub({ trail }) {
                     </div>
                   </div>
                   <span className="flex items-start lg:col-span-1 lg:justify-end">
-                    <ArrowRight className="h-5 w-5 text-gold transition-transform duration-200 group-hover:translate-x-1" />
+                    <ArrowRight className="h-5 w-5 text-accent transition-transform duration-200 group-hover:translate-x-1" />
                   </span>
                 </a>
               </li>

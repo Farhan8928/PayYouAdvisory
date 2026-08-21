@@ -1,7 +1,7 @@
 import { PRODUCTS } from '../data/products.js'
 import { SpecInline } from '../components/SpecStrip.jsx'
 import { Section, SectionHead } from '../components/PageHeader.jsx'
-import { ArrowRight } from '../components/Icon.jsx'
+import { ArrowRight, ProductIcon } from '../components/Icon.jsx'
 import Photo from '../components/Photo.jsx'
 
 /**
@@ -66,21 +66,26 @@ function FeatureCard({ product: p }) {
         <span className="absolute inset-0 bg-gradient-to-t from-ink-deep/85 via-ink-deep/25 to-transparent" />
         <span className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6">
           <span>
-            <span className="fig block text-2xs tracking-[0.16em] text-gold">{p.index}</span>
+            <span className="fig block text-2xs tracking-[0.16em] text-accent">{p.index}</span>
             <span className="mt-1.5 block font-display text-3xl leading-none text-paper">
               {p.name}
             </span>
           </span>
-          <span className="mb-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-paper/25 bg-paper/10 backdrop-blur-sm transition-all duration-300 ease-brand group-hover:border-brass group-hover:bg-brass">
+          <span className="mb-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-paper/25 bg-paper/10 backdrop-blur-sm transition-all duration-300 ease-brand group-hover:border-accent group-hover:bg-accent">
             <ArrowRight className="h-4 w-4 text-paper transition-colors group-hover:text-ink-deep" />
           </span>
         </span>
       </Photo>
 
       <div className="flex flex-1 flex-col p-6">
-        <p className="text-2xs font-semibold uppercase tracking-[0.14em] text-brass-deep">
-          {p.categoryLabel}
-        </p>
+        <div className="flex items-center gap-3">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent">
+            <ProductIcon slug={p.slug} className="h-5 w-5" />
+          </span>
+          <p className="text-2xs font-bold uppercase tracking-[0.14em] text-accent-deep">
+            {p.categoryLabel}
+          </p>
+        </div>
         <p className="mt-3 flex-1 text-base leading-relaxed text-ink-soft">{p.summary}</p>
         <div className="mt-5 border-t border-ink/10 pt-4">
           <SpecInline spec={p.spec} />
@@ -101,17 +106,20 @@ function ProductCard({ product: p }) {
         className="photo-rule"
       >
         <span className="absolute inset-0 bg-gradient-to-t from-ink-deep/70 to-transparent" />
-        <span className="fig absolute left-5 top-4 text-2xs tracking-[0.16em] text-gold">
+        <span className="fig absolute left-5 top-4 text-2xs tracking-[0.16em] text-accent">
           {p.index}
         </span>
       </Photo>
 
       <div className="flex flex-1 flex-col p-5">
         <h3 className="h-card flex items-start justify-between gap-3 text-ink">
-          {p.name}
-          <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-gold transition-transform duration-300 ease-brand group-hover:translate-x-1" />
+          <span className="flex items-center gap-2.5">
+            <ProductIcon slug={p.slug} className="h-5 w-5 shrink-0 text-accent" />
+            {p.name}
+          </span>
+          <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-accent transition-transform duration-300 ease-brand group-hover:translate-x-1" />
         </h3>
-        <p className="mt-1 text-2xs font-semibold uppercase tracking-[0.14em] text-brass-deep">
+        <p className="mt-1 text-2xs font-semibold uppercase tracking-[0.14em] text-accent-deep">
           {p.categoryLabel}
         </p>
         <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-soft">{p.summary}</p>

@@ -19,8 +19,8 @@ export default function Breadcrumbs({ trail, invert = false }) {
   const muted = invert ? 'text-paper/50' : 'text-ink-faint'
   const active = invert ? 'text-paper/80' : 'text-ink-soft'
   // Bright gold reads on the navy; on paper it does not clear WCAG AA, so the
-  // light variant hovers to the deep gold instead. See --gold-ink in index.css.
-  const hover = invert ? 'hover:text-brass' : 'hover:text-brass-deep'
+  // light variant hovers to the deep gold instead. See --accent-ink in index.css.
+  const hover = invert ? 'hover:text-accent' : 'hover:text-accent-deep'
 
   return (
     <nav aria-label="Breadcrumb" className="mb-8">

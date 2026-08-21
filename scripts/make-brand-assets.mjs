@@ -1,120 +1,172 @@
 /**
- * Generates every brand asset that is not hand-written CSS: favicon.svg, the
- * PWA and Apple icons, and the 1200x630 Open Graph share card.
+ * Generates the favicon, the PWA / Apple icons and the Open Graph share card.
  *
- * All of them read their colours from src/data/brand.js and their geometry from
- * src/data/mark.js — the same two files the Tailwind theme and the React
- * `<Wordmark />` import. That is the entire reason this script exists in this
- * form. When these assets carry their own hard-coded hexes, a palette change
- * updates the site and silently does not update the browser tab, the Android
- * splash screen or every WhatsApp link preview. Nothing errors. They just stop
- * matching, and nobody notices for months.
+ * ── The source is PayYou's real logo ───────────────────────────────────────
+ * Earlier versions of this script drew a mark from scratch. That was wrong: the
+ * client has a logo, and the browser tab is one of the places it most obviously
+ * belongs. `npm run logos` downloads it to public/brand/; this script crops the
+ * distinctive part of it for the small sizes and composes the share card around
+ * the full lockup.
  *
- * `npm run audit:brand` asserts the output still matches the palette.
+ * ── The icon is the whole mark, and that is a compromise ───────────────────
+ * The logo is a wide wordmark at roughly 2.3:1, which is a poor fit for a
+ * square. The first attempt cropped out the red-and-blue swoosh over the "Y" —
+ * the one element that is distinctive at small sizes — but the swoosh overlaps
+ * the letterforms, so every rectangular crop of it drags in half an "A". A
+ * clipped fragment of a client's logo is worse than a small one.
  *
- * Run with `npm run brand`. Re-run whenever the palette or the mark changes.
+ * So the icon is the complete mark, contained and centred on white. It is
+ * unmistakable at 512px and at 192px, and at 16px in a browser tab it is a
+ * blue-and-red smudge — which is what every wordmark favicon looks like at
+ * 16px, and is at least an honest rendering of the real thing.
+ *
+ * TODO(client): a square app-icon version of the mark — the swoosh alone, or a
+ * "P" monogram, drawn properly rather than cropped — would fix this. It is a
+ * small design job and it is the difference between a recognisable tab and a
+ * smudge. Drop it in as public/brand/payyou-icon.png and point this script at
+ * it.
+ *
+ * Colours come from src/data/brand.js, which sampled them from that same file,
+ * so nothing here can drift from the palette. `npm run audit:brand` proves it.
+ *
+ * Run with `npm run brand`, after `npm run logos`.
  */
-import { mkdir, writeFile } from 'node:fs/promises'
+import { mkdir, writeFile, access } from 'node:fs/promises'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 import { BRAND } from '../src/data/brand.js'
-import { markGeometry, markSvgString } from '../src/data/mark.js'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const PUB = join(ROOT, 'public')
+const LOGO = join(PUB, 'brand', 'payyou-logo@2x.png')
+
+/**
+ * The icon: the swoosh, on the brand blue, with generous padding.
+ *
+ * `pad` insets it further for the Android maskable icon, which is cropped to a
+ * circle and will otherwise clip the corners of the artwork.
+ */
+async function iconBuffer(size, pad = 0) {
+  // 80% of the padded box. A wordmark this wide needs the width, and the
+  // vertical air that leaves is what stops it looking crammed into the square.
+  const inner = Math.round(size * (1 - pad * 2) * 0.8)
+  const mark = await sharp(LOGO)
+    .resize({ width: inner, fit: 'inside' })
+    .png()
+    .toBuffer()
+
+  const markMeta = await sharp(mark).metadata()
+
+  return sharp({
+    create: {
+      width: size,
+      height: size,
+      channels: 4,
+      background: BRAND.paper,
+    },
+  })
+    .composite([
+      {
+        input: mark,
+        left: Math.round((size - markMeta.width) / 2),
+        top: Math.round((size - markMeta.height) / 2),
+      },
+    ])
+    .png()
+    .toBuffer()
+}
 
 /**
  * The Open Graph card.
  *
- * Most of this business's inbound links will arrive forwarded in a WhatsApp
- * group, and WhatsApp renders a link as this image plus the title. So this file
- * is, in practice, PayYou's visiting card online — worth more attention than
- * its 65 kB suggests.
+ * Most of this business's inbound links arrive forwarded in a WhatsApp group,
+ * and WhatsApp renders a link as this image plus the title — so this file is,
+ * in practice, PayYou's visiting card online.
  *
- * It uses Georgia and Arial rather than the site's own faces: sharp rasterises
- * SVG through librsvg, which can only use fonts installed on the build machine.
- * Naming "Source Serif 4" here would silently fall back to something limp on a
- * CI box, which is precisely the class of failure this file is trying to avoid.
- * Georgia is the closest system stand-in for a transitional serif and is
- * present on effectively every machine that will ever run this.
- *
- * There is no photograph on it, for the same reason there is none on the site.
- * See DESIGN.md § On photography.
+ * The text is set in Arial and Georgia rather than the site's own faces because
+ * sharp rasterises SVG through librsvg, which can only use fonts installed on
+ * the build machine. Naming "Plus Jakarta Sans" here would silently fall back
+ * to something arbitrary on a CI box.
  */
-/**
- * The mark, drawn from the shared geometry rather than re-typed here.
- *
- * The first version of this file hard-coded the four rectangles, which held up
- * for exactly one revision: the moment the bar lengths changed to stop the
- * favicon reading as a hamburger menu, the OG card silently kept the old
- * drawing. That is the same class of drift the whole brand.js/mark.js
- * arrangement exists to prevent, reintroduced by hand in the one file that
- * generates the assets.
- */
-const ogMark = (() => {
-  const g = markGeometry(72)
-  const rects = g.bars
-    .map((b) => `<rect x="${b.x.toFixed(2)}" y="${b.y.toFixed(2)}" width="${b.w.toFixed(2)}" height="${b.h.toFixed(2)}" fill="${b.fill}"/>`)
-    .join('\n    ')
-  return `<g transform="translate(72 68)">
-    <rect width="72" height="72" fill="${g.background}"/>
-    ${rects}
-  </g>`
-})()
+const ogSvg = (logoWidth, logoHeight) => `
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0"    stop-color="${BRAND.inkMid}"/>
+      <stop offset="0.45" stop-color="${BRAND.ink}"/>
+      <stop offset="1"    stop-color="${BRAND.inkDeep}"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
 
-const ogSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <rect width="1200" height="630" fill="${BRAND.inkDeep}"/>
+  <!-- A white chip for the logo, for the same reason the footer uses one: the
+       mark is blue on transparency and has no reversed version. -->
+  <rect x="72" y="64" width="${logoWidth + 48}" height="${logoHeight + 32}" rx="10" fill="#ffffff"/>
 
-  ${ogMark}
+  <rect x="72" y="222" width="76" height="5" rx="2.5" fill="${BRAND.accent}"/>
 
-  <text x="164" y="102" font-family="Georgia, serif" font-size="34" font-weight="bold"
-        fill="${BRAND.paper}">PayYou</text>
-  <text x="165" y="126" font-family="Courier New, monospace" font-size="13" letter-spacing="4.5"
-        fill="${BRAND.brass}">ADVISORY</text>
+  <text x="72" y="300" font-family="Arial Black, Arial, sans-serif" font-size="62"
+        font-weight="900" letter-spacing="-2" fill="#ffffff">Twenty-five lenders.</text>
+  <text x="72" y="374" font-family="Arial Black, Arial, sans-serif" font-size="62"
+        font-weight="900" letter-spacing="-2" fill="${BRAND.accentLight}">One application.</text>
 
-  <rect x="72" y="184" width="88" height="3" fill="${BRAND.brass}"/>
+  <text x="72" y="432" font-family="Arial, Helvetica, sans-serif" font-size="24"
+        fill="#ffffff" opacity="0.72">One credit enquiry, not twenty-five.</text>
 
-  <text x="72" y="266" font-family="Georgia, serif" font-size="60" font-weight="bold"
-        fill="${BRAND.paper}">Twenty-five lenders</text>
-  <text x="72" y="336" font-family="Georgia, serif" font-size="60" font-weight="bold"
-        fill="${BRAND.paper}">will look at your file.</text>
-  <text x="72" y="406" font-family="Georgia, serif" font-size="60" font-weight="bold"
-        fill="${BRAND.brass}">One will see your name.</text>
+  <rect x="72" y="466" width="1056" height="1" fill="#ffffff" opacity="0.18"/>
 
-  <rect x="72" y="452" width="1056" height="1" fill="${BRAND.paper}" opacity="0.18"/>
-
-  <text x="72" y="500" font-family="Arial, Helvetica, sans-serif" font-size="21"
-        fill="${BRAND.paper}" opacity="0.62">
+  <text x="72" y="514" font-family="Arial, Helvetica, sans-serif" font-size="21"
+        fill="#ffffff" opacity="0.62">
     Personal · Business · Home · Property · Car · Gold · Insurance
   </text>
 
-  <rect x="72" y="524" width="326" height="52" fill="${BRAND.brass}"/>
-  <text x="96" y="558" font-family="Courier New, monospace" font-size="23" font-weight="bold"
-        fill="${BRAND.inkDeep}">020 2735 0055</text>
+  <rect x="72" y="536" width="300" height="52" rx="6" fill="${BRAND.accent}"/>
+  <text x="96" y="570" font-family="Courier New, monospace" font-size="23" font-weight="bold"
+        fill="#ffffff">020 2735 0055</text>
 
-  <text x="424" y="558" font-family="Arial, Helvetica, sans-serif" font-size="18"
-        fill="${BRAND.paper}" opacity="0.45">
+  <text x="400" y="570" font-family="Arial, Helvetica, sans-serif" font-size="18"
+        fill="#ffffff" opacity="0.5">
     Chapekar Chowk, Chinchwad · payyouadvisory.com
   </text>
 </svg>`
 
 async function main() {
+  try {
+    await access(LOGO)
+  } catch {
+    console.error('✗ public/brand/payyou-logo@2x.png is missing.')
+    console.error('  Run "npm run logos" first — it downloads PayYou\'s logo from the live site.')
+    process.exit(1)
+  }
+
   await mkdir(PUB, { recursive: true })
 
-  // Generated rather than hand-edited, so it cannot fall out of step with the
-  // palette the way a checked-in SVG always eventually does.
-  await writeFile(join(PUB, 'favicon.svg'), markSvgString(64), 'utf8')
+  // favicon.svg embeds the PNG rather than being redrawn as vector. A traced
+  // approximation of someone else's logo is a worse artefact than an honest
+  // raster of the real one.
+  const favicon = await iconBuffer(64)
+  await writeFile(
+    join(PUB, 'favicon.svg'),
+    `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><image href="data:image/png;base64,${favicon.toString('base64')}" width="64" height="64"/></svg>`,
+    'utf8',
+  )
 
-  await sharp(Buffer.from(markSvgString(192))).png().toFile(join(PUB, 'icon-192.png'))
-  await sharp(Buffer.from(markSvgString(512))).png().toFile(join(PUB, 'icon-512.png'))
-  // Android crops maskable icons to a circle, so the mark is inset by 14%.
-  await sharp(Buffer.from(markSvgString(512, 0.14))).png().toFile(join(PUB, 'icon-maskable.png'))
-  await sharp(Buffer.from(markSvgString(180))).png().toFile(join(PUB, 'apple-touch-icon.png'))
+  await writeFile(join(PUB, 'icon-192.png'), await iconBuffer(192))
+  await writeFile(join(PUB, 'icon-512.png'), await iconBuffer(512))
+  await writeFile(join(PUB, 'icon-maskable.png'), await iconBuffer(512, 0.14))
+  await writeFile(join(PUB, 'apple-touch-icon.png'), await iconBuffer(180))
 
-  await sharp(Buffer.from(ogSvg)).jpeg({ quality: 88, mozjpeg: true }).toFile(join(PUB, 'og-image.jpg'))
+  // ── Open Graph card ──────────────────────────────────────────────────────
+  const logo = await sharp(LOGO).resize({ height: 100, fit: 'inside' }).png().toBuffer()
+  const logoMeta = await sharp(logo).metadata()
 
-  console.log('✓ favicon.svg, icons and og-image.jpg written to public/')
+  await sharp(Buffer.from(ogSvg(logoMeta.width, logoMeta.height)))
+    .composite([{ input: logo, left: 96, top: 80 }])
+    .jpeg({ quality: 88, mozjpeg: true })
+    .toFile(join(PUB, 'og-image.jpg'))
+
+  console.log('✓ favicon.svg, icons and og-image.jpg written from the real logo')
 }
 
 main().catch((err) => {

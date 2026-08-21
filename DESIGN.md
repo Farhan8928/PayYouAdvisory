@@ -4,24 +4,34 @@ Read this before adding a section, a colour, or a font.
 
 ---
 
-## History, in one paragraph
+## History, and the mistake that ran through it
 
-The first version of this site was built on an argument: that every Indian loan
-website looks identical, so PayYou should look nothing like them. It used pine
-green on bone paper, no photography at all, no gradients, and data as the only
-decoration. It was coherent, it was defensible, and the client's verdict was
-that it looked machine-made and unfinished — *"entire website is looking fully
-AI"*. That judgement is the one that counts, and it was right about the thing
-that matters: austerity is not the same as restraint, and a page with no images
-and no movement does not read as confident, it reads as unbuilt.
+This design took three attempts, and the first two failed the same way.
 
-**This document describes what replaced it.** The instruction was explicit:
-premium banking, real photography, real motion, in the register of the
-reference sites the client sent — Aditya Birla Capital, IDFC FIRST, Lokmanya.
+**v1** argued that every Indian loan website looks identical, so PayYou should
+look nothing like them: pine green on bone paper, no photography, no gradients,
+data as the only decoration. The client's verdict — *"entire website is looking
+fully AI"* — was correct. Austerity is not restraint; a page with no images and
+no movement reads as unbuilt, not confident.
 
-What survived the rewrite is everything about *honesty*: no invented numbers, no
-fabricated testimonials, no bank logos we have no licence to use, the disclosure
-designed rather than buried. Those were never the problem.
+**v2** added photography, motion and depth in navy and gold, in the register of
+the reference sites. Better, and still wrong, for a reason that should have been
+obvious from the start: **the palette and the logo were invented.** The client
+asked, reasonably, *why are you choosing colour theme and logo on your own — use
+their existing site.*
+
+**v3 — this one — takes both from the client.** The logo is their actual file,
+downloaded from payyouadvisory.com. The palette is sampled from it, pixel by
+pixel. The bank logos are the ones they already publish. Nothing about the brand
+is a guess any more.
+
+The lesson worth writing down: **a brand is not a design decision.** The client
+already had one. Two rounds were spent producing coherent, defensible work that
+did not match the logo above their own front door.
+
+What survived all three versions is the *honesty*: no invented numbers, no
+fabricated testimonials, the disclosure designed rather than buried. That was
+never the problem.
 
 ---
 
@@ -45,91 +55,104 @@ ask why it exists.
 
 ## Palette
 
-Deep navy and gold on warm off-white. This is the premium-banking register, and
-it is the one the reference sites work in.
+**Sampled from PayYou's logo, not chosen.** Every saturated pixel in
+`PayYou-Logo.webp` falls into two tight clusters:
+
+```
+blue   #14478c · #144894 · #1c478c · #144c8d · #1b4794   → #164a90
+red    #dc2628 · #e62027 · #ef1e27 · #e81e1e · #e42732   → #e31e24
+```
 
 | Token | Hex | Role |
 |---|---|---|
-| `paper` | `#FBFAF7` | Dominant surface (~55%). Warm off-white — never pure `#fff`, which reads clinical. |
-| `paper-deep` | `#F3F0E9` | Second surface, for banding without drawing a border. |
-| `paper-dark` | `#E5E0D5` | Third surface: table stripes, input wells. |
-| `ink` | `#0B1D36` | Deep institutional navy. Body text, dark bands. |
-| `ink-deep` | `#061223` | Darkest stop. Scrims, footer, the theme colour. |
-| `ink-mid` | `#12304F` | The lighter stop in every navy gradient. |
-| `ink-soft` | `#2A4A70` | Secondary text on paper. |
-| `ink-faint` | `#7089A8` | Tertiary text, rules, disabled states. |
-| `brass` | `#C9A227` | Gold. Accent, rules, primary control. |
-| `brass-light` | `#E6C670` | The highlight stop in the gold sheen. |
-| `brass-deep` | `#9C7A18` | **Gold text on light grounds** — see below. |
+| `paper` | `#FFFFFF` | Dominant surface. |
+| `paper-deep` | `#F4F7FB` | Second surface — a cool grey for banding without a border. |
+| `paper-dark` | `#E4EBF3` | Third surface: table stripes, input wells. |
+| `ink` | `#164A90` | **The logo blue.** Headings, dark bands, brand moments. |
+| `ink-deep` | `#08203F` | Darkest stop. Scrims, footer, theme colour. |
+| `ink-mid` | `#1E5AAE` | The lighter stop in every blue gradient. |
+| `ink-text` | `#12325C` | **Body copy.** See below. |
+| `ink-soft` | `#3E6BA8` | Secondary text. |
+| `ink-faint` | `#8AA3C4` | Tertiary text, rules, disabled states. |
+| `accent` | `#E31E24` | **The logo red.** Primary controls, rules, active states. |
+| `accent-deep` | `#B8151B` | Red *text* on white. |
+| `accent-light` | `#FF4B50` | Highlight stop in the red sheen. |
+| `sky` | `#9BC0F0` | Label text on dark grounds. |
 | `whatsapp` | `#25D366` | Semantic, not brand. WhatsApp controls only. |
 
-### The one rule people get wrong: gold text
+### Why body text is not the logo blue
 
-`#C9A227` on navy is about **7:1** — comfortable. The same gold on the off-white
-is about **2.2:1**, which fails WCAG AA and is genuinely hard to read on a phone
-in daylight.
+`ink` is a brand colour, not a reading colour. `#164A90` at 17px is legible and
+tiring over a paragraph. `ink-text` (`#12325C`) is the same hue taken darker,
+and it is what `body` is set to. Use `ink` for headings and brand surfaces;
+`ink-text` for anything someone has to actually read.
+
+### The one rule people get wrong: the accent
+
+`#E31E24` on white is about **4.0:1** — under WCAG AA for body text, and hard to
+read on a phone in daylight. On the dark blue it is worse (~4.2:1).
 
 Two tokens plus a convention would be forgotten by the fortieth call site, so
-the colour is a **custom property** instead:
+the emphasis colour is a **custom property**:
 
 ```css
-:root      { --gold-ink: #9C7A18; }  /* deep gold, for paper */
-.on-dark   { --gold-ink: #C9A227; }  /* bright gold, for navy */
-.text-gold { color: var(--gold-ink); }
+:root      { --accent-ink: #B8151B; }  /* deep red, on white — 6.5:1 */
+.on-dark   { --accent-ink: #9BC0F0; }  /* light blue, on navy */
+.text-accent { color: var(--accent-ink); }
 ```
 
-**Use `.text-gold` for gold text. Never `text-brass`.** `.band-dark`, `.glass`
-and every photo backdrop carry `.on-dark`, so anything inside them inherits the
-bright gold automatically and nothing at the call site has to know which ground
-it is sitting on.
+**Use `.text-accent` for emphasis text. Never `text-accent` as a Tailwind
+utility colour on small type.** `.band-dark`, `.glass` and every photo backdrop
+carry `.on-dark`, so anything inside them flips automatically.
 
-`bg-brass` is deliberately outside this system — a gold button is bright gold on
-both grounds, because there the gold is the background and the navy text on it is
-what has to be legible.
+The hue changes between grounds, which looks inconsistent written down and is
+correct on screen: red cannot carry small text on dark blue, and rather than
+introduce an unrelated colour the dark-ground emphasis is the brand blue
+lightened. Red still appears on dark — as button fills and graphic rules, where
+text contrast rules do not apply.
 
-`.text-gold` is a component class resolving a custom property, so **Tailwind's
-opacity modifier does not apply to it**: `text-gold/50` compiles to nothing.
-Use `text-brass/50` where a translucent gold is genuinely wanted on a dark
-ground. `npm run audit:css` catches this.
+`.text-accent` is a component class resolving a custom property, so **Tailwind's
+opacity modifier does not apply**: `text-accent/50` compiles to nothing. Use
+`text-accent` as a theme colour (`bg-accent`, `border-accent/30`) where you need
+a modifier. `npm run audit:css` catches the mistake.
 
 ### Gradients
 
-Allowed, and used — but only in three defined places, all of which are in
-`tailwind.config.js` rather than written inline:
+Allowed, and defined in `tailwind.config.js` rather than written inline:
 
-- `bg-ink-sheen` — the standard dark band, lifted toward the top-left so a
-  full-width navy section is not a flat rectangle.
-- `bg-photo-scrim` / `bg-photo-scrim-b` — the fixed gradient over every
-  photograph. **Fixed, not sampled from the image.** "Darken the picture a bit"
-  fails the moment someone swaps in a brighter one and the white type silently
-  becomes unreadable.
-- `bg-gold-rule` / `bg-gold-sheen` — the section rule and the shimmer on the one
-  figure per screen that matters most.
+- `bg-ink-sheen` — the standard dark band, lifted at the top-left so a full-width
+  blue section is not a flat rectangle.
+- `bg-photo-scrim` / `-b` — the fixed gradient over every photograph. **Fixed,
+  not sampled from the image.** "Darken the picture a bit" fails the moment
+  someone swaps in a brighter one and the white type becomes unreadable.
+- `bg-accent-rule` / `bg-accent-sheen` — the section rule and the emphasis
+  gradient on a headline fragment.
+- `bg-paper-wash` — the very soft blue lift behind the hero.
 
 Still banned: **blurred colour orbs**, aurora backgrounds, and gradients used as
-a substitute for hierarchy. If a gradient is not one of the four above, it needs
-a reason written next to it.
+a substitute for hierarchy.
 
 ---
 
 ## Typography
 
-Three families, each with a job.
+Two families.
 
 | Family | Weights | Job |
 |---|---|---|
-| **Instrument Serif** | 400 (one weight) | Display. Hero, section heads, pull quotes — **only above ~32px**. |
-| **Plus Jakarta Sans** | 400–800 | Interface and body. Everything else, including all sub-display headings. |
+| **Plus Jakarta Sans** | 400–800 | Everything. |
 | **IBM Plex Mono** | 400–600 | **Every figure.** |
 
-### Instrument Serif ships one weight, and that is deliberate
+### One family, not a display serif
 
-There is no bold. Asking for `font-bold` makes the browser synthesise one by
-smearing the outline, which on a high-contrast serif looks exactly as bad as it
-sounds — worst of all at wordmark size. **Never put `font-bold` on
-`font-display`.** Below display size, use `.h-card` (Plus Jakarta ExtraBold)
-instead. `npm run audit:brand` checks the type stack loads; it cannot check this,
-so it is on you.
+v2 paired Instrument Serif for display with a sans for everything else. It read
+*editorial* — a magazine about money rather than a place to get some. Every bank
+in the client's reference set (IDFC FIRST, Aditya Birla Capital) is set entirely
+in sans, and so is every institution a visitor will compare this to. 800 weight
+carries the whole hierarchy without a second face.
+
+Use `.h-display`, `.h-section` and `.h-card` rather than assembling sizes by
+hand — that is what keeps eight pages of headings on one scale.
 
 ### The figure rule
 
@@ -137,11 +160,11 @@ so it is on you.
 `font-variant-numeric: tabular-nums`** — rates, amounts, tenures, EMIs, CIBIL
 scores, LTV percentages, pincodes, the phone number. Use `.fig`.
 
-This is not a stylistic tic. Tabular lining figures are the standard for
-financial data because digits are uniform in width, so columns align and a
-decimal point cannot drift. In a category where a misaligned decimal makes a
-reader doubt the whole institution, setting money correctly is a trust signal
-that costs nothing and that no competitor bothers with.
+Tabular lining figures are the standard for financial data because digits are
+uniform in width, so columns align and a decimal point cannot drift. In a
+category where a misaligned decimal makes a reader doubt the whole institution,
+setting money correctly is a trust signal that costs nothing and that no
+competitor bothers with.
 
 Indian formatting throughout: `₹1,50,000`, lakh and crore, never million. See
 `src/lib/format.js`.
@@ -149,11 +172,47 @@ Indian formatting throughout: `₹1,50,000`, lakh and crore, never million. See
 ### Banned
 
 **Inter, Poppins, Montserrat, Space Grotesk, Fraunces, Playfair, Lato, Open
-Sans.** Each is among the most-used faces on the generated web, and reaching for
-one is the fastest way back to the average. `npm run audit:brand` fails the build
-if any appears on any page.
+Sans.** Each is among the most-used faces on the generated web. `npm run
+audit:brand` fails the build if any appears on any page.
 
 ---
+
+## Logos
+
+### PayYou's own
+
+`<Wordmark>` renders the real file from `public/brand/`, downloaded by
+`npm run logos`. **Do not draw a replacement.** Two earlier versions of this
+site shipped an invented mark; that is the specific mistake this version exists
+to correct.
+
+The mark is blue on transparency with **no reversed version**, which has two
+consequences that look like styling choices and are not:
+
+- **The navigation bar is white**, not transparent-over-hero. A blue logo on a
+  dark photograph disappears.
+- **On dark grounds the logo sits on a white chip** (`<Wordmark invert />`).
+  That is the correct way to place a mark with no knockout version — it protects
+  the artwork rather than mangling it.
+
+Both go away the day the client supplies a reversed version. See
+`CLIENT-ACTIONS.md`.
+
+### The partner banks'
+
+Twelve marks, taken from the client's own site and normalised by
+`scripts/fetch-logos.mjs`: each is trimmed of dead space and centred in an
+identical 240×96 box, so the grid aligns on the logos rather than their original
+bounding boxes.
+
+The wall renders them **greyscale at 70% opacity, full colour on hover**. That is
+the standard treatment for a partner wall and it is standard because nothing else
+reconciles a yellow L&T block with a transparent SBI roundel. It also reads as
+quiet texture until you look at it, and resolves into recognisable banks the
+moment you do.
+
+Five partners have no logo published. They are named in the index below the wall
+rather than given an empty tile.
 
 ## Photography
 
@@ -214,7 +273,7 @@ in which anything is hidden.
 | Parallax | `[data-parallax]` | Photo backdrops — 6% of drift, no more |
 | Counters | `<Counter>` | Trust band only |
 | Marquee | `.marquee-track` | The lender ticker |
-| Shimmer | `.animate-shimmer` | Section rules, the one gold figure |
+| Shimmer | `.animate-shimmer` | The emphasis fragment in a headline |
 | Hover lift | `.card-hover`, `.btn-*` | Cards and controls |
 | Photo zoom | `.photo-zoom` inside `.group` | Product cards |
 
@@ -238,13 +297,13 @@ in which anything is hidden.
 
 - **Radius**: `md` (6px) on controls, `lg` (10px) on cards, `xl` (14px) on glass
   panels. Not pill-shaped, not square.
-- **Shadows are navy-tinted**, never neutral grey. A shadow cast in a colour
+- **Shadows are blue-tinted**, never neutral grey. A shadow cast in a colour
   unrelated to the palette is the fastest way to make a careful page look cheap.
-  Use the four defined tokens: `shadow-card`, `shadow-lift`, `shadow-glass`,
-  `shadow-gold`.
+  Use the defined tokens: `shadow-card`, `shadow-lift`, `shadow-glass`,
+  `shadow-accent`, `shadow-nav`.
 - **Glass** (`.glass`, `.glass-light`) only over a photograph. Over a flat
   colour it is just a translucent rectangle.
-- **Rules mean something.** A gold hairline marks a section; a 1px `ink/12` rule
+- **Rules mean something.** A red hairline marks a section; a 1px `ink/12` rule
   separates rows of data. Do not draw a line for decoration.
 
 ---
@@ -291,7 +350,7 @@ in which anything is hidden.
 
 | Absent | Why |
 |---|---|
-| Bank partner logos | No licence to reproduce HDFC's or SBI's marks, and a wall of borrowed logos implies an endorsement a DSA arrangement does not confer. The names run as a typographic ticker instead — which also lets each carry a line about what that lender is good for. |
+| An invented logo or palette | The client has both. Two versions of this site shipped a made-up mark and a made-up colour scheme before that was corrected. See § History. |
 | A carousel of testimonials | One is published because one is verified. The section says so, which reads as confidence rather than thinness. Nobody fakes a weakness. |
 | `aggregateRating` in JSON-LD | No verified review corpus. Publishing one is a structured-data violation. Flip `RATING.show` in `src/data/site.js` when the Google profile has real reviews. |
 | `JobPosting` in JSON-LD | No dated vacancy. Marking up an evergreen careers page gets a site removed from Google Jobs entirely. The audit fails the build on it. |

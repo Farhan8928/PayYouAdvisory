@@ -70,7 +70,7 @@ export default function Careers({ trail }) {
                   'Marathi and Hindi alongside English — most of this job happens in them.',
                 ].map((x) => (
                   <li key={x} className="flex gap-2.5 text-base leading-relaxed text-ink-soft">
-                    <Check className="mt-1.5 h-3.5 w-3.5 shrink-0 text-gold" />
+                    <Check className="mt-1.5 h-3.5 w-3.5 shrink-0 text-accent" />
                     {x}
                   </li>
                 ))}
@@ -106,7 +106,7 @@ export default function Careers({ trail }) {
                 <span className="index-num lg:col-span-1">{String(i + 1).padStart(2, '0')}</span>
                 <div className="lg:col-span-4">
                   <h3 className="text-2xl text-ink">{r.title}</h3>
-                  <p className="mt-1.5 text-2xs uppercase tracking-[0.12em] text-gold">{r.level}</p>
+                  <p className="mt-1.5 text-2xs uppercase tracking-[0.12em] text-accent">{r.level}</p>
                 </div>
                 <div className="lg:col-span-7">
                   <p className="max-w-prose text-base leading-relaxed text-ink-soft">{r.body}</p>
@@ -134,7 +134,7 @@ export default function Careers({ trail }) {
             <div className="flex flex-wrap gap-3">
               <a
                 href={`mailto:${CONTACT.email}?subject=${encodeURIComponent('Application — careers')}`}
-                className="btn-brass"
+                className="btn-accent"
               >
                 <Mail className="h-4 w-4" />
                 {CONTACT.email}
@@ -167,7 +167,7 @@ export default function Careers({ trail }) {
                 ['An offer, or a straight no', 'With the reason. If it is a "not yet", we will say what would change it.'],
               ].map(([t, b], i) => (
                 <li key={t} className="flex gap-5 border-b border-paper/12 py-4">
-                  <span className="fig shrink-0 text-2xs tracking-[0.16em] text-gold">
+                  <span className="fig shrink-0 text-2xs tracking-[0.16em] text-accent">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <span>

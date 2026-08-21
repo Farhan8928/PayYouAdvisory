@@ -100,7 +100,7 @@ export default function About({ trail }) {
                   ['Transparency', 'about how we are paid and what we cannot promise'],
                   ['Compliance', 'with the law and with each lender’s code of conduct'],
                 ].map(([k, v]) => (
-                  <li key={k} className="border-l-2 border-brass pl-4 text-base leading-relaxed text-ink-soft">
+                  <li key={k} className="border-l-2 border-accent pl-4 text-base leading-relaxed text-ink-soft">
                     <span className="font-semibold text-ink">{k}</span> — {v}
                   </li>
                 ))}
@@ -119,7 +119,7 @@ export default function About({ trail }) {
 
           <div className="lg:col-span-8">
             <div className="border-t border-paper/15 pt-8">
-              <p className="mb-1.5 font-mono text-2xs uppercase tracking-[0.16em] text-gold">
+              <p className="mb-1.5 font-mono text-2xs uppercase tracking-[0.16em] text-accent">
                 Chairman
               </p>
               <h3 className="font-display text-3xl text-paper">Sachin Yadav</h3>
@@ -174,7 +174,7 @@ export default function About({ trail }) {
           <ul className="grid gap-px border border-ink/12 bg-ink/12 lg:grid-cols-3">
             {OFFICES.map((o) => (
               <li key={o.id} className="bg-paper p-7">
-                <p className="mb-3 text-2xs uppercase tracking-[0.14em] text-gold">{o.kind}</p>
+                <p className="mb-3 text-2xs uppercase tracking-[0.14em] text-accent">{o.kind}</p>
                 <h3 className="font-display text-2xl text-ink">{o.locality}</h3>
                 <address className="mt-3 text-base not-italic leading-relaxed text-ink-soft">
                   {o.lines.map((l) => (
@@ -187,7 +187,7 @@ export default function About({ trail }) {
                   href={o.directions}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-ink transition-colors hover:text-brass-deep"
+                  className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-ink transition-colors hover:text-accent-deep"
                 >
                   Directions
                   <ArrowRight className="h-3.5 w-3.5" />

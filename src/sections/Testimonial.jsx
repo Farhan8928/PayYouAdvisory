@@ -29,13 +29,13 @@ export default function Testimonial() {
       <div className="container-page py-20 sm:py-28">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <figure className="lg:col-span-7" data-reveal>
-            {/* `text-brass/50`, not `text-gold/50`. `.text-gold` is a component
+            {/* `text-accent/50`, not `text-accent/50`. `.text-accent` is a component
                 class resolving a custom property, so Tailwind's opacity
                 modifier does not apply to it and compiles to nothing at all —
                 `npm run audit:css` catches exactly this. The mark sits on navy,
                 where the bright gold is the right one regardless. */}
             <span
-              className="block font-display text-7xl leading-none text-brass/50"
+              className="block font-display text-7xl leading-none text-accent/50"
               aria-hidden="true"
             >
               &ldquo;
@@ -46,7 +46,7 @@ export default function Testimonial() {
               </p>
             </blockquote>
             <figcaption className="mt-8 flex items-center gap-4">
-              <span className="h-px w-10 bg-brass" aria-hidden="true" />
+              <span className="h-px w-10 bg-accent" aria-hidden="true" />
               <span>
                 <span className="block text-base font-bold text-paper">{lead.name}</span>
                 <span className="block text-sm text-paper/55">
@@ -71,7 +71,7 @@ export default function Testimonial() {
               </p>
 
               <div className="mt-7 flex flex-wrap gap-3 border-t border-paper/12 pt-6">
-                <a href={telHref(CONTACT.landline)} className="btn-brass btn-sm">
+                <a href={telHref(CONTACT.landline)} className="btn-accent btn-sm">
                   <Phone className="h-3.5 w-3.5" />
                   <span className="fig">{CONTACT.landlineDisplay}</span>
                 </a>

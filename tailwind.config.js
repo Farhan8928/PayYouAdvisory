@@ -4,8 +4,8 @@ import { BRAND } from './src/data/brand.js'
  * Design tokens. The reasoning behind every value is in DESIGN.md — read it
  * before adding anything, and especially before adding a colour or a font.
  *
- * Colours are imported rather than written here so the site and the generated
- * brand assets cannot drift apart. See src/data/brand.js.
+ * Colours are imported from src/data/brand.js, which samples them from PayYou's
+ * actual logo, so the site and the generated brand assets cannot drift apart.
  *
  * @type {import('tailwindcss').Config}
  */
@@ -18,9 +18,9 @@ export default {
          * Height-based, not width-based. A 1080p laptop at Windows 125%
          * scaling reports ~1536 CSS px wide — firmly `lg`, so it gets the
          * desktop layout — but only ~730px tall once browser chrome is gone.
-         * The hero has to fit its call to action into that.
+         * The hero's call to action has to survive that.
          */
-        short: { raw: '(max-height: 820px)' },
+        short: { raw: '(max-height: 800px)' },
       },
 
       colors: {
@@ -33,27 +33,35 @@ export default {
           DEFAULT: BRAND.ink,
           deep: BRAND.inkDeep,
           mid: BRAND.inkMid,
+          text: BRAND.inkText,
           soft: BRAND.inkSoft,
           faint: BRAND.inkFaint,
         },
-        brass: {
-          DEFAULT: BRAND.brass,
-          light: BRAND.brassLight,
-          deep: BRAND.brassDeep,
+        accent: {
+          DEFAULT: BRAND.accent,
+          light: BRAND.accentLight,
+          deep: BRAND.accentDeep,
         },
+        sky: BRAND.sky,
         whatsapp: BRAND.whatsapp,
       },
 
       fontFamily: {
         /**
-         * Display — Instrument Serif. One weight, very high contrast, and it
-         * only earns its place above about 32px, where it reads expensive
-         * rather than decorative. Everything smaller is set in the sans, which
-         * is why `sans` carries weights up to 800.
+         * One family for everything except figures.
+         *
+         * An earlier version paired Instrument Serif for display with a sans for
+         * everything else. It looked editorial, which is the wrong genre: the
+         * client's references — IDFC FIRST, Aditya Birla Capital — are set
+         * entirely in sans, and so is every bank a visitor will compare this to.
+         * A serif headline on a lending site reads like a magazine about
+         * money rather than a place to get some.
+         *
+         * Plus Jakarta Sans carries 400 to 800, which is enough range to build
+         * the whole hierarchy without a second face.
          */
-        display: ['"Instrument Serif"', 'Georgia', 'Cambria', 'serif'],
-        /** Interface and body. Modern humanist geometric — the fintech register. */
         sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+        display: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
         /** Every figure. See DESIGN.md § The figure rule. */
         mono: ['"IBM Plex Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
@@ -74,19 +82,19 @@ export default {
         '2xs': ['0.6875rem', { lineHeight: '1.45' }],
         xs: ['0.75rem', { lineHeight: '1.5' }],
         sm: ['0.8125rem', { lineHeight: '1.55' }],
-        base: ['1.0625rem', { lineHeight: '1.68' }],
+        base: ['1.0625rem', { lineHeight: '1.65' }],
         lg: ['1.1875rem', { lineHeight: '1.6' }],
-        xl: ['1.375rem', { lineHeight: '1.4' }],
-        '2xl': ['1.75rem', { lineHeight: '1.24' }],
-        '3xl': ['2.25rem', { lineHeight: '1.12' }],
-        '4xl': ['3rem', { lineHeight: '1.04' }],
-        '5xl': ['4rem', { lineHeight: '0.98' }],
-        '6xl': ['5.25rem', { lineHeight: '0.94' }],
-        '7xl': ['6.5rem', { lineHeight: '0.92' }],
+        xl: ['1.375rem', { lineHeight: '1.35' }],
+        '2xl': ['1.6875rem', { lineHeight: '1.22' }],
+        '3xl': ['2.125rem', { lineHeight: '1.14' }],
+        '4xl': ['2.625rem', { lineHeight: '1.08' }],
+        '5xl': ['3.25rem', { lineHeight: '1.04' }],
+        '6xl': ['4rem', { lineHeight: '1.0' }],
+        '7xl': ['4.75rem', { lineHeight: '0.98' }],
       },
 
       maxWidth: {
-        prose: '68ch',
+        prose: '66ch',
       },
 
       /**
@@ -98,69 +106,58 @@ export default {
         12: '0.12',
         14: '0.14',
         18: '0.18',
-        /* Standfirst copy on a dark ground. 70% is a shade too grey against a
-           photograph and 75% starts competing with the headline; 72% is where
-           it sits comfortably below the h1 and still reads at arm's length. */
         72: '0.72',
       },
 
       /**
-       * Elevation. Long, soft, navy-tinted rather than neutral grey — a shadow
-       * cast in a colour unrelated to the palette is the fastest way to make a
-       * careful page look cheap.
+       * Elevation, tinted with the brand blue rather than neutral grey. A
+       * shadow cast in a colour unrelated to the palette is the fastest way to
+       * make a careful page look cheap.
        */
       boxShadow: {
-        card: '0 2px 4px -2px rgba(11, 29, 54, 0.08), 0 12px 32px -12px rgba(11, 29, 54, 0.16)',
-        lift: '0 4px 8px -4px rgba(11, 29, 54, 0.12), 0 24px 56px -20px rgba(11, 29, 54, 0.28)',
-        glass: '0 8px 24px -12px rgba(6, 18, 35, 0.5), 0 32px 80px -32px rgba(6, 18, 35, 0.7)',
-        gold: '0 8px 28px -12px rgba(201, 162, 39, 0.55)',
+        card: '0 1px 2px -1px rgba(8, 32, 63, 0.06), 0 8px 24px -12px rgba(8, 32, 63, 0.14)',
+        lift: '0 4px 8px -4px rgba(8, 32, 63, 0.10), 0 24px 48px -20px rgba(8, 32, 63, 0.24)',
+        glass: '0 8px 24px -12px rgba(8, 32, 63, 0.30), 0 32px 72px -32px rgba(8, 32, 63, 0.45)',
+        accent: '0 8px 24px -10px rgba(227, 30, 36, 0.45)',
+        nav: '0 1px 0 0 rgba(8, 32, 63, 0.08), 0 8px 24px -16px rgba(8, 32, 63, 0.20)',
       },
 
       backgroundImage: {
-        /** The standard dark band — navy, lifted toward the top-left so it is not flat. */
-        'ink-sheen':
-          'linear-gradient(135deg, #12304f 0%, #0b1d36 45%, #061223 100%)',
+        /** The standard dark band — brand blue, lifted at the top-left. */
+        'ink-sheen': 'linear-gradient(135deg, #1e5aae 0%, #164a90 42%, #08203f 100%)',
         /** Scrim over a photograph, so white type stays legible at any crop. */
         'photo-scrim':
-          'linear-gradient(to right, rgba(6,18,35,0.94) 0%, rgba(6,18,35,0.82) 42%, rgba(6,18,35,0.35) 75%, rgba(6,18,35,0.15) 100%)',
+          'linear-gradient(to right, rgba(8,32,63,0.94) 0%, rgba(8,32,63,0.84) 40%, rgba(8,32,63,0.40) 72%, rgba(8,32,63,0.15) 100%)',
         'photo-scrim-b':
-          'linear-gradient(to top, rgba(6,18,35,0.92) 0%, rgba(6,18,35,0.55) 45%, rgba(6,18,35,0.12) 100%)',
-        /** Gold hairline that fades at both ends, used as a section rule. */
-        'gold-rule':
-          'linear-gradient(to right, rgba(201,162,39,0) 0%, #c9a227 18%, #e6c670 50%, #c9a227 82%, rgba(201,162,39,0) 100%)',
-        'gold-sheen': 'linear-gradient(120deg, #9c7a18 0%, #c9a227 38%, #e6c670 52%, #c9a227 66%, #9c7a18 100%)',
+          'linear-gradient(to top, rgba(8,32,63,0.92) 0%, rgba(8,32,63,0.55) 45%, rgba(8,32,63,0.10) 100%)',
+        /** The red hairline that marks a section, fading at both ends. */
+        'accent-rule':
+          'linear-gradient(to right, rgba(227,30,36,0) 0%, #e31e24 16%, #ff4b50 50%, #e31e24 84%, rgba(227,30,36,0) 100%)',
+        'accent-sheen':
+          'linear-gradient(120deg, #b8151b 0%, #e31e24 38%, #ff4b50 52%, #e31e24 66%, #b8151b 100%)',
+        /** A very soft blue wash for light sections that need lifting off white. */
+        'paper-wash':
+          'linear-gradient(180deg, #ffffff 0%, #f4f7fb 45%, #eef3f9 100%)',
       },
 
       keyframes: {
-        'slide-up': {
-          from: { transform: 'translateY(100%)' },
-          to: { transform: 'translateY(0)' },
-        },
-        marquee: {
-          from: { transform: 'translateX(0)' },
-          to: { transform: 'translateX(-50%)' },
-        },
-        /** Used by the scroll-driven reveal — see src/styles/index.css. */
+        'slide-up': { from: { transform: 'translateY(100%)' }, to: { transform: 'translateY(0)' } },
+        marquee: { from: { transform: 'translateX(0)' }, to: { transform: 'translateX(-50%)' } },
         'reveal-up': {
-          from: { opacity: '0', transform: 'translateY(28px)' },
+          from: { opacity: '0', transform: 'translateY(24px)' },
           to: { opacity: '1', transform: 'translateY(0)' },
         },
-        'reveal-in': {
-          from: { opacity: '0' },
-          to: { opacity: '1' },
-        },
-        /** Hero photograph drift. Small — 6% over a full viewport of scroll. */
+        'reveal-in': { from: { opacity: '0' }, to: { opacity: '1' } },
         'parallax-y': {
           from: { transform: 'translateY(-3%) scale(1.08)' },
           to: { transform: 'translateY(3%) scale(1.08)' },
         },
-        /** The gold sweep across a heading rule or a primary control. */
         shimmer: {
           '0%': { backgroundPosition: '0% 50%' },
           '100%': { backgroundPosition: '200% 50%' },
         },
         'scroll-cue': {
-          '0%, 100%': { transform: 'translateY(0)', opacity: '0.5' },
+          '0%, 100%': { transform: 'translateY(0)', opacity: '0.45' },
           '50%': { transform: 'translateY(6px)', opacity: '1' },
         },
       },

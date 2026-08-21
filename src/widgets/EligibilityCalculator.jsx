@@ -147,7 +147,7 @@ export default function EligibilityCalculator({ compact = false }) {
               aria-label={`Your existing EMIs use ${pct(usedByObligations, 0)} of the repayment capacity a lender would allow at this income.`}
             >
               <div
-                className="bg-brass transition-[width] duration-300"
+                className="bg-accent transition-[width] duration-300"
                 style={{ width: `${usedByObligations}%` }}
               />
             </div>
@@ -160,7 +160,7 @@ export default function EligibilityCalculator({ compact = false }) {
             </p>
 
             {obligations > 0 && cost > 0 ? (
-              <p className="mt-4 border-l-2 border-brass pl-4 text-sm leading-relaxed text-ink-soft">
+              <p className="mt-4 border-l-2 border-accent pl-4 text-sm leading-relaxed text-ink-soft">
                 Those existing EMIs are costing you about{' '}
                 <span className="fig font-semibold text-ink">{inrCompact(cost)}</span> of borrowing
                 capacity. Clearing the smallest of them before you apply is frequently worth more

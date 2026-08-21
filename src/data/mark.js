@@ -7,7 +7,7 @@
  * The Gouri project shipped that second thing and the two silently diverged.
  *
  * ── What it draws ──────────────────────────────────────────────────────────
- * Three brass strokes of unequal length, the middle one continuing past the
+ * Three accent strokes of unequal length, the middle one continuing past the
  * others in paper: several lenders assessed, one application submitted. The
  * site's entire argument in four rectangles.
  *
@@ -43,9 +43,9 @@ export function markGeometry(size, pad = 0) {
     background: BRAND.ink,
     bars: [
       // Three inputs, stacked and deliberately unequal.
-      { x: u(12), y: u(15), w: w(24), h: barH, fill: BRAND.brass },
-      { x: u(12), y: u(29), w: w(15), h: barH, fill: BRAND.brass },
-      { x: u(12), y: u(43), w: w(19), h: barH, fill: BRAND.brass },
+      { x: u(12), y: u(15), w: w(24), h: barH, fill: BRAND.accent },
+      { x: u(12), y: u(29), w: w(15), h: barH, fill: BRAND.accent },
+      { x: u(12), y: u(43), w: w(19), h: barH, fill: BRAND.accent },
       // The output: continues the middle row, in paper, past all three.
       { x: u(31), y: u(29), w: w(21), h: barH, fill: BRAND.paper },
     ],

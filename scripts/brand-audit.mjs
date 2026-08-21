@@ -52,7 +52,7 @@ const stripDataUris = (html) => html.replace(/data:image\/[a-z+]+;base64,[A-Za-z
  * average of every landing page — which is the specific failure DESIGN.md was
  * written to prevent.
  */
-const REQUIRED_FONTS = ['Instrument+Serif', 'Plus+Jakarta+Sans', 'IBM+Plex+Mono']
+const REQUIRED_FONTS = ['Plus+Jakarta+Sans', 'IBM+Plex+Mono']
 const BANNED_FONTS = ['Inter:', 'Poppins', 'Montserrat', 'Space+Grotesk', 'Fraunces', 'Playfair', 'Lato', 'Open+Sans']
 
 async function htmlFiles(dir, acc = []) {

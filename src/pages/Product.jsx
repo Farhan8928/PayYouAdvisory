@@ -43,7 +43,7 @@ export default function Product({ slug, trail }) {
         photo={p.slug}
         aside={
           <div className="glass p-7">
-            <h2 className="mb-5 text-2xs font-semibold uppercase tracking-[0.14em] text-gold">
+            <h2 className="mb-5 text-2xs font-semibold uppercase tracking-[0.14em] text-accent">
               {p.name} at a glance
             </h2>
             <dl className="space-y-4">
@@ -54,7 +54,7 @@ export default function Product({ slug, trail }) {
               <Line label="Disbursal" value={p.spec.disbursal} />
             </dl>
             <div className="mt-6 flex flex-wrap gap-2 border-t border-paper/15 pt-5">
-              <a href={telHref(CONTACT.landline)} className="btn-brass btn-sm">
+              <a href={telHref(CONTACT.landline)} className="btn-accent btn-sm">
                 <Phone className="h-3.5 w-3.5" />
                 <span className="fig">{CONTACT.landlineDisplay}</span>
               </a>
@@ -102,7 +102,7 @@ export default function Product({ slug, trail }) {
           <div className="grid gap-x-12 gap-y-9 sm:grid-cols-2">
             {p.features.map((f, i) => (
               <div key={f.title}>
-                <span className="fig mb-3 block text-2xs tracking-[0.16em] text-gold">
+                <span className="fig mb-3 block text-2xs tracking-[0.16em] text-accent">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <h3 className="h-card leading-snug text-ink">{f.title}</h3>
@@ -144,13 +144,13 @@ export default function Product({ slug, trail }) {
             <div className="grid gap-10 sm:grid-cols-3">
               {p.propertyTypes.map((g) => (
                 <div key={g.group}>
-                  <h3 className="mb-4 border-b-2 border-brass pb-2 h-card text-ink">
+                  <h3 className="mb-4 border-b-2 border-accent pb-2 h-card text-ink">
                     {g.group}
                   </h3>
                   <ul className="space-y-2.5">
                     {g.items.map((it) => (
                       <li key={it} className="flex gap-2.5 text-sm leading-relaxed text-ink-soft">
-                        <Check className="mt-1 h-3.5 w-3.5 shrink-0 text-gold" />
+                        <Check className="mt-1 h-3.5 w-3.5 shrink-0 text-accent" />
                         {it}
                       </li>
                     ))}
@@ -258,7 +258,7 @@ export default function Product({ slug, trail }) {
               <ul className="grid gap-x-10 gap-y-3 sm:grid-cols-2 lg:col-span-8">
                 {p.accepted.items.map((it) => (
                   <li key={it} className="flex gap-2.5 text-base leading-relaxed text-ink-soft">
-                    <Check className="mt-1.5 h-3.5 w-3.5 shrink-0 text-gold" />
+                    <Check className="mt-1.5 h-3.5 w-3.5 shrink-0 text-accent" />
                     {it}
                   </li>
                 ))}
@@ -286,7 +286,7 @@ export default function Product({ slug, trail }) {
                   key={d}
                   className="flex gap-5 border-b border-paper/12 py-4 first:border-t first:border-paper/12"
                 >
-                  <span className="fig shrink-0 text-2xs tracking-[0.16em] text-gold">
+                  <span className="fig shrink-0 text-2xs tracking-[0.16em] text-accent">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <span className="text-base leading-relaxed text-paper/75">{d}</span>
@@ -411,7 +411,7 @@ export default function Product({ slug, trail }) {
                 <li key={a.slug}>
                   <a
                     href={`/${p.slug}-${a.slug}/`}
-                    className="text-sm text-ink-soft transition-colors hover:text-brass-deep"
+                    className="text-sm text-ink-soft transition-colors hover:text-accent-deep"
                   >
                     {p.name} in {a.name}
                   </a>

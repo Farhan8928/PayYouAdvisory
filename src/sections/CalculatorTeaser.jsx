@@ -47,7 +47,7 @@ export default function CalculatorTeaser() {
             <a key={c.href} href={c.href} className="group card-hover p-6">
               <h3 className="h-card flex items-start justify-between gap-3 text-ink">
                 {c.title}
-                <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-gold transition-transform duration-300 ease-brand group-hover:translate-x-1" />
+                <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-accent transition-transform duration-300 ease-brand group-hover:translate-x-1" />
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-ink-soft">{c.body}</p>
             </a>

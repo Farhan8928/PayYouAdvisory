@@ -98,7 +98,7 @@ export function PhotoBackdrop({ name, className = '', scrim = 'left', priority =
   }
 
   return (
-    // `on-dark` re-declares --gold-ink for everything inside, so `.text-gold`
+    // `on-dark` re-declares --accent-ink for everything inside, so `.text-accent`
     // resolves to the bright gold that reads on navy rather than the deep gold
     // meant for paper. See the note in src/styles/index.css.
     <div className={`on-dark relative isolate overflow-hidden bg-ink-deep ${className}`}>

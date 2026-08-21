@@ -34,7 +34,7 @@ export default function Faq({ trail }) {
         <Section key={group.group} tone={i % 2 === 0 ? 'paper' : 'deep'} size="md">
           <div className="container-page grid gap-8 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-4">
-              <span className="fig mb-3 block text-2xs tracking-[0.16em] text-gold">
+              <span className="fig mb-3 block text-2xs tracking-[0.16em] text-accent">
                 {String(i + 1).padStart(2, '0')}
               </span>
               <span className="rule-mark" />

@@ -58,7 +58,7 @@ export default function ProductArea({ productSlug, areaSlug, trail }) {
         photo={AREA_PHOTO[a.slug]}
         aside={
           <div className="glass p-7">
-            <h2 className="mb-4 flex items-center gap-2 text-2xs font-semibold uppercase tracking-[0.14em] text-gold">
+            <h2 className="mb-4 flex items-center gap-2 text-2xs font-semibold uppercase tracking-[0.14em] text-accent">
               <Pin className="h-3.5 w-3.5" />
               {localOffice ? 'We have an office here' : 'Serving this area from Chinchwad'}
             </h2>
@@ -72,7 +72,7 @@ export default function ProductArea({ productSlug, areaSlug, trail }) {
             <p className="fig mt-3 text-2xs text-paper/45">{CONTACT.hours}</p>
 
             <div className="mt-5 flex flex-wrap gap-2 border-t border-paper/15 pt-5">
-              <a href={telHref(CONTACT.landline)} className="btn-brass btn-sm">
+              <a href={telHref(CONTACT.landline)} className="btn-accent btn-sm">
                 <Phone className="h-3.5 w-3.5" />
                 <span className="fig">{CONTACT.landlineDisplay}</span>
               </a>
@@ -106,7 +106,7 @@ export default function ProductArea({ productSlug, areaSlug, trail }) {
             <ul className="mt-7 border-t border-ink/12">
               {a.localNotes.map((note, i) => (
                 <li key={note} className="flex gap-5 border-b border-ink/12 py-4">
-                  <span className="fig shrink-0 text-2xs tracking-[0.16em] text-gold">
+                  <span className="fig shrink-0 text-2xs tracking-[0.16em] text-accent">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <span className="text-base leading-relaxed text-ink-soft">{note}</span>
@@ -127,7 +127,7 @@ export default function ProductArea({ productSlug, areaSlug, trail }) {
                 {a.pincodes.map((pin) => (
                   <li
                     key={pin}
-                    className="fig border border-brass/40 bg-paper-deep px-3 py-1.5 text-sm text-ink-soft"
+                    className="fig border border-accent/40 bg-paper-deep px-3 py-1.5 text-sm text-ink-soft"
                   >
                     {pin}
                   </li>
@@ -201,7 +201,7 @@ export default function ProductArea({ productSlug, areaSlug, trail }) {
             <ul className="border-t border-ink/12">
               {p.features.map((f) => (
                 <li key={f.title} className="flex gap-3 border-b border-ink/12 py-3">
-                  <Check className="mt-1 h-3.5 w-3.5 shrink-0 text-gold" />
+                  <Check className="mt-1 h-3.5 w-3.5 shrink-0 text-accent" />
                   <span className="text-base font-medium leading-relaxed text-ink">{f.title}</span>
                 </li>
               ))}
@@ -258,7 +258,7 @@ export default function ProductArea({ productSlug, areaSlug, trail }) {
                     <span className="text-base text-ink-soft transition-colors group-hover:text-ink">
                       {s.name} in {a.name}
                     </span>
-                    <ArrowRight className="h-3.5 w-3.5 shrink-0 text-gold opacity-0 transition-opacity group-hover:opacity-100" />
+                    <ArrowRight className="h-3.5 w-3.5 shrink-0 text-accent opacity-0 transition-opacity group-hover:opacity-100" />
                   </a>
                 </li>
               ))}

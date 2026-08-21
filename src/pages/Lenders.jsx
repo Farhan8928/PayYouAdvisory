@@ -70,7 +70,7 @@ export default function Lenders({ trail }) {
             </table>
           </div>
 
-          <p className="mt-8 max-w-prose border-l-2 border-brass pl-5 text-base leading-relaxed text-ink-soft">
+          <p className="mt-8 max-w-prose border-l-2 border-accent pl-5 text-base leading-relaxed text-ink-soft">
             The practical rule: start with a bank if your profile is standard — salaried, clean
             credit, a well-titled flat in a mainstream project. Go to an NBFC when it is not, and
             treat the higher rate as the price of an approval you would not otherwise get. Refinance

@@ -35,7 +35,7 @@ export default function Legal({ slug, trail }) {
           {doc.sections.map((s, i) => (
             <section key={s.heading} className="mb-12 last:mb-0">
               <div className="mb-4 flex items-baseline gap-4">
-                <span className="fig shrink-0 text-2xs tracking-[0.16em] text-gold">
+                <span className="fig shrink-0 text-2xs tracking-[0.16em] text-accent">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <h2 className="text-2xl text-ink">{s.heading}</h2>
@@ -51,7 +51,7 @@ export default function Legal({ slug, trail }) {
                 <ul className="mt-2 space-y-2.5">
                   {s.list.map((item) => (
                     <li key={item} className="flex max-w-prose gap-3 text-base leading-relaxed text-ink-soft">
-                      <Check className="mt-1.5 h-3.5 w-3.5 shrink-0 text-gold" />
+                      <Check className="mt-1.5 h-3.5 w-3.5 shrink-0 text-accent" />
                       {item}
                     </li>
                   ))}

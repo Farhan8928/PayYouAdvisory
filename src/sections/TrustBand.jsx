@@ -29,7 +29,7 @@ export default function TrustBand() {
               {/* The gold rule grows on hover — a small, cheap acknowledgement
                   that the pointer is there. */}
               <span
-                className="absolute inset-x-0 top-0 h-0.5 w-10 bg-brass transition-all duration-500 ease-brand group-hover:w-full"
+                className="absolute inset-x-0 top-0 h-0.5 w-10 bg-accent transition-all duration-500 ease-brand group-hover:w-full"
                 aria-hidden="true"
               />
               <dt className="sr-only">{s.label}</dt>

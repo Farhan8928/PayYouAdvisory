@@ -113,7 +113,7 @@ export default function BalanceTransferCalculator() {
                 type="checkbox"
                 checked={keepTenure}
                 onChange={(e) => setKeepTenure(e.target.checked)}
-                className="mt-0.5 h-4 w-4 shrink-0 accent-brass"
+                className="mt-0.5 h-4 w-4 shrink-0 accent-accent"
               />
               <span className="text-sm leading-relaxed text-ink-soft">
                 Keep the same remaining tenure
@@ -146,7 +146,7 @@ export default function BalanceTransferCalculator() {
           {/* The verdict, first and largest. */}
           <div
             className={`border-l-[3px] p-5 ${
-              r.worthIt ? 'border-ink bg-paper-deep' : 'border-brass bg-paper-deep'
+              r.worthIt ? 'border-ink bg-paper-deep' : 'border-accent bg-paper-deep'
             }`}
           >
             <p className="mb-1.5 text-2xs font-semibold uppercase tracking-[0.12em] text-ink-faint">
@@ -190,7 +190,7 @@ export default function BalanceTransferCalculator() {
           </div>
 
           {r.tenureExtended ? (
-            <p className="mt-6 border-l-2 border-brass pl-4 text-sm leading-relaxed text-ink-soft">
+            <p className="mt-6 border-l-2 border-accent pl-4 text-sm leading-relaxed text-ink-soft">
               You have extended the tenure by {fmtMonths(newTenure - remaining)}. That is where most
               of the lower EMI is coming from — not from the rate. Compare the total figures above,
               not the monthly ones.

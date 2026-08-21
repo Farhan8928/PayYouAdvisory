@@ -46,14 +46,14 @@ export default function Process() {
                   ends at the first and last marker rather than floating past
                   them. */}
               <span
-                className="absolute left-[1.4375rem] top-8 bottom-8 w-px bg-gradient-to-b from-brass via-brass/40 to-transparent"
+                className="absolute left-[1.4375rem] top-8 bottom-8 w-px bg-gradient-to-b from-accent via-accent/40 to-transparent"
                 aria-hidden="true"
               />
 
               {PROCESS.map((s, i) => (
                 <li key={s.step} id={`process-${s.step}`} className="relative flex gap-6 pb-10 last:pb-0">
-                  <span className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-brass/40 bg-paper shadow-card">
-                    <span className="fig text-sm font-semibold text-brass-deep">{s.step}</span>
+                  <span className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-accent/40 bg-paper shadow-card">
+                    <span className="fig text-sm font-semibold text-accent-deep">{s.step}</span>
                   </span>
 
                   <div className="pt-1.5">
@@ -62,7 +62,7 @@ export default function Process() {
                       {s.body}
                     </p>
                     <p className="mt-4 flex items-start gap-2.5 text-2xs leading-relaxed text-ink-faint">
-                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gold" />
+                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent" />
                       {s.detail}
                     </p>
                   </div>

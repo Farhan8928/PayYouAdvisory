@@ -74,12 +74,12 @@ export default function Argument() {
               {POINTS.map((p) => (
                 <article
                   key={p.n}
-                  className="group rounded-lg border border-ink/10 bg-paper p-7 shadow-card transition-all duration-300 ease-brand hover:-translate-y-0.5 hover:border-brass/40 hover:shadow-lift"
+                  className="group rounded-lg border border-ink/10 bg-paper p-7 shadow-card transition-all duration-300 ease-brand hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-lift"
                 >
-                  <span className="fig mb-4 block text-2xs tracking-[0.16em] text-gold">{p.n}</span>
+                  <span className="fig mb-4 block text-2xs tracking-[0.16em] text-accent">{p.n}</span>
                   <h3 className="font-display text-2xl leading-tight text-ink">{p.title}</h3>
                   <p className="mt-4 max-w-prose text-base leading-relaxed text-ink-soft">{p.body}</p>
-                  <p className="mt-5 border-l-2 border-brass/50 pl-5 text-sm leading-relaxed text-ink-faint">
+                  <p className="mt-5 border-l-2 border-accent/50 pl-5 text-sm leading-relaxed text-ink-faint">
                     {p.against}
                   </p>
                 </article>

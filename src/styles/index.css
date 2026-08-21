@@ -6,38 +6,39 @@
   :root {
     --bar-h: 4.5rem;
 
-    /* ── Context-aware gold ────────────────────────────────────────────────
-       Gold text has a contrast problem that only shows up on one of the two
-       grounds this site uses, which is exactly the kind of thing that ships.
-       #c9a227 on the navy is about 7:1 — comfortable. The same gold on the
-       warm off-white is about 2.2:1, which fails WCAG AA for body text and is
-       genuinely hard to read on a phone in daylight.
+    /* ── Context-aware emphasis colour ──────────────────────────────────────
+       The brand red has a contrast problem that only appears on one of the two
+       grounds this site uses, which is exactly the kind of thing that ships
+       unnoticed.
 
-       Two tokens and a rule ("bright gold on dark, deep gold on light") would
-       work and would be forgotten at the fortieth call site. So the colour is
-       a custom property instead: `.text-gold` resolves to the deep gold by
-       default, and any dark container re-declares the property so everything
-       inside it inherits the bright one. Nothing at the call site has to know
-       which ground it is sitting on.
+       #e31e24 on white is about 4.0:1 — under WCAG AA for body text, and
+       genuinely hard to read on a phone in daylight. #b8151b clears it at
+       6.5:1 and reads as the same red. On the dark blue the red is worse
+       still (~4.2:1), so there the emphasis colour is the brand blue
+       lightened — #9bc0f0 — rather than an unrelated hue.
 
-       `bg-brass` is deliberately *not* part of this — a gold button is bright
-       gold on both grounds, because there the gold is the background and the
-       navy text on it is what has to be legible. */
-    --gold-ink: theme(colors.brass.deep);
+       Two tokens plus a convention would be forgotten by the fortieth call
+       site, so it is a custom property: `.text-accent` resolves correctly and
+       nothing at the call site has to know which ground it sits on.
+
+       `bg-accent` is deliberately outside this system. A red button is the
+       full brand red on both grounds, because there the red is the background
+       and the white text on it is what has to be legible. */
+    --accent-ink: theme(colors.accent.deep);
   }
 
   .on-dark {
-    --gold-ink: theme(colors.brass.DEFAULT);
+    --accent-ink: theme(colors.sky);
   }
 
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 6.5rem;
+    scroll-padding-top: 6rem;
     -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply bg-paper font-sans text-ink antialiased;
+    @apply bg-paper font-sans text-ink-text antialiased;
   }
 
   ::selection {
@@ -45,7 +46,7 @@
   }
 
   :focus-visible {
-    @apply outline-none ring-2 ring-brass ring-offset-2 ring-offset-paper;
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-paper;
   }
 
   h1,
@@ -64,10 +65,10 @@
   }
 
   /* ── Motion, globally ──────────────────────────────────────────────────
-     Every animation on this site is decorative. Someone who has asked their
-     operating system to reduce motion gets a completely static page, and
-     nothing is hidden or unreachable as a result — which is the whole reason
-     the reveal system below is built the way it is. */
+     Every animation here is decorative. Someone who has asked their operating
+     system to reduce motion gets a completely static page, and nothing is
+     hidden or unreachable as a result — which is why the reveal system at the
+     foot of this file is built the way it is. */
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
@@ -93,48 +94,39 @@
     @apply mx-auto w-full max-w-[54rem] px-5 sm:px-8;
   }
 
-  .h-section {
-    @apply font-display text-4xl font-normal leading-[1.05] tracking-[-0.01em] sm:text-5xl;
-  }
-
+  /* Display sizes. All one family — see the note in tailwind.config.js. */
   .h-display {
-    @apply font-display text-5xl font-normal leading-[0.98] tracking-[-0.015em] sm:text-6xl lg:text-7xl;
+    @apply text-4xl font-extrabold leading-[1.06] tracking-[-0.03em] sm:text-5xl lg:text-6xl;
   }
 
-  /* Sub-display headings, set in the sans because Instrument Serif only earns
-     its keep above roughly 32px. Below that it reads thin, not expensive. */
+  .h-section {
+    @apply text-3xl font-extrabold leading-[1.1] tracking-[-0.025em] sm:text-4xl;
+  }
+
   .h-card {
-    @apply font-sans text-xl font-extrabold tracking-[-0.015em];
+    @apply text-xl font-bold leading-snug tracking-[-0.015em];
   }
 
   /* ── Rules and markers ──────────────────────────────────────────────── */
 
-  /* The gold hairline that marks a section. Fades at both ends so it reads as
-     an engraved rule rather than a drawn box edge. */
   .rule-mark {
-    @apply mb-6 block h-px w-24 bg-gold-rule bg-[length:200%_100%] animate-shimmer;
-  }
-
-  /* Gold text that adapts to its ground. See --gold-ink in @layer base. */
-  .text-gold {
-    color: var(--gold-ink);
+    @apply mb-5 block h-[3px] w-16 rounded-full bg-accent-rule bg-[length:200%_100%];
   }
 
   .eyebrow {
-    @apply mb-4 flex items-center gap-3 font-mono text-2xs font-medium uppercase tracking-[0.18em];
-    color: var(--gold-ink);
+    @apply mb-4 flex items-center gap-3 text-2xs font-bold uppercase tracking-[0.16em];
+    color: var(--accent-ink);
   }
 
   .eyebrow::before {
     content: '';
-    @apply h-px w-8;
-    background-color: var(--gold-ink);
+    @apply h-[3px] w-7 rounded-full;
+    background-color: var(--accent-ink);
   }
 
-  /* An index number set in mono, part of the composition rather than a badge. */
   .index-num {
-    @apply fig text-2xs font-medium tracking-[0.16em];
-    color: var(--gold-ink);
+    @apply fig text-2xs font-semibold tracking-[0.16em];
+    color: var(--accent-ink);
   }
 
   .prose-body {
@@ -144,7 +136,7 @@
   /* ── The figure face ────────────────────────────────────────────────────
      Every rupee amount, rate, tenure and phone number carries this. Tabular
      lining figures are why columns of money line up and why a decimal point
-     cannot drift — see DESIGN.md § The figure rule. */
+     cannot drift — DESIGN.md § The figure rule. */
   .fig {
     @apply font-mono;
     font-variant-numeric: tabular-nums lining-nums;
@@ -156,33 +148,36 @@
     @apply fig text-3xl font-semibold sm:text-4xl;
   }
 
-  /* Gold gradient type, for the one figure per screen that matters most. */
-  .text-gold-sheen {
-    @apply bg-gold-sheen bg-[length:200%_100%] bg-clip-text text-transparent animate-shimmer;
+  /* Emphasis colour that adapts to its ground. See --accent-ink above. */
+  .text-accent {
+    color: var(--accent-ink);
+  }
+
+  .text-accent-sheen {
+    @apply bg-accent-sheen bg-[length:200%_100%] bg-clip-text text-transparent;
   }
 
   /* ── Controls ───────────────────────────────────────────────────────── */
 
   .btn {
-    @apply relative inline-flex items-center justify-center gap-2 rounded-md px-6 py-3.5 text-sm
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-6 py-3.5 text-sm
            font-bold tracking-[0.005em] transition-all duration-300 ease-brand;
   }
 
-  .btn-primary {
-    @apply btn bg-ink text-paper hover:-translate-y-0.5 hover:bg-ink-deep hover:shadow-lift;
+  .btn-accent {
+    @apply btn bg-accent text-white hover:-translate-y-0.5 hover:bg-accent-deep hover:shadow-accent;
   }
 
-  .btn-brass {
-    @apply btn bg-brass text-ink-deep hover:-translate-y-0.5 hover:bg-brass-light hover:shadow-gold;
+  .btn-primary {
+    @apply btn bg-ink text-white hover:-translate-y-0.5 hover:bg-ink-deep hover:shadow-lift;
   }
 
   .btn-ghost {
-    @apply btn border border-ink/20 bg-transparent text-ink hover:-translate-y-0.5 hover:border-ink hover:bg-ink hover:text-paper;
+    @apply btn border-2 border-ink/20 text-ink hover:-translate-y-0.5 hover:border-ink hover:bg-ink hover:text-white;
   }
 
   .btn-ghost-invert {
-    @apply btn border border-paper/25 bg-paper/5 text-paper backdrop-blur-sm
-           hover:-translate-y-0.5 hover:border-brass hover:bg-brass hover:text-ink-deep;
+    @apply btn border-2 border-white/30 text-white hover:-translate-y-0.5 hover:border-white hover:bg-white hover:text-ink;
   }
 
   .btn-whatsapp {
@@ -194,7 +189,7 @@
   }
 
   .btn-lg {
-    @apply px-8 py-4 text-base;
+    @apply px-7 py-4 text-base;
   }
 
   /* ── Surfaces ───────────────────────────────────────────────────────── */
@@ -204,22 +199,40 @@
   }
 
   .card-hover {
-    @apply card hover:-translate-y-1 hover:border-ink/18 hover:shadow-lift;
+    @apply card hover:-translate-y-1 hover:border-accent/30 hover:shadow-lift;
   }
 
-  /* A panel that floats over a photograph. The blur is what makes it read as
-     glass rather than as a translucent rectangle; the border catches a highlight
-     along the top edge the way real glass does. */
   .glass {
-    @apply on-dark rounded-xl border border-paper/15 bg-ink-deep/70 shadow-glass backdrop-blur-xl;
+    @apply on-dark rounded-xl border border-white/15 bg-ink-deep/70 shadow-glass backdrop-blur-xl;
   }
 
   .glass-light {
-    @apply rounded-xl border border-paper/60 bg-paper/85 shadow-glass backdrop-blur-xl;
+    @apply rounded-xl border border-white/70 bg-white/90 shadow-glass backdrop-blur-xl;
   }
 
   .band-dark {
-    @apply on-dark bg-ink-sheen text-paper;
+    @apply on-dark bg-ink-sheen text-white;
+  }
+
+  /* ── The partner logo wall ──────────────────────────────────────────────
+     Twelve marks from twelve sources: some transparent, three with a solid
+     coloured block baked in, all at different weights. Greyscale at rest is
+     what makes them read as one set rather than as a scrapbook; colour on
+     hover gives the reader the brand recognition back the moment they look at
+     one. This is the standard treatment for a partner wall, and it is standard
+     precisely because nothing else solves the mismatch. */
+  .logo-tile {
+    @apply flex items-center justify-center rounded-lg border border-ink/10 bg-paper px-5 py-6
+           transition-all duration-300 ease-brand hover:-translate-y-0.5 hover:border-accent/30
+           hover:shadow-card;
+  }
+
+  .logo-tile img {
+    @apply h-9 w-auto max-w-full object-contain opacity-70 grayscale transition-all duration-300 ease-brand sm:h-10;
+  }
+
+  .logo-tile:hover img {
+    @apply opacity-100 grayscale-0;
   }
 
   /* ── Data ───────────────────────────────────────────────────────────── */
@@ -233,7 +246,7 @@
   }
 
   .spec-label {
-    @apply mb-1.5 block text-2xs font-semibold uppercase tracking-[0.14em] text-ink-faint;
+    @apply mb-1.5 block text-2xs font-bold uppercase tracking-[0.14em] text-ink-faint;
   }
 
   .spec-value {
@@ -254,7 +267,7 @@
   }
 
   .table-doc tbody tr:hover {
-    @apply bg-paper-deep/60;
+    @apply bg-paper-deep/70;
   }
 
   .table-doc tbody tr:last-child td {
@@ -264,9 +277,9 @@
   /* ── Form controls ──────────────────────────────────────────────────── */
 
   .field {
-    @apply w-full rounded-md border border-ink/15 bg-paper px-4 py-3 text-base text-ink
+    @apply w-full rounded-md border border-ink/15 bg-paper px-4 py-3 text-base text-ink-text
            transition-all duration-200 placeholder:text-ink-faint
-           focus:border-brass focus:outline-none focus:ring-2 focus:ring-brass/30;
+           focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/25;
   }
 
   .field-fig {
@@ -277,18 +290,17 @@
     @apply mb-2 block text-2xs font-bold uppercase tracking-[0.14em] text-ink-soft;
   }
 
-  /* A range input matching the palette rather than the OS. Both vendor blocks
-     are required and cannot be merged into one selector list — a browser drops
-     an entire rule when it meets a pseudo-element it does not recognise, which
-     silently reverts the track to the system blue. */
+  /* Both vendor blocks are required and cannot be merged into one selector
+     list — a browser drops an entire rule when it meets a pseudo-element it
+     does not recognise, which silently reverts the track to the system blue. */
   .slider {
     @apply h-1.5 w-full cursor-pointer appearance-none rounded-full bg-ink/12;
-    accent-color: #c9a227;
+    accent-color: #e31e24;
   }
 
   .slider::-webkit-slider-thumb {
-    @apply h-5 w-5 cursor-pointer appearance-none rounded-full border-2 border-paper bg-brass;
-    box-shadow: 0 2px 8px -2px rgba(201, 162, 39, 0.7);
+    @apply h-5 w-5 cursor-pointer appearance-none rounded-full border-2 border-paper bg-accent;
+    box-shadow: 0 2px 8px -2px rgba(227, 30, 36, 0.6);
     transition: transform 150ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
@@ -297,7 +309,7 @@
   }
 
   .slider::-moz-range-thumb {
-    @apply h-5 w-5 cursor-pointer rounded-full border-2 border-paper bg-brass;
+    @apply h-5 w-5 cursor-pointer rounded-full border-2 border-paper bg-accent;
   }
 
   /* ── Editorial devices ──────────────────────────────────────────────── */
@@ -306,17 +318,17 @@
      buried in 10px grey — DESIGN.md § Copy. In a YMYL category this is the
      strongest E-E-A-T signal on the page. */
   .disclosure {
-    @apply rounded-lg border border-brass/25 bg-brass/[0.06] px-6 py-5 text-sm leading-relaxed text-ink-soft;
+    @apply rounded-lg border border-accent/25 bg-accent/[0.05] px-6 py-5 text-sm leading-relaxed text-ink-soft;
   }
 
   .link-underline {
-    @apply underline decoration-ink/25 underline-offset-[3px] transition-colors hover:decoration-brass;
+    @apply underline decoration-ink/25 underline-offset-[3px] transition-colors hover:decoration-accent;
   }
 
-  /* Accordion panel, animated via grid-template-rows so it never needs a
-     measured pixel height and never has to be display:none — the content stays
-     in the DOM and in the accessibility tree, which is also what lets the FAQ
-     text be indexed on a prerendered page. */
+  /* Animated via grid-template-rows so the panel never needs a measured pixel
+     height and never has to be display:none — the content stays in the DOM and
+     in the accessibility tree, which is also what lets the FAQ text be indexed
+     on a prerendered page. */
   .accordion-panel {
     @apply grid transition-[grid-template-rows] duration-300 ease-brand;
     grid-template-rows: 0fr;
@@ -344,11 +356,11 @@
     transform: scale(1.06);
   }
 
-  /* A gold hairline along the top edge of a photograph — the detail that makes
-     an image look placed rather than pasted. */
+  /* A red hairline along the top edge of a photograph — the small detail that
+     makes an image look placed rather than pasted. */
   .photo-rule::after {
     content: '';
-    @apply pointer-events-none absolute inset-x-0 top-0 h-px bg-gold-rule;
+    @apply pointer-events-none absolute inset-x-0 top-0 h-[3px] bg-accent-rule;
   }
 }
 
@@ -367,7 +379,7 @@
   }
 
   .mask-fade-r {
-    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 7%, black 93%, transparent);
   }
 }
 
@@ -375,38 +387,28 @@
    Scroll-driven motion
    ══════════════════════════════════════════════════════════════════════════
 
-   Every reveal on this site is a CSS scroll-driven animation, not a JavaScript
-   IntersectionObserver. That choice is load-bearing, for reasons worth writing
-   down because the obvious implementation is worse in three separate ways.
+   Every reveal is a CSS scroll-driven animation, not a JavaScript
+   IntersectionObserver. That choice is load-bearing.
 
    The usual approach ships every section at `opacity: 0` and lets JavaScript
    add a class when it scrolls into view. On a prerendered site that is a
-   resilience bug, not an effect: if the bundle fails to load — a flaky mobile
-   connection, an over-eager corporate proxy, a browser extension — the visitor
-   gets a blank page containing perfectly good HTML they cannot see. It also
-   needs an inline script to avoid a flash of hidden content, which this site's
-   Content Security Policy forbids, and it costs main-thread work on exactly the
-   mid-range Android phones this audience reads on.
+   resilience bug rather than an effect: if the bundle fails to load — a flaky
+   mobile connection, a corporate proxy, an extension — the visitor gets a blank
+   page containing perfectly good HTML they cannot see. It also needs an inline
+   script to avoid a flash of hidden content, which this site's Content Security
+   Policy forbids, and it costs main-thread work on exactly the mid-range
+   Android phones this audience reads on.
 
-   `animation-timeline: view()` runs entirely on the compositor, needs no
-   JavaScript at all, and — critically — lives inside an `@supports` block.
-   A browser without support simply never applies the animation, so the content
-   was, is, and remains visible. There is no failure mode in which anything is
-   hidden. Chromium (the majority of this audience) gets the motion; Safari and
-   Firefox get a static page that is not missing anything.
-
-   Nothing here is applied when the visitor has asked for reduced motion — the
-   global rule in @layer base switches all of it off. */
+   `animation-timeline: view()` runs on the compositor, needs no JavaScript, and
+   lives inside `@supports`. A browser without support never applies the
+   animation, so the content was, is, and remains visible. There is no failure
+   mode in which anything is hidden. */
 
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     [data-reveal] {
       animation: reveal-up 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
       animation-timeline: view();
-      /* Start as the element's top edge enters the viewport; finish by the time
-         it is a third of the way up. `cover` measures the element's own
-         progress through the viewport, which is what keeps the timing
-         consistent between a short card and a tall section. */
       animation-range: entry 0% cover 26%;
     }
 
@@ -414,8 +416,6 @@
       animation-name: reveal-in;
     }
 
-    /* Stagger children of a revealing group. Four steps is enough to read as
-       deliberate sequencing; more reads as a page that is slow to load. */
     [data-stagger] > * {
       animation: reveal-up 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
       animation-timeline: view();
@@ -431,9 +431,9 @@
       animation-range: entry 0% cover 48%;
     }
 
-    /* Hero photograph drift. Deliberately small: 6% of travel across a whole
-       viewport of scroll. Parallax that announces itself is a 2014 effect; the
-       version that works is the one a reader feels rather than notices. The
+    /* Hero and backdrop photographs. Deliberately small — 6% of travel across a
+       whole viewport of scroll. Parallax that announces itself is a 2014 effect;
+       the version that works is the one a reader feels rather than notices. The
        element is pre-scaled 1.08 so the drift never exposes an edge. */
     [data-parallax] {
       animation: parallax-y linear both;
@@ -443,9 +443,9 @@
   }
 }
 
-/* The marquee track duplicates its content, so translating it exactly -50%
-   returns it to a position identical to where it started. Pausing on hover
-   lets a reader actually read a name they spotted. */
+/* The marquee track duplicates its content, so translating exactly -50% lands
+   on an identical frame. Pausing on hover lets a reader read a name they
+   spotted. */
 .marquee-track {
   @apply flex w-max animate-marquee;
 }

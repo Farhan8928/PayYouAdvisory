@@ -101,7 +101,7 @@ export default function Calculators({ tool = 'all', trail }) {
                         {pct(flat)}
                       </th>
                       {[36, 60, 84].map((m) => (
-                        <td key={m} className="fig border-paper/15 text-right font-medium text-gold">
+                        <td key={m} className="fig border-paper/15 text-right font-medium text-accent">
                           {pct(flatToReducing(flat, m))}
                         </td>
                       ))}
@@ -134,7 +134,7 @@ export default function Calculators({ tool = 'all', trail }) {
                       className="group flex h-full items-baseline justify-between gap-3 bg-paper p-6 transition-colors hover:bg-paper-deep"
                     >
                       <span className="h-card text-ink">{t.short}</span>
-                      <ArrowRight className="h-4 w-4 shrink-0 text-gold transition-transform group-hover:translate-x-1" />
+                      <ArrowRight className="h-4 w-4 shrink-0 text-accent transition-transform group-hover:translate-x-1" />
                     </a>
                   </li>
                 ))}
@@ -144,7 +144,7 @@ export default function Calculators({ tool = 'all', trail }) {
                   className="group flex h-full items-baseline justify-between gap-3 bg-paper p-6 transition-colors hover:bg-paper-deep"
                 >
                   <span className="h-card text-ink">All three</span>
-                  <ArrowRight className="h-4 w-4 shrink-0 text-gold transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="h-4 w-4 shrink-0 text-accent transition-transform group-hover:translate-x-1" />
                 </a>
               </li>
             </ul>

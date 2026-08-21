@@ -1,56 +1,49 @@
 import { useEffect, useRef, useState } from 'react'
 import { NAV, CONTACT, COMPANY, fmtMobile } from '../data/site.js'
 import { telHref } from '../lib/format.js'
-import { Phone, ChevronDown, Menu, Close } from './Icon.jsx'
+import { Phone, ChevronDown, Menu, Close, ArrowRight } from './Icon.jsx'
 import Wordmark from './Wordmark.jsx'
 
 /**
- * Site navigation: a utility strip, a wordmark, a mega-menu on desktop and a
- * full drawer on mobile.
+ * Site navigation: a utility strip, a white bar, a mega-menu on desktop and a
+ * drawer on mobile.
  *
- * Two things here are deliberate and easy to undo by accident.
+ * ── Why the bar is always solid ────────────────────────────────────────────
+ * A previous version made it transparent over the masthead and solid on scroll.
+ * That looked good and could not survive the real logo: PayYou's mark is royal
+ * blue on transparency with no reversed version, so over a dark photograph it
+ * vanished. Rather than mangle the client's logo to fit a nav trick, the bar is
+ * white and the logo is always shown in its correct colours. Every bank the
+ * client benchmarked against does the same thing for the same reason.
  *
- * 1. **The panels are real links, rendered in the server HTML.** They are shown
- *    and hidden with CSS and `hidden`, never conditionally mounted. A crawler
- *    that does not run JavaScript still sees every product URL in the markup,
- *    which is most of this site's internal linking. Mounting the panel only on
- *    hover would make the site's link graph invisible to anything that does not
- *    execute React.
+ * ── Two things that are easy to undo by accident ───────────────────────────
  *
- * 2. **Hover opens the panel; it does not navigate.** The top-level item is
- *    still a link to the hub page for keyboard and touch users, and the panel
- *    opens on focus as well as hover — a menu that only responds to a mouse is
- *    unusable with a keyboard, and this is a site people will read on a phone
- *    on a train.
+ * 1. **The mega-menu panels are real links in the server HTML.** They are shown
+ *    and hidden with `hidden`, never conditionally mounted. A crawler that does
+ *    not run JavaScript still sees every product URL, and that is most of this
+ *    site's internal linking.
+ *
+ * 2. **Hover opens the panel; it does not navigate.** The top-level item stays
+ *    a link to its hub for keyboard and touch users, and the panel opens on
+ *    focus as well as hover — a menu that only answers a mouse is unusable with
+ *    a keyboard.
  */
-export default function Nav({ path = '/', overlay = true }) {
-  const [open, setOpen] = useState(null) // label of the open desktop panel
+export default function Nav({ path = '/' }) {
+  const [open, setOpen] = useState(null)
   const [drawer, setDrawer] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const closeTimer = useRef(null)
 
-  /**
-   * `solid` is the single switch driving the bar's two colour schemes.
-   *
-   * It is true once the reader has scrolled past the masthead, and always true
-   * on a page that has no dark masthead to sit over — the 404, for instance,
-   * opens on paper, and a white wordmark on a transparent bar over it would be
-   * invisible. Deriving it here rather than checking `overlay` at six separate
-   * call sites is what stops one of them being missed.
-   */
-  const solid = scrolled || !overlay
-
-  // Condense the header once the reader has left the hero. `passive: true`
-  // matters — a non-passive scroll listener on a long page is a measurable
-  // input-latency cost on a mid-range Android, which is most of this audience.
+  // Only used to add a shadow and tighten the bar once the reader has moved.
+  // `passive: true` matters — a non-passive scroll listener is measurable
+  // input latency on a mid-range Android, which is most of this audience.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
+    const onScroll = () => setScrolled(window.scrollY > 24)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Escape closes whatever is open. Bound once rather than per-panel.
   useEffect(() => {
     const onKey = (e) => {
       if (e.key !== 'Escape') return
@@ -61,9 +54,6 @@ export default function Nav({ path = '/', overlay = true }) {
     return () => document.removeEventListener('keydown', onKey)
   }, [])
 
-  // Lock the page behind the mobile drawer. Restoring the previous value rather
-  // than clearing it stops this fighting any other component that touches
-  // overflow — of which there is currently one, the calculator's table modal.
   useEffect(() => {
     if (typeof document === 'undefined') return undefined
     const prev = document.body.style.overflow
@@ -88,19 +78,19 @@ export default function Nav({ path = '/', overlay = true }) {
 
   return (
     <header className="sticky top-0 z-50">
-      {/* Utility strip. Carries the phone number above everything else, because
-          in this business a call is the conversion and the number should never
-          be more than one glance away. */}
-      <div className="band-dark border-b border-paper/10">
+      {/* Utility strip. Carries the phone number above everything else: in this
+          business a call is the conversion, and the number should never be more
+          than one glance away. */}
+      <div className="band-dark">
         <div className="container-page flex h-9 items-center justify-between gap-4 text-2xs">
-          <p className="truncate text-paper/60">
+          <p className="truncate text-white/65">
             {COMPANY.shortName} · Loan advisory across Pune, PCMC, Baramati &amp; Phaltan
           </p>
           <div className="flex shrink-0 items-center gap-4">
-            <span className="hidden text-paper/50 sm:inline">{CONTACT.hours}</span>
+            <span className="hidden text-white/50 sm:inline">{CONTACT.hours}</span>
             <a
               href={telHref(CONTACT.landline)}
-              className="fig flex items-center gap-1.5 font-medium text-gold transition-colors hover:text-paper"
+              className="fig flex items-center gap-1.5 font-semibold text-white transition-colors hover:text-sky"
             >
               <Phone className="h-3 w-3" />
               {CONTACT.landlineDisplay}
@@ -109,38 +99,23 @@ export default function Nav({ path = '/', overlay = true }) {
         </div>
       </div>
 
-      {/* ── The bar ─────────────────────────────────────────────────────────
-          Transparent while the reader is still in the masthead, solid once they
-          have scrolled past it.
-
-          Every page on this site opens with a dark band — a photograph under a
-          navy scrim, or the navy gradient — so a light bar sitting on top of it
-          at the very top of the page draws a hard line across the composition
-          for no reason. Letting the masthead run under a transparent bar is
-          what makes the hero read as full-bleed.
-
-          The trade is that the bar has two colour schemes, which is why the
-          text colours below are conditional rather than fixed. It is worth it:
-          this is the first thing anybody sees. */}
       <nav
         aria-label="Primary"
-        className={`border-b transition-all duration-500 ease-brand ${
-          solid
-            ? 'border-ink/10 bg-paper/95 shadow-card backdrop-blur-xl'
-            : 'border-transparent bg-transparent'
+        className={`border-b border-ink/10 bg-paper transition-shadow duration-300 ${
+          scrolled ? 'shadow-nav' : ''
         }`}
       >
         <div
-          className={`container-page flex items-center justify-between gap-6 transition-[height] duration-500 ease-brand ${
-            solid ? 'h-16' : 'h-20'
+          className={`container-page flex items-center justify-between gap-6 transition-[height] duration-300 ease-brand ${
+            scrolled ? 'h-16' : 'h-20'
           }`}
         >
           <a href="/" className="shrink-0" aria-label={`${COMPANY.shortName} — home`}>
-            <Wordmark className={solid ? 'h-7' : 'h-9'} invert={!solid} />
+            <Wordmark className={scrolled ? 'h-8' : 'h-10'} priority />
           </a>
 
           {/* ── Desktop ─────────────────────────────────────────────────── */}
-          <ul className="hidden items-center gap-1 lg:flex">
+          <ul className="hidden items-center lg:flex">
             {NAV.map((item) => (
               <li
                 key={item.label}
@@ -153,24 +128,25 @@ export default function Nav({ path = '/', overlay = true }) {
                   aria-current={isActive(item.href) ? 'page' : undefined}
                   aria-expanded={item.children ? open === item.label : undefined}
                   onFocus={() => item.children && openPanel(item.label)}
-                  className={`flex items-center gap-1 px-3 py-2 text-sm font-semibold transition-colors duration-300 ${
-                    solid
-                      ? isActive(item.href)
-                        ? 'text-ink'
-                        : 'text-ink-soft hover:text-ink'
-                      : isActive(item.href)
-                        ? 'text-gold'
-                        : 'text-paper/80 hover:text-brass'
+                  className={`relative flex items-center gap-1 px-3.5 py-2 text-sm font-bold transition-colors duration-200 ${
+                    isActive(item.href) ? 'text-accent' : 'text-ink-text hover:text-accent'
                   }`}
                 >
                   {item.label}
                   {item.children ? (
                     <ChevronDown
-                      className={`h-3 w-3 transition-transform duration-150 ${
+                      className={`h-3 w-3 transition-transform duration-200 ${
                         open === item.label ? 'rotate-180' : ''
                       }`}
                     />
                   ) : null}
+                  {/* The active underline, in the logo red. */}
+                  <span
+                    className={`absolute inset-x-3.5 -bottom-px h-[3px] rounded-full bg-accent transition-transform duration-300 ease-brand ${
+                      isActive(item.href) ? 'scale-x-100' : 'scale-x-0'
+                    }`}
+                    aria-hidden="true"
+                  />
                 </a>
 
                 {/* Always rendered — see the note at the top of this file. */}
@@ -179,18 +155,23 @@ export default function Nav({ path = '/', overlay = true }) {
                     hidden={open !== item.label}
                     onMouseEnter={() => openPanel(item.label)}
                     onMouseLeave={scheduleClose}
-                    className="absolute left-0 top-full w-[26rem] border border-ink/15 bg-paper p-2 shadow-[0_18px_40px_-24px_rgba(12,42,34,0.45)]"
+                    className="absolute left-0 top-full w-[27rem] overflow-hidden rounded-b-xl border border-t-0 border-ink/10 bg-paper shadow-lift"
                   >
-                    <ul>
+                    <ul className="p-2">
                       {item.children.map((child) => (
                         <li key={child.href}>
                           <a
                             href={child.href}
-                            className="flex items-baseline justify-between gap-4 px-3 py-2.5 transition-colors hover:bg-paper-deep"
+                            className="group flex items-baseline justify-between gap-4 rounded-md px-3.5 py-3 transition-colors hover:bg-paper-deep"
                           >
-                            <span className="text-sm font-medium text-ink">{child.label}</span>
+                            <span className="flex items-center gap-2 text-sm font-bold text-ink-text">
+                              {child.label}
+                              <ArrowRight className="h-3 w-3 -translate-x-1 text-accent opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
+                            </span>
                             {child.meta ? (
-                              <span className="fig shrink-0 text-2xs text-ink-faint">{child.meta}</span>
+                              <span className="fig shrink-0 text-2xs text-ink-faint">
+                                {child.meta}
+                              </span>
                             ) : null}
                           </a>
                         </li>
@@ -202,14 +183,11 @@ export default function Nav({ path = '/', overlay = true }) {
             ))}
           </ul>
 
-          <div className="hidden shrink-0 items-center gap-3 lg:flex">
-            <a
-              href="/eligibility-calculator/"
-              className={solid ? 'btn-ghost btn-sm' : 'btn-ghost-invert btn-sm'}
-            >
+          <div className="hidden shrink-0 items-center gap-2.5 lg:flex">
+            <a href="/eligibility-calculator/" className="btn-ghost btn-sm">
               Check eligibility
             </a>
-            <a href={telHref(CONTACT.mobile)} className="btn-brass btn-sm fig">
+            <a href={telHref(CONTACT.mobile)} className="btn-accent btn-sm fig">
               {fmtMobile(CONTACT.mobile)}
             </a>
           </div>
@@ -218,9 +196,7 @@ export default function Nav({ path = '/', overlay = true }) {
           <button
             type="button"
             onClick={() => setDrawer(true)}
-            className={`-mr-2 flex items-center gap-2 p-2 transition-colors duration-300 lg:hidden ${
-              solid ? 'text-ink' : 'text-paper'
-            }`}
+            className="-mr-2 flex items-center gap-2 p-2 text-ink lg:hidden"
             aria-label="Open menu"
             aria-expanded={drawer}
           >
@@ -229,26 +205,24 @@ export default function Nav({ path = '/', overlay = true }) {
         </div>
       </nav>
 
-      {/* ── Mobile drawer ─────────────────────────────────────────────────
-          A panel rather than a full-screen takeover, so the page stays visible
-          behind it and the reader keeps their place. */}
+      {/* ── Mobile drawer ───────────────────────────────────────────────── */}
       <div
         className={`fixed inset-0 z-50 lg:hidden ${drawer ? '' : 'pointer-events-none'}`}
         aria-hidden={!drawer}
       >
         <div
-          className={`absolute inset-0 bg-ink-deep/50 transition-opacity duration-200 ${
+          className={`absolute inset-0 bg-ink-deep/50 transition-opacity duration-300 ${
             drawer ? 'opacity-100' : 'opacity-0'
           }`}
           onClick={() => setDrawer(false)}
         />
         <div
-          className={`absolute right-0 top-0 flex h-full w-full max-w-sm flex-col bg-paper transition-transform duration-200 ${
+          className={`absolute right-0 top-0 flex h-full w-full max-w-sm flex-col bg-paper transition-transform duration-300 ease-brand ${
             drawer ? 'translate-x-0' : 'translate-x-full'
           }`}
         >
-          <div className="flex h-16 shrink-0 items-center justify-between border-b border-ink/15 px-5">
-            <Wordmark className="h-7" />
+          <div className="flex h-16 shrink-0 items-center justify-between border-b border-ink/10 px-5">
+            <Wordmark className="h-8" />
             <button
               type="button"
               onClick={() => setDrawer(false)}
@@ -262,10 +236,7 @@ export default function Nav({ path = '/', overlay = true }) {
           <div className="flex-1 overflow-y-auto px-5 py-4">
             {NAV.map((item) => (
               <div key={item.label} className="border-b border-ink/10 py-1">
-                <a
-                  href={item.href}
-                  className="block py-3 h-card text-ink"
-                >
+                <a href={item.href} className="block py-3 text-lg font-extrabold text-ink">
                   {item.label}
                 </a>
                 {item.children ? (
@@ -289,8 +260,8 @@ export default function Nav({ path = '/', overlay = true }) {
             ))}
           </div>
 
-          <div className="shrink-0 space-y-2 border-t border-ink/15 p-5">
-            <a href={telHref(CONTACT.landline)} className="btn-primary fig w-full">
+          <div className="shrink-0 space-y-2 border-t border-ink/10 p-5">
+            <a href={telHref(CONTACT.landline)} className="btn-accent fig w-full">
               <Phone className="h-4 w-4" />
               {CONTACT.landlineDisplay}
             </a>

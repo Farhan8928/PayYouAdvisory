@@ -28,7 +28,7 @@ export default function Footer() {
       {/* ── Disclosure ──────────────────────────────────────────────────── */}
       <div className="border-b border-paper/10">
         <div className="container-page py-8">
-          <div className="border-l-[3px] border-brass pl-5">
+          <div className="border-l-[3px] border-accent pl-5">
             <p className="max-w-prose text-sm leading-relaxed text-paper/70">
               <strong className="font-semibold text-paper">
                 {COMPANY.name} is a loan referral and advisory firm — a Direct Selling Agent.
@@ -58,23 +58,23 @@ export default function Footer() {
           <div className="mt-6 space-y-2.5">
             <a
               href={telHref(CONTACT.landline)}
-              className="fig flex items-center gap-2.5 text-sm text-paper/80 transition-colors hover:text-brass"
+              className="fig flex items-center gap-2.5 text-sm text-paper/80 transition-colors hover:text-accent"
             >
-              <Phone className="h-3.5 w-3.5 shrink-0 text-gold" />
+              <Phone className="h-3.5 w-3.5 shrink-0 text-accent" />
               {CONTACT.landlineDisplay}
             </a>
             <a
               href={telHref(CONTACT.mobile)}
-              className="fig flex items-center gap-2.5 text-sm text-paper/80 transition-colors hover:text-brass"
+              className="fig flex items-center gap-2.5 text-sm text-paper/80 transition-colors hover:text-accent"
             >
-              <Phone className="h-3.5 w-3.5 shrink-0 text-gold" />
+              <Phone className="h-3.5 w-3.5 shrink-0 text-accent" />
               {fmtMobile(CONTACT.mobile)}
             </a>
             <a
               href={`mailto:${CONTACT.email}`}
-              className="flex items-center gap-2.5 text-sm text-paper/80 transition-colors hover:text-brass"
+              className="flex items-center gap-2.5 text-sm text-paper/80 transition-colors hover:text-accent"
             >
-              <Mail className="h-3.5 w-3.5 shrink-0 text-gold" />
+              <Mail className="h-3.5 w-3.5 shrink-0 text-accent" />
               {CONTACT.email}
             </a>
           </div>
@@ -108,7 +108,7 @@ export default function Footer() {
         <FooterCol title="Offices" className="lg:col-span-2">
           {OFFICES.map((o) => (
             <li key={o.id} className="mb-4 last:mb-0">
-              <p className="mb-1 flex items-center gap-1.5 text-2xs uppercase tracking-[0.12em] text-gold">
+              <p className="mb-1 flex items-center gap-1.5 text-2xs uppercase tracking-[0.12em] text-accent">
                 <Pin className="h-3 w-3" />
                 {o.kind}
               </p>
@@ -140,7 +140,7 @@ export default function Footer() {
               <li key={a.slug}>
                 <a
                   href={`/personal-loan-${a.slug}/`}
-                  className="text-sm text-paper/55 transition-colors hover:text-brass"
+                  className="text-sm text-paper/55 transition-colors hover:text-accent"
                 >
                   {a.name}
                   <span className="fig ml-1.5 text-2xs text-paper/30">{a.pincodes[0]}</span>
@@ -162,7 +162,7 @@ export default function Footer() {
               <li key={l.slug}>
                 <a
                   href={`/${l.slug}/`}
-                  className="text-2xs text-paper/50 transition-colors hover:text-brass"
+                  className="text-2xs text-paper/50 transition-colors hover:text-accent"
                 >
                   {l.title}
                 </a>
@@ -171,7 +171,7 @@ export default function Footer() {
             <li>
               <a
                 href="/photo-credits/"
-                className="text-2xs text-paper/50 transition-colors hover:text-brass"
+                className="text-2xs text-paper/50 transition-colors hover:text-accent"
               >
                 Photo credits
               </a>
@@ -199,7 +199,7 @@ function FooterLink({ href, children }) {
     <li>
       <a
         href={href}
-        className="block py-1 text-sm text-paper/65 transition-colors hover:text-brass"
+        className="block py-1 text-sm text-paper/65 transition-colors hover:text-accent"
       >
         {children}
       </a>

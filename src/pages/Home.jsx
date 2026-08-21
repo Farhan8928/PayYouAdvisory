@@ -3,6 +3,7 @@ import TrustBand from '../sections/TrustBand.jsx'
 import ProductList from '../sections/ProductList.jsx'
 import LenderWall from '../sections/LenderWall.jsx'
 import Process from '../sections/Process.jsx'
+import EligibilityBand from '../sections/EligibilityBand.jsx'
 import CalculatorTeaser from '../sections/CalculatorTeaser.jsx'
 import Argument from '../sections/Argument.jsx'
 import Testimonial from '../sections/Testimonial.jsx'
@@ -33,6 +34,7 @@ export default function Home() {
     <>
       <Hero />
       <TrustBand />
+      <EligibilityBand />
       <ProductList />
       <LenderWall />
       <Process />

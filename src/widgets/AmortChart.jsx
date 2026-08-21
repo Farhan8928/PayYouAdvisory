@@ -32,12 +32,12 @@ export function SplitBar({ principal, interest }) {
         aria-label={`Of the total amount payable, ${pct(share, 0)} is the principal you borrowed and ${pct(100 - share, 0)} is interest.`}
       >
         <div className="bg-ink transition-[width] duration-300" style={{ width: `${share}%` }} />
-        <div className="flex-1 bg-brass transition-[width] duration-300" />
+        <div className="flex-1 bg-accent transition-[width] duration-300" />
       </div>
 
       <figcaption className="mt-3 flex flex-wrap gap-x-6 gap-y-1.5">
         <Key colour={BRAND.ink} label="Principal" value={inrCompact(principal)} share={share} />
-        <Key colour={BRAND.brass} label="Interest" value={inrCompact(interest)} share={100 - share} />
+        <Key colour={BRAND.accent} label="Interest" value={inrCompact(interest)} share={100 - share} />
       </figcaption>
     </figure>
   )
@@ -123,7 +123,7 @@ export function BalanceChart({ years }) {
                 y={round(base - pH - iH)}
                 width={round(barW)}
                 height={round(iH)}
-                fill={BRAND.brass}
+                fill={BRAND.accent}
                 opacity="0.32"
               />
             </g>
@@ -169,7 +169,7 @@ export function BalanceChart({ years }) {
           Outstanding balance
         </span>
         <span className="flex items-center gap-2">
-          <span className="h-2.5 w-2.5 shrink-0 opacity-[0.32]" style={{ background: BRAND.brass }} aria-hidden="true" />
+          <span className="h-2.5 w-2.5 shrink-0 opacity-[0.32]" style={{ background: BRAND.accent }} aria-hidden="true" />
           Interest paid that year
         </span>
         <span className="flex items-center gap-2">

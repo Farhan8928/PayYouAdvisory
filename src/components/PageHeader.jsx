@@ -24,28 +24,13 @@ export default function PageHeader({
   aside,
   photo,
   children,
-}) {
-  /**
-   * `-mt-20` on the root, `pt-20` here.
-   *
-   * The navigation bar is transparent until the reader scrolls, so the masthead
-   * has to run underneath it — otherwise the bar draws a hard line across the
-   * top of every photograph. Pulling the masthead up by the bar's height and
-   * adding the same height back as padding puts the dark band behind the bar
-   * while leaving the content exactly where it was.
-   *
-   * The pull-up lives on the masthead rather than on `<main>` on purpose: a
-   * page without a dark masthead — the 404 — must not slide under the bar, and
-   * doing it this way means it simply does not.
-   */
-  const content = (
-    <div className="pt-20">
-      <div className="container-page py-14 sm:py-20 lg:py-24">
+}) {  const content = (
+    <div className="container-page py-14 sm:py-20 lg:py-24">
       <Breadcrumbs trail={trail} invert />
 
       <div className={aside ? 'grid gap-12 lg:grid-cols-12 lg:gap-16' : ''}>
         <div className={aside ? 'lg:col-span-7' : ''}>
-          {eyebrow ? <p className="eyebrow text-gold">{eyebrow}</p> : null}
+          {eyebrow ? <p className="eyebrow text-accent">{eyebrow}</p> : null}
 
           <h1 className="h-section max-w-4xl text-paper">{title}</h1>
 
@@ -61,20 +46,19 @@ export default function PageHeader({
             {aside}
           </div>
         ) : null}
-        </div>
       </div>
     </div>
   )
 
   if (photo) {
     return (
-      <PhotoBackdrop name={photo} scrim="left" priority className="-mt-20">
+      <PhotoBackdrop name={photo} scrim="left" priority>
         {content}
       </PhotoBackdrop>
     )
   }
 
-  return <header className="band-dark -mt-20">{content}</header>
+  return <header className="band-dark">{content}</header>
 }
 
 /**
@@ -111,7 +95,7 @@ export function Section({ id, tone = 'paper', size = 'md', children, className =
 export function SectionHead({ index, title, standfirst, invert = false, className = '' }) {
   return (
     <div className={`mb-12 sm:mb-16 ${className}`} data-reveal>
-      {index ? <p className="mb-4 font-mono text-2xs tracking-[0.18em] text-gold">{index}</p> : null}
+      {index ? <p className="mb-4 font-mono text-2xs tracking-[0.18em] text-accent">{index}</p> : null}
       <span className="rule-mark" />
       <h2 className={`h-section max-w-3xl ${invert ? 'text-paper' : 'text-ink'}`}>{title}</h2>
       {standfirst ? (
