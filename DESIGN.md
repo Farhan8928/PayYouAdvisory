@@ -202,17 +202,36 @@ Both go away the day the client supplies a reversed version. See
 
 Twelve marks, taken from the client's own site and normalised by
 `scripts/fetch-logos.mjs`: each is trimmed of dead space and centred in an
-identical 240×96 box, so the grid aligns on the logos rather than their original
+identical 240×96 box, so tiles align on the logos rather than on their original
 bounding boxes.
 
-The wall renders them **greyscale at 70% opacity, full colour on hover**. That is
-the standard treatment for a partner wall and it is standard because nothing else
-reconciles a yellow L&T block with a transparent SBI roundel. It also reads as
-quiet texture until you look at it, and resolves into recognisable banks the
-moment you do.
+**They render in full colour**, and that is a reversal from the first attempt,
+which was greyscale-with-colour-on-hover. Greyscale made twelve mismatched marks
+read as one set and was solving the wrong problem: bank recognition *is* the
+persuasion on this wall. Someone scanning it is looking for HDFC's red or SBI's
+blue, and desaturating them hides the only thing they came for. A tidy wall
+nobody recognises is worse than a slightly uneven one they do. Consistency comes
+from the tile — same white card, same padding — not from flattening the marks.
+
+The band **scrolls**: two rows, opposite directions, 58s and 48s. Unmatched
+speeds on purpose — identical ones make the pair read as a single rigid block
+sliding past. Hovering anywhere over the band pauses both rows, so a reader can
+stop on a logo rather than chase it. Twelve logos sitting still in a grid is a
+table of contents; twelve moving past is a business with twelve relationships.
+
+**The fallback is the part that needs care.** A marquee is `w-max` inside
+`overflow-hidden`; switching the animation off does not make it a static row, it
+freezes it at frame zero with everything past the right edge clipped and
+invisible. So under `prefers-reduced-motion` the row wraps and centres, the
+seamless-loop duplicate is removed, *and the second row is removed too* — both
+rows carry all twelve, so wrapping them both would print every logo twice. The
+result is exactly twelve, once each, no movement, nothing hidden. Verified by
+screenshotting the fallback, not by assuming it.
 
 Five partners have no logo published. They are named in the index below the wall
 rather than given an empty tile.
+
+---
 
 ## Photography
 

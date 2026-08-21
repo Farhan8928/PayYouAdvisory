@@ -1,12 +1,6 @@
-import {
-  BANKS,
-  NBFCS,
-  LENDERS_WITH_LOGOS,
-  PANEL_ARGUMENT,
-  PARTNER_COUNT_CLAIM,
-} from '../data/lenders.js'
-import { LOGOS, LOGO_BOX } from '../data/logos.gen.js'
+import { BANKS, NBFCS, PANEL_ARGUMENT, PARTNER_COUNT_CLAIM } from '../data/lenders.js'
 import { Section, SectionHead } from '../components/PageHeader.jsx'
+import LogoMarquee from '../components/LogoMarquee.jsx'
 import { ArrowRight, Check } from '../components/Icon.jsx'
 
 /**
@@ -15,16 +9,22 @@ import { ArrowRight, Check } from '../components/Icon.jsx'
  * ── Making twelve mismatched logos read as one set ─────────────────────────
  * The source files are a genuine mess — twelve resolutions, some transparent
  * and some not, three with a solid coloured block baked into the artwork.
- * `scripts/fetch-logos.mjs` handles half of it by trimming each mark of its
- * dead space and centring it in an identical box, so the grid aligns on the
- * logos rather than on their original bounding boxes.
  *
- * The rest is done here: every tile renders greyscale at 70% opacity and
- * returns to full colour on hover. That is the standard treatment for a partner
- * wall, and it is standard because nothing else reconciles a yellow L&T block
- * with a transparent SBI roundel. It has a useful second-order effect too — the
- * wall reads as quiet texture until you look at it, and resolves into
- * recognisable banks the moment you do.
+ * The first attempt reconciled them by rendering the whole wall greyscale, with
+ * colour restored on hover. It worked, and it was solving the wrong problem:
+ * bank recognition *is* the persuasion on this wall. Someone scanning it is
+ * looking for HDFC's red or SBI's blue, and desaturating them hides the only
+ * thing they came to see. A tidy wall nobody recognises is worse than a
+ * slightly uneven one they do.
+ *
+ * Consistency now comes from the tile rather than from the mark:
+ * `scripts/fetch-logos.mjs` trims each logo of its dead space and centres it in
+ * an identical box, and every tile is the same white card at the same padding.
+ * They align optically even though their source files do not.
+ *
+ * The band scrolls — see LogoMarquee. Twelve logos sitting still in a six-wide
+ * grid is a table of contents; twelve moving past is a business with twelve
+ * relationships.
  *
  * Five partners have no logo published on the client's own site. They are named
  * in the index below rather than represented by an empty tile.
@@ -40,26 +40,14 @@ export default function LenderWall({ full = false }) {
         />
 
         {/* ── The wall ─────────────────────────────────────────────────── */}
-        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6 lg:gap-4" data-stagger>
-          {LENDERS_WITH_LOGOS.map((lender) => {
-            const logo = LOGOS[lender.logo]
-            if (!logo) return null
-            return (
-              <li key={lender.logo} className="logo-tile">
-                <img
-                  src={`/logos/${lender.logo}.png`}
-                  srcSet={`/logos/${lender.logo}.png 1x, /logos/${lender.logo}@2x.png 2x`}
-                  width={LOGO_BOX.width}
-                  height={LOGO_BOX.height}
-                  alt={lender.name}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </li>
-            )
-          })}
-        </ul>
+      </div>
 
+      {/* Full-bleed, deliberately: a marquee that stops at the container edge
+          reads as a widget in a box. Running it to the edges of the viewport is
+          what makes it read as a band the page is passing through. */}
+      <LogoMarquee />
+
+      <div className="container-page">
         <p className="mt-5 text-2xs leading-relaxed text-ink-faint">
           Bank and NBFC names and marks are the property of their respective owners and appear here
           as factual references to institutions PayYou Advisory places business with. No endorsement

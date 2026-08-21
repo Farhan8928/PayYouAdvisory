@@ -230,24 +230,33 @@
   }
 
   /* ── The partner logo wall ──────────────────────────────────────────────
-     Twelve marks from twelve sources: some transparent, three with a solid
-     coloured block baked in, all at different weights. Greyscale at rest is
-     what makes them read as one set rather than as a scrapbook; colour on
-     hover gives the reader the brand recognition back the moment they look at
-     one. This is the standard treatment for a partner wall, and it is standard
-     precisely because nothing else solves the mismatch. */
+     In full colour, and that is a reversal worth recording.
+
+     The first version rendered these greyscale, restoring colour on hover, to
+     reconcile twelve marks from twelve sources — three of which have a solid
+     coloured block baked into the artwork. It made them read as one set, and it
+     was solving the wrong problem. Bank recognition *is* the persuasion on this
+     wall: a borrower scanning it is looking for HDFC's red or SBI's blue, and
+     desaturating them hides the only thing they came to see. A tidy wall nobody
+     recognises is worse than a slightly uneven one they do.
+
+     Consistency now comes from the tile rather than the mark — identical white
+     card, identical padding, and each logo pre-trimmed and centred in a common
+     box by scripts/fetch-logos.mjs, so they align optically even though their
+     source files do not. */
   .logo-tile {
-    @apply flex items-center justify-center rounded-lg border border-ink/10 bg-paper px-5 py-6
-           transition-all duration-300 ease-brand hover:-translate-y-0.5 hover:border-accent/30
-           hover:shadow-card;
+    @apply flex shrink-0 items-center justify-center rounded-lg border border-ink/10 bg-paper
+           px-6 py-5 transition-all duration-300 ease-brand hover:-translate-y-1
+           hover:border-accent/30 hover:shadow-lift;
+    width: 12.5rem;
   }
 
   .logo-tile img {
-    @apply h-9 w-auto max-w-full object-contain opacity-70 grayscale transition-all duration-300 ease-brand sm:h-10;
+    @apply h-9 w-auto max-w-full object-contain transition-transform duration-300 ease-brand sm:h-10;
   }
 
   .logo-tile:hover img {
-    @apply opacity-100 grayscale-0;
+    transform: scale(1.04);
   }
 
   /* ── Data ───────────────────────────────────────────────────────────── */
@@ -458,13 +467,66 @@
   }
 }
 
-/* The marquee track duplicates its content, so translating exactly -50% lands
-   on an identical frame. Pausing on hover lets a reader read a name they
-   spotted. */
+/* ── Marquee ────────────────────────────────────────────────────────────────
+   Each track duplicates its content, so translating exactly -50% lands on a
+   frame identical to the start and the loop is seamless. Hovering anywhere over
+   the band pauses every row, so a reader can stop on a logo they spotted rather
+   than chasing it. */
 .marquee-track {
   @apply flex w-max animate-marquee;
 }
 
+.marquee-row {
+  @apply flex w-max gap-4;
+}
+
+.marquee-row--slow {
+  @apply animate-marquee-slow;
+}
+
+.marquee-row--reverse {
+  @apply animate-marquee-reverse;
+}
+
+.marquee:hover .marquee-row,
 .marquee-track:hover {
   animation-play-state: paused;
+}
+
+/* ── The reduced-motion fallback, which is the part that matters ──────────
+   Switching the animation off is not enough on its own. A stopped marquee is a
+   `w-max` row inside `overflow-hidden`, so it would sit frozen at frame zero
+   with everything past the right edge simply invisible — a reader who asked for
+   less motion would silently lose half the partner logos.
+
+   So under reduced motion the track stops being a track: it wraps, centres, and
+   the duplicate copy is removed so nothing appears twice. Same content, no
+   movement, nothing hidden. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-row {
+    @apply w-full flex-wrap justify-center;
+    animation: none !important;
+  }
+
+  /* The duplicate is the <ul> *inside* the row, not the row itself — the row
+     has to survive so its children can wrap. Targeting `.marquee-row[aria-hidden]`
+     matched nothing, and the reduced-motion fallback quietly rendered all
+     twelve logos twice. Caught by screenshotting the fallback rather than
+     trusting it. */
+  /* Two things have to go, not one.
+     · The duplicate <ul> inside each row — it exists only to make the loop
+       seamless. (The selector is on the child, not the row: the row must
+       survive so its contents can wrap.)
+     · The whole second row — both rows carry all twelve logos, in opposite
+       orders, so that neither ever shows the same pair stacked as they pass.
+       Wrapped into a static grid that becomes every logo printed twice.
+     Together they leave exactly twelve, once each, wrapped and centred. */
+  .marquee-row > ul[aria-hidden='true'],
+  .marquee-row--reverse {
+    @apply hidden;
+  }
+
+  .marquee-row > ul {
+    @apply flex-wrap justify-center;
+  }
 }

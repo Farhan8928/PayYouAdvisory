@@ -143,6 +143,10 @@ export default {
       keyframes: {
         'slide-up': { from: { transform: 'translateY(100%)' }, to: { transform: 'translateY(0)' } },
         marquee: { from: { transform: 'translateX(0)' }, to: { transform: 'translateX(-50%)' } },
+        'marquee-reverse': {
+          from: { transform: 'translateX(-50%)' },
+          to: { transform: 'translateX(0)' },
+        },
         'reveal-up': {
           from: { opacity: '0', transform: 'translateY(24px)' },
           to: { opacity: '1', transform: 'translateY(0)' },
@@ -164,6 +168,12 @@ export default {
       animation: {
         'slide-up': 'slide-up 240ms cubic-bezier(0.22, 1, 0.36, 1)',
         marquee: 'marquee 44s linear infinite',
+        // Two rows at deliberately un-matched speeds. Identical durations make
+        // the pair read as one rigid block sliding past; a difference of about
+        // 20% is enough for them to feel independent without either drawing
+        // attention to itself.
+        'marquee-slow': 'marquee 58s linear infinite',
+        'marquee-reverse': 'marquee-reverse 48s linear infinite',
         shimmer: 'shimmer 6s linear infinite',
         'scroll-cue': 'scroll-cue 2.2s ease-in-out infinite',
       },
