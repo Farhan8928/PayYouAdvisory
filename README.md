@@ -228,6 +228,20 @@ average of every loan website in India.
 
 ## Deploying
 
+**`vercel.json` cannot contain comments.** JSON has none, and Vercel validates
+the file against a strict schema at deploy time: any unrecognised property is a
+hard failure. A `"//": "…"` key added as a pseudo-comment once broke a
+production deploy with `redirects[0] should NOT have additional property //`.
+Notes about the config go here in the README. `audit:seo` now checks every entry
+against the properties Vercel accepts, so this fails in the build rather than on
+the deploy.
+
+**The `www` redirect is currently inert**, and deliberately so. It matches the
+host `www.payyouadvisory.com`, which does not exist on the `vercel.app`
+deployment; it starts working the moment the real domain is attached. When
+`SITE_URL` in `src/data/site.js` changes, update both hosts in that redirect to
+match.
+
 Point Vercel at the repository. `vercel.json` already carries:
 
 - the `www` → apex 301

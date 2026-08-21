@@ -8,7 +8,6 @@
 
   "redirects": [
     {
-      "//": "www -> apex. Inert on the vercel.app deployment (there is no www host there); it starts working the moment payyouadvisory.com is attached. Update both hosts here when SITE_URL in src/data/site.js changes.",
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "www.payyouadvisory.com" }],
       "destination": "https://payyouadvisory.com/$1",

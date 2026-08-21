@@ -275,6 +275,58 @@ async function main() {
     if (!ROUTE_BY_PATH[r.to]) fail(`legacy redirect ${r.from} points at ${r.to}, which is not a route`)
   }
 
+  // ── vercel.json actually matches Vercel's schema ────────────────────────
+  //
+  // Vercel validates this file at deploy time and rejects any property it does
+  // not recognise. A `"//": "…"` key added as a pseudo-comment — JSON has no
+  // real ones — failed a production deploy with
+  // `redirects[0] should NOT have additional property //`.
+  //
+  // The build had no opinion about it, because nothing here had ever read the
+  // file's shape. A config error that only surfaces on the deploy is the worst
+  // place to find one: the site is already broken and the feedback loop is
+  // minutes long instead of seconds.
+  //
+  // Put explanatory notes in README.md, never in this file.
+  const ALLOWED = {
+    redirects: ['source', 'destination', 'permanent', 'statusCode', 'has', 'missing'],
+    rewrites: ['source', 'destination', 'has', 'missing'],
+    headers: ['source', 'headers', 'has', 'missing'],
+    cleanUrls: null,
+    trailingSlash: null,
+    buildCommand: null,
+    outputDirectory: null,
+    framework: null,
+    installCommand: null,
+    devCommand: null,
+    regions: null,
+    redirectsOrder: null,
+    $schema: null,
+  }
+
+  try {
+    const config = JSON.parse(vercel.replace(/^﻿/, ''))
+
+    for (const key of Object.keys(config)) {
+      if (!(key in ALLOWED)) warn(`vercel.json: unrecognised top-level key "${key}"`)
+    }
+
+    for (const [section, keys] of Object.entries(ALLOWED)) {
+      if (!keys || !Array.isArray(config[section])) continue
+      config[section].forEach((entry, i) => {
+        for (const key of Object.keys(entry)) {
+          if (!keys.includes(key))
+            fail(
+              `vercel.json: ${section}[${i}] has property "${key}", which Vercel rejects at deploy. ` +
+                `Allowed: ${keys.join(', ')}. JSON has no comments — put the note in README.md.`,
+            )
+        }
+      })
+    }
+  } catch (err) {
+    fail(`vercel.json is not valid JSON — ${err.message}`)
+  }
+
   // ── Report ───────────────────────────────────────────────────────────────
   console.log(
     `\nSEO audit — ${files.length} pages, ${locs.length} sitemap URLs, ${internalLinks.size} distinct internal targets`,

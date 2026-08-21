@@ -9,6 +9,7 @@
     "images": "node scripts/fetch-images.mjs",
     "logos": "node scripts/fetch-logos.mjs",
     "brand": "node scripts/make-brand-assets.mjs",
+    "pdf": "node scripts/make-client-pdf.mjs",
     "build:ssr": "vite build --ssr src/entry-server.jsx --outDir dist-ssr",
     "build": "vite build && node scripts/css-audit.mjs && npm run build:ssr && node scripts/prerender.mjs && node scripts/brand-audit.mjs && node scripts/image-audit.mjs && node scripts/duplication-audit.mjs && node scripts/ai-tells-audit.mjs && node scripts/seo-audit.mjs",
     "build:fast": "vite build",
