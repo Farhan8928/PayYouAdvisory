@@ -44,9 +44,9 @@ export default function Hero() {
         className="pointer-events-none absolute inset-y-0 right-0 -z-10 w-2/3 bg-gradient-to-l from-ink/[0.07] to-transparent"
       />
 
-      <div className="container-page grid items-center gap-12 py-14 lg:grid-cols-12 lg:gap-14 lg:py-16 short:py-10">
+      <div className="container-page grid items-center gap-10 py-12 lg:grid-cols-12 lg:gap-14 lg:py-14 short:py-8">
         {/* ── The argument ───────────────────────────────────────────────── */}
-        <div className="lg:col-span-6">
+        <div className="lg:col-span-7">
           <p className="eyebrow">Loan advisory · Pune &amp; Pimpri-Chinchwad</p>
 
           <h1 className="h-display text-ink">
@@ -55,14 +55,13 @@ export default function Hero() {
             <span className="text-accent-sheen">One application.</span>
           </h1>
 
-          <p className="mt-6 max-w-prose text-lg leading-relaxed text-ink-soft">
-            Apply to eight banks yourself and your credit report carries eight hard enquiries — and a
-            lower score at exactly the wrong moment. We read your profile the way an underwriter
-            will, work out which of our {PARTNER_COUNT_CLAIM} partners would approve it, and submit
-            to one.
+          <p className="mt-5 max-w-prose text-lg leading-relaxed text-ink-soft">
+            Apply to eight banks yourself and you collect eight hard enquiries — and a lower score at
+            exactly the wrong moment. We shortlist which of our {PARTNER_COUNT_CLAIM} partners would
+            actually approve your file, then submit to one.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          <div className="mt-7 flex flex-wrap items-center gap-3">
             <a href={telHref(CONTACT.landline)} className="btn-accent btn-lg">
               <Phone className="h-4 w-4" />
               <span className="fig">{CONTACT.landlineDisplay}</span>
@@ -74,7 +73,7 @@ export default function Hero() {
           </div>
 
           {/* Three checkable claims, on one line at desktop width. */}
-          <ul className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-3 border-t border-ink/10 pt-6">
+          <ul className="mt-7 flex flex-wrap items-center gap-x-7 gap-y-2.5 border-t border-ink/10 pt-5">
             {[
               'One credit enquiry, not one per lender',
               'Soft check first — nothing submitted without your word',
@@ -89,13 +88,13 @@ export default function Hero() {
         </div>
 
         {/* ── The photograph ─────────────────────────────────────────────── */}
-        <div className="lg:col-span-6">
+        <div className="lg:col-span-5">
           <div className="relative">
             <Photo
               name="hero-advisory"
-              ratio="4 / 3"
+              ratio="5 / 4"
               priority
-              sizes="(min-width: 1024px) 46vw, 92vw"
+              sizes="(min-width: 1024px) 40vw, 92vw"
               className="photo-rule rounded-xl shadow-lift"
             />
 

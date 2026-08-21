@@ -94,9 +94,24 @@
     @apply mx-auto w-full max-w-[54rem] px-5 sm:px-8;
   }
 
-  /* Display sizes. All one family — see the note in tailwind.config.js. */
+  /**
+   * Display sizes. All one family — see the note in tailwind.config.js.
+   *
+   * ── Why the steps are where they are ────────────────────────────────────
+   * These were set by measurement, not by taste. `npm run audit:viewport`
+   * loads the built page in Chrome at eight real viewport sizes and reports how
+   * many lines the h1 actually wraps to; the previous scale
+   * (`text-4xl sm:text-5xl lg:text-6xl`) produced three lines at every desktop
+   * width and four at 360px, which pushed the hero's call to action below the
+   * fold on a 1080p laptop at 150% scaling.
+   *
+   * 34px at 360 keeps "One application." on one line in a 320px column.
+   * 52px from 640 up fits "Twenty-five lenders." in the 7-column hero text
+   * well.  64px waits until 1536, which is the first width where that line
+   * comfortably fits at that size.
+   */
   .h-display {
-    @apply text-4xl font-extrabold leading-[1.06] tracking-[-0.03em] sm:text-5xl lg:text-6xl;
+    @apply text-[2.125rem] font-extrabold leading-[1.06] tracking-[-0.03em] sm:text-5xl 2xl:text-6xl;
   }
 
   .h-section {

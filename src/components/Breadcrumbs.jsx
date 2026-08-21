@@ -23,7 +23,7 @@ export default function Breadcrumbs({ trail, invert = false }) {
   const hover = invert ? 'hover:text-accent' : 'hover:text-accent-deep'
 
   return (
-    <nav aria-label="Breadcrumb" className="mb-8">
+    <nav aria-label="Breadcrumb" className="mb-5 sm:mb-8">
       <ol className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-2xs">
         {trail.map((crumb, i) => {
           const last = i === trail.length - 1
@@ -37,7 +37,10 @@ export default function Breadcrumbs({ trail, invert = false }) {
               ) : (
                 <a
                   href={crumb.href}
-                  className={`${muted} ${hover} transition-colors`}
+                  // py-1 takes the link from 16px to 24px tall, which is the
+                  // WCAG 2.2 AA minimum target size (2.5.8). Breadcrumbs are
+                  // small by nature; they still have to be tappable.
+                  className={`${muted} ${hover} inline-block py-1 transition-colors`}
                 >
                   {crumb.label}
                 </a>

@@ -1,5 +1,8 @@
 import Breadcrumbs from './Breadcrumbs.jsx'
 import { PhotoBackdrop } from './Photo.jsx'
+import { CONTACT, waLink, WA_DEFAULT } from '../data/site.js'
+import { telHref } from '../lib/format.js'
+import { Phone, Whatsapp } from './Icon.jsx'
 
 /**
  * The masthead on every page except the homepage.
@@ -23,9 +26,10 @@ export default function PageHeader({
   trail,
   aside,
   photo,
+  cta = true,
   children,
 }) {  const content = (
-    <div className="container-page py-14 sm:py-20 lg:py-24">
+    <div className="container-page py-9 sm:py-16 lg:py-24">
       <Breadcrumbs trail={trail} invert />
 
       <div className={aside ? 'grid gap-12 lg:grid-cols-12 lg:gap-16' : ''}>
@@ -35,7 +39,43 @@ export default function PageHeader({
           <h1 className="h-section max-w-4xl text-paper">{title}</h1>
 
           {standfirst ? (
-            <p className="mt-7 max-w-prose text-lg leading-relaxed text-paper/72">{standfirst}</p>
+            // text-base on a phone, text-lg from sm up. A locality page's
+            // standfirst is its unique local paragraph and must not be
+            // truncated — but at 19px on a 360px screen it runs to nine lines
+            // and pushed the call to action off the bottom. Two points smaller
+            // buys a line back without touching the content.
+            <p className="mt-5 max-w-prose text-base leading-relaxed text-paper/72 sm:mt-7 sm:text-lg">
+              {standfirst}
+            </p>
+          ) : null}
+
+          {/* ── An action, above the fold ────────────────────────────────
+              Every inner page needs one, and until `npm run audit:viewport`
+              measured it, none had one on a small phone: the masthead's aside
+              panel — which held the phone number — stacks *below* the
+              standfirst at narrow widths, so on a 360x640 screen the first
+              call to action on /personal-loan/ sat at 1059px. On /lenders/,
+              where the aside is a statistics block rather than a panel, the
+              first one was at 7415px.
+
+              The sticky bar catches people who scroll. This catches the ones
+              who do not. */}
+          {cta ? (
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a href={telHref(CONTACT.landline)} className="btn-accent">
+                <Phone className="h-4 w-4" />
+                <span className="fig">{CONTACT.landlineDisplay}</span>
+              </a>
+              <a
+                href={waLink(WA_DEFAULT)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ghost-invert"
+              >
+                <Whatsapp className="h-4 w-4" />
+                WhatsApp
+              </a>
+            </div>
           ) : null}
 
           {children}

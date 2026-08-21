@@ -82,7 +82,9 @@ export default function Nav({ path = '/' }) {
           business a call is the conversion, and the number should never be more
           than one glance away. */}
       <div className="band-dark">
-        <div className="container-page flex h-9 items-center justify-between gap-4 text-2xs">
+        {/* h-11 on mobile so the phone number is a 44px tap target; h-9 from
+            sm up, where a pointer does not need one. */}
+        <div className="container-page flex h-11 items-center justify-between gap-4 text-2xs sm:h-9">
           <p className="truncate text-white/65">
             {COMPANY.shortName} · Loan advisory across Pune, PCMC, Baramati &amp; Phaltan
           </p>
@@ -90,7 +92,10 @@ export default function Nav({ path = '/' }) {
             <span className="hidden text-white/50 sm:inline">{CONTACT.hours}</span>
             <a
               href={telHref(CONTACT.landline)}
-              className="fig flex items-center gap-1.5 font-semibold text-white transition-colors hover:text-sky"
+              // -my-2 py-2 makes the link fill the 36px strip without changing
+              // its visual position. A 16px-tall phone number is a 16px tap
+              // target, which on a phone is a miss waiting to happen.
+              className="fig -my-3 flex items-center gap-1.5 py-3 font-semibold text-white transition-colors hover:text-sky sm:-my-2 sm:py-2"
             >
               <Phone className="h-3 w-3" />
               {CONTACT.landlineDisplay}
@@ -196,7 +201,7 @@ export default function Nav({ path = '/' }) {
           <button
             type="button"
             onClick={() => setDrawer(true)}
-            className="-mr-2 flex items-center gap-2 p-2 text-ink lg:hidden"
+            className="-mr-2.5 flex h-11 w-11 items-center justify-center text-ink lg:hidden"
             aria-label="Open menu"
             aria-expanded={drawer}
           >
@@ -226,7 +231,7 @@ export default function Nav({ path = '/' }) {
             <button
               type="button"
               onClick={() => setDrawer(false)}
-              className="-mr-2 p-2 text-ink"
+              className="-mr-2.5 flex h-11 w-11 items-center justify-center text-ink"
               aria-label="Close menu"
             >
               <Close className="h-6 w-6" />
@@ -236,7 +241,7 @@ export default function Nav({ path = '/' }) {
           <div className="flex-1 overflow-y-auto px-5 py-4">
             {NAV.map((item) => (
               <div key={item.label} className="border-b border-ink/10 py-1">
-                <a href={item.href} className="block py-3 text-lg font-extrabold text-ink">
+                <a href={item.href} className="flex min-h-[44px] items-center py-3 text-lg font-extrabold text-ink">
                   {item.label}
                 </a>
                 {item.children ? (
@@ -245,7 +250,7 @@ export default function Nav({ path = '/' }) {
                       <li key={child.href}>
                         <a
                           href={child.href}
-                          className="flex items-baseline justify-between gap-3 py-2 text-sm text-ink-soft"
+                          className="flex min-h-[44px] items-center justify-between gap-3 py-2 text-sm text-ink-soft"
                         >
                           <span>{child.label}</span>
                           {child.meta ? (

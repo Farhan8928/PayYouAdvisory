@@ -214,7 +214,8 @@ const BASE_AREAS = [
       'One of PCMC’s fastest-growing residential fronts, largely new construction sold to first-time salaried buyers. Almost every file here is a home loan on an under-construction flat.',
     relevance: {
       'personal-loan': 'Frequently taken to fund the down payment on a flat, which lenders can see and dislike. Own contribution is expected to be genuinely your own.',
-      'business-loan': 'Limited commercial base as yet; mostly local retail and services.',
+      'business-loan':
+        'A limited commercial base as yet — local retail, clinics and services along the BRT road, serving a population that mostly works elsewhere. Vintage is the binding constraint here rather than turnover: a shop that opened with the township two years ago clears very few lenders’ three-year rule, and the ones it does clear are NBFCs pricing for that risk.',
       'home-loan':
         'Under-construction is the norm, so disbursement is staged against construction progress and you pay Pre-EMI in the meantime. Budget for paying rent and Pre-EMI simultaneously — that overlap is what catches first-time buyers here.',
       'loan-against-property':
@@ -301,7 +302,8 @@ const BASE_AREAS = [
     relevance: {
       'personal-loan':
         'Salaried and professional profiles, mostly straightforward — and an older population for whom a pension is the income. Several partner banks lend against pension credits, which is worth knowing because most people assume retirement closes the door.',
-      'business-loan': 'Established retail and professional practices with long vintage — a strong profile for unsecured limits.',
+      'business-loan':
+        'Established retail along Karve and Paud Roads and long-standing professional practices — doctors, architects, chartered accountants — with the kind of vintage most areas cannot show. That combination is close to the ideal unsecured profile, and owners here routinely under-borrow because they assume an unsecured limit is small. On a fifteen-year practice with clean banking it is not.',
       'home-loan':
         'A largely resale market, which changes the work entirely: instead of a builder’s approved-project list you are dealing with a chain of title, a share certificate, a society NOC and sometimes a live redevelopment proposal. Confirm the society’s status before you commit — a building under redevelopment discussion is fundable by far fewer lenders, and nobody volunteers that at the viewing.',
       'loan-against-property':
@@ -311,7 +313,7 @@ const BASE_AREAS = [
       'gold-loan':
         'Well served by branches along Karve Road, with same-day valuation. In a settled, long-held neighbourhood this is more often bridging finance between a sale and a purchase than distress borrowing — and the repayment structure matters more than the rate.',
       'working-capital-loan':
-        'Retail businesses along Karve and Paud Roads funding stock cycles, and professional practices needing an overdraft against fees receivable rather than a term loan they must repay on a fixed schedule.',
+        'Retail businesses along Karve and Paud Roads funding stock cycles, and professional practices needing an overdraft against fees receivable rather than a term loan repaid on a fixed schedule. The Kothrud pattern worth naming: a practice with property it owns outright, running its working capital on a personal loan because nobody suggested a secured overdraft at half the rate.',
     },
   },
   {

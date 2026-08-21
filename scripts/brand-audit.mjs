@@ -9,8 +9,9 @@
  * Nothing in the build notices. The only way to catch it is for a human to look
  * at a browser tab and remember what the colour used to be.
  *
- * Colours now come from src/data/brand.js and geometry from src/data/mark.js,
- * and this asserts that:
+ * Colours come from src/data/brand.js, sampled from PayYou's own logo, and the
+ * icons are generated from that logo by scripts/make-brand-assets.mjs. This
+ * asserts that:
  *   · the generated assets exist and are in palette colours
  *   · the manifest and the theme-color meta tag agree with the palette
  *   · no non-palette hex has crept into any built page

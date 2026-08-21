@@ -12,11 +12,13 @@ audits that fail the build rather than warn.
 
 ```bash
 npm install
-npm run images     # download + process the photography (once, or after editing src/data/photos.js)
-npm run brand      # favicon, PWA icons and the OG card (once, or after a palette change)
-npm run dev        # http://localhost:5175
-npm run build      # full pipeline: build → audits → prerender → audits
-npm run preview    # serve dist/ exactly as it will be served in production
+npm run images          # download + process the photography (after editing src/data/photos.js)
+npm run logos           # PayYou's logo + the 12 partner logos, from the live site
+npm run brand           # favicon, PWA icons and the OG card (after a palette change)
+npm run dev             # http://localhost:5175
+npm run build           # full pipeline: build → audits → prerender → audits
+npm run audit:viewport  # measure the built site in real Chrome, at 8 viewport sizes
+npm run preview         # serve dist/ exactly as it will be served in production
 ```
 
 `npm run build` is the only command that matters before shipping. It runs:
@@ -24,7 +26,7 @@ npm run preview    # serve dist/ exactly as it will be served in production
 | Step | What it does | Fails the build when |
 |---|---|---|
 | `vite build` | Client bundle + stylesheet | Compile error |
-| `audit:css` | Every dynamic Tailwind class actually compiled | A class generates no CSS (e.g. `text-ink/57`, `text-gold/50`) |
+| `audit:css` | Every dynamic Tailwind class actually compiled | A class generates no CSS (e.g. `text-ink/57`, `text-accent/50`) |
 | `build:ssr` | SSR bundle for the prerenderer | Compile error |
 | `prerender` | 137 pages + `404.html` + `sitemap.xml` + `llms.txt` | A page renders almost nothing, or the head markers are missing |
 | `audit:brand` | Palette, icons, manifest and type stack agree | A non-palette colour, a banned typeface, a stale icon |
@@ -32,8 +34,15 @@ npm run preview    # serve dist/ exactly as it will be served in production
 | `audit:dupes` | How alike the 112 locality pages actually are | A locality page is under 40% distinct from its sibling |
 | `audit:seo` | Titles, canonicals, schema, links, redirects, NAP | Duplicate titles, wrong canonical, broken internal link, missing disclosure |
 
-Current state: **44% mean distinctness** across the locality grid (weakest page
-40%), 22 photographs, 296 `<img>` tags, zero warnings.
+Plus one that needs a browser and therefore runs separately:
+
+| Step | What it does | Fails when |
+|---|---|---|
+| `audit:viewport` | Loads 5 page kinds x 8 viewports in real Chrome | A CTA falls below the fold, anything overflows horizontally, or a tap target is under its WCAG minimum |
+
+Current state: **44% mean distinctness** across the locality grid, 22
+photographs, 734 `<img>` tags, and the viewport audit passing on all 40
+page/viewport combinations. Zero warnings anywhere.
 
 `npm run images` is deliberately **not** part of the build: a deploy must work
 offline and on a CI box with no network egress, and must never silently depend
@@ -47,14 +56,14 @@ on someone else's CDN being up. The processed WebP files are committed.
 - **Prerendered multi-page**, not an SPA — see below
 - **Vercel** for hosting, with security headers and legacy 301s in `vercel.json`
 - **sharp** to generate brand assets at build time
-- Three dependencies in production: `react`, `react-dom`. That is the whole list.
+- Two dependencies in production: `react` and `react-dom`. That is the whole list.
 
 ### Why prerendered pages rather than a client-side router
 
 Every internal link is a plain `<a href>` causing a real navigation. This looks
 like a step backwards and is not, for this site:
 
-- All 136 pages are complete HTML on a CDN edge. A navigation is one cached
+- All 137 pages are complete HTML on a CDN edge. A navigation is one cached
   ~65 kB document, which lands faster than a client route change that would have
   to fetch anyway.
 - The site works with JavaScript disabled or still loading — which matters for a
@@ -75,7 +84,7 @@ so navigation feels instant without any of the above being given up.
 src/
   data/           the entire site's content, as plain JS
     brand.js        palette — imported by Tailwind AND the asset generator
-    mark.js         logo geometry — imported by <Wordmark> AND the asset generator
+    logos.gen.js    GENERATED — PayYou's logo + 12 partner logos, from npm run logos
     photos.js       the photography manifest (source URL, alt, focal point)
     images.gen.js   GENERATED — dimensions + blur placeholders, from npm run images
     site.js         NAP, offices, stats, navigation
@@ -92,14 +101,14 @@ src/
   widgets/        the three calculators + shared Field and SVG charts
   sections/       homepage sections
   pages/          one component per page kind
-  routes.js       THE ROUTE TABLE — 136 routes with head, breadcrumbs, JSON-LD
+  routes.js       THE ROUTE TABLE — 137 routes with head, breadcrumbs, JSON-LD
   App.jsx         shell; takes `path` as a prop so it renders on server and client
   entry-server.jsx build-time render entry
 scripts/
-  fetch-images.mjs · make-brand-assets.mjs
+  fetch-images.mjs · fetch-logos.mjs · make-brand-assets.mjs
   prerender.mjs
   css-audit.mjs · brand-audit.mjs · image-audit.mjs
-  duplication-audit.mjs · seo-audit.mjs
+  duplication-audit.mjs · seo-audit.mjs · viewport-audit.mjs
 ```
 
 **`src/routes.js` is the single source of truth for what pages exist.** The
@@ -120,6 +129,7 @@ and structured data attached.
 | 4 | Calculators (hub + three individual tools) |
 | 5 | Policy pages |
 | 5 | Lenders, About, Careers, Contact, FAQ |
+| 1 | Photo credits |
 
 The 112 locality pages are the SEO engine. **They are not doorway pages, and
 keeping them that way takes deliberate work.** Every area in `areas.js` carries
@@ -146,23 +156,33 @@ any hex outside the palette, on any built page. This exists because the failure
 it prevents is silent: the site changes colour, the browser tab and every
 WhatsApp link preview keep the old one, and nobody notices for months.
 
-**Do not hard-code the logo.** Same reason — `src/data/mark.js`. The OG card
-already drifted from the favicon once during this build, in the one file whose
-job is generating both.
+**Do not draw a logo.** `<Wordmark>` renders PayYou's real file from
+`public/brand/`, fetched by `npm run logos`. Two earlier versions of this site
+shipped an invented mark; that is the specific mistake this version exists to
+correct.
 
-**Use `.text-gold`, never `text-brass`, for gold text.** The gold that reads on
-navy fails WCAG contrast on the off-white. `.text-gold` resolves a custom
-property that dark containers redeclare, so it is correct on both grounds
-automatically. It is a component class, so `text-gold/50` compiles to nothing —
-use `text-brass/50` if you genuinely need a translucent gold on a dark ground.
+**Use `.text-accent` for emphasis text.** The brand red fails WCAG contrast on
+white (4.0:1) and is worse on the dark blue. `.text-accent` resolves a custom
+property that dark containers redeclare — deep red on light, a light brand blue
+on dark — so it is correct on both grounds automatically. It is a component
+class, so `text-accent/50` compiles to nothing; use the theme colour
+(`bg-accent`, `border-accent/30`) where you need an opacity modifier.
 
-**Never put `font-bold` on `font-display`.** Instrument Serif ships one weight;
-asking for bold makes the browser smear the outline. Use `.h-card` below display
-size.
+**Use `.h-display`, `.h-section`, `.h-card`** rather than assembling type sizes
+by hand. Their breakpoints were set from measured line counts, not from taste —
+see `npm run audit:viewport`.
 
 **Never write a bare `<img>`.** Use `<Photo>` or `<PhotoBackdrop>` so the
 intrinsic dimensions, the blur placeholder, the `srcset` and the focal point all
 come from the manifest. `audit:images` fails the build on a bare one.
+
+**Never size a layout by arithmetic. Measure it.** The hero was budgeted twice
+on paper — "headline 2 lines ≈ 120px, standfirst 2 lines ≈ 56px" — and was wrong
+both times, because the browser wrapped the headline to three lines and the
+standfirst to four, and the call to action ended up below the fold on an
+ordinary laptop. `npm run audit:viewport` is the answer to that: run it after
+any layout change. The type scale in `.h-display` has its measured line counts
+written next to it for the same reason.
 
 **Check a Tailwind opacity is on the scale.** Tailwind's default steps are
 multiples of five, so `border-ink/12` compiles to *nothing* — no error, no
