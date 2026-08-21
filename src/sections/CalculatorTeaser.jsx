@@ -17,16 +17,16 @@ export default function CalculatorTeaser() {
     <Section id="calculators" size="lg">
       <div className="container-page">
         <SectionHead
-          index="04 — Before you borrow"
+          index="Before you borrow"
           title="Work out what it costs before anyone asks for your PAN."
-          standfirst="Three calculators, all running entirely in your browser. Nothing you type is transmitted to us or to anyone else — there is no form, no OTP and no follow-up call you did not ask for."
+          standfirst="Three calculators, all running entirely in your browser. Nothing you type is transmitted to us or to anyone else. There is no form, no OTP and no follow-up call you did not ask for."
         />
 
-        <div data-reveal>
+        <div>
           <EmiCalculator compact />
         </div>
 
-        <div className="mt-6 grid gap-5 sm:grid-cols-3" data-stagger>
+        <div className="mt-6 grid gap-5 sm:grid-cols-3">
           {[
             {
               href: '/emi-calculator/',
@@ -36,7 +36,7 @@ export default function CalculatorTeaser() {
             {
               href: '/eligibility-calculator/',
               title: 'What you could borrow',
-              body: 'Worked the way a lender does it — on the ratio of your total EMIs to your income, which is what usually decides it.',
+              body: 'Worked the way a lender does it, on the ratio of your total EMIs to your income, which is what usually decides it.',
             },
             {
               href: '/balance-transfer-calculator/',

@@ -56,7 +56,7 @@ export default function Hero() {
           </h1>
 
           <p className="mt-5 max-w-prose text-lg leading-relaxed text-ink-soft">
-            Apply to eight banks yourself and you collect eight hard enquiries — and a lower score at
+            Apply to eight banks yourself and you collect eight hard enquiries, and a lower score at
             exactly the wrong moment. We shortlist which of our {PARTNER_COUNT_CLAIM} partners would
             actually approve your file, then submit to one.
           </p>
@@ -76,7 +76,7 @@ export default function Hero() {
           <ul className="mt-7 flex flex-wrap items-center gap-x-7 gap-y-2.5 border-t border-ink/10 pt-5">
             {[
               'One credit enquiry, not one per lender',
-              'Soft check first — nothing submitted without your word',
+              'Soft check first, nothing submitted without your word',
               'Our fee is paid by the lender',
             ].map((claim) => (
               <li key={claim} className="flex items-center gap-2 text-sm font-semibold text-ink-soft">

@@ -28,7 +28,7 @@ export default function Testimonial() {
     <PhotoBackdrop name="pune-skyline-dusk" scrim="full">
       <div className="container-page py-20 sm:py-28">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-          <figure className="lg:col-span-7" data-reveal>
+          <figure className="lg:col-span-7">
             {/* `text-accent/50`, not `text-accent/50`. `.text-accent` is a component
                 class resolving a custom property, so Tailwind's opacity
                 modifier does not apply to it and compiles to nothing at all —
@@ -61,7 +61,7 @@ export default function Testimonial() {
               <h2 className="h-card text-paper">Why only one?</h2>
               <p className="mt-3 text-base leading-relaxed text-paper/70">
                 Because it is the only one we can stand behind. Most sites in this business run a
-                carousel of five, and a good number of those are invented — the portraits are
+                carousel of five, and a good number of those are invented. The portraits are
                 reverse-image-searchable in about four seconds.
               </p>
               <p className="mt-4 text-base leading-relaxed text-paper/70">

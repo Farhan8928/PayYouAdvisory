@@ -34,9 +34,9 @@ export default function LenderWall({ full = false }) {
     <Section id="lenders" tone="deep" size="lg">
       <div className="container-page">
         <SectionHead
-          index="02 — The panel"
+          index="The panel"
           title={`${PARTNER_COUNT_CLAIM} lenders. We apply to one.`}
-          standfirst="A single lender gives you one credit policy and one answer. The same file — the same person, the same income, the same property — is approved at one institution and declined at another. The panel is not a badge; it is the product."
+          standfirst="A single lender gives you one credit policy and one answer. The same file, the same person, the same income, the same property: approved at one institution and declined at another. The panel is not a badge; it is the product."
         />
 
         {/* ── The wall ─────────────────────────────────────────────────── */}
@@ -67,12 +67,9 @@ export default function LenderWall({ full = false }) {
           </div>
 
           <div className="lg:col-span-5">
-            <ul className="grid gap-4" data-stagger>
-              {PANEL_ARGUMENT.map((a, i) => (
+            <ul className="grid gap-4">
+              {PANEL_ARGUMENT.map((a) => (
                 <li key={a.title} className="card p-6">
-                  <span className="fig mb-3 block text-2xs tracking-[0.16em] text-accent">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
                   <h3 className="h-card text-ink">{a.title}</h3>
                   <p className="mt-2.5 text-sm leading-relaxed text-ink-soft">{a.body}</p>
                 </li>

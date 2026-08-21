@@ -39,18 +39,18 @@ export const LEGAL_PAGES = [
       {
         heading: 'Who we are',
         body: [
-          `${COMPANY.name} is a loan referral and advisory firm — a Direct Selling Agent — with its corporate office at ${OFFICE_LINE}. We are not a bank, an NBFC or a lender.`,
+          `${COMPANY.name} is a loan referral and advisory firm, a Direct Selling Agent, with its corporate office at ${OFFICE_LINE}. We are not a bank, an NBFC or a lender.`,
           `For any question about this policy, write to ${CONTACT.email} or call ${CONTACT.landlineDisplay}.`,
         ],
       },
       {
         heading: 'What we collect',
         list: [
-          'Identity and contact details — your name, mobile number, email address and residential address.',
-          'Financial information — income, employment or business details, existing loan obligations, bank statements, income tax returns and PAN.',
-          'Credit information — your credit report and score, obtained with your consent from a credit information company.',
-          'Property information — where you are applying for a secured loan, details and documents relating to the property offered as security.',
-          'Website usage — pages visited and referring source, in aggregate. Our calculators do not transmit anything you type into them; those figures never leave your browser.',
+          'Identity and contact details: your name, mobile number, email address and residential address.',
+          'Financial information: income, employment or business details, existing loan obligations, bank statements, income tax returns and PAN.',
+          'Credit information: your credit report and score, obtained with your consent from a credit information company.',
+          'Property information: where you are applying for a secured loan, details and documents relating to the property offered as security.',
+          'Website usage: pages visited and referring source, in aggregate. Our calculators do not transmit anything you type into them; those figures never leave your browser.',
         ],
       },
       {
@@ -70,7 +70,7 @@ export const LEGAL_PAGES = [
       {
         heading: 'Who we share it with',
         list: [
-          'The partner bank or NBFC you instruct us to apply to — and only that one.',
+          'The partner bank or NBFC you instruct us to apply to, and only that one.',
           'Credit information companies, to obtain your credit report with your consent.',
           'Service providers who help us operate, such as document storage and communication tools, under confidentiality obligations.',
           'Any authority we are legally required to disclose to.',
@@ -128,7 +128,7 @@ export const LEGAL_PAGES = [
       {
         heading: 'How we are paid',
         body: [
-          'Our fee is paid by the lender, as a referral commission on a successfully disbursed loan, in the ordinary way a DSA is compensated. You should weigh our recommendations with that in mind — which is why we set out the comparison between lenders rather than simply telling you which to choose.',
+          'Our fee is paid by the lender, as a referral commission on a successfully disbursed loan, in the ordinary way a DSA is compensated. You should weigh our recommendations with that in mind, which is why we set out the comparison between lenders rather than simply telling you which to choose.',
           'Where any charge to you would ever apply, it will be stated to you in writing and agreed before you proceed. We do not take cash payments to "process" or "guarantee" an application.',
         ],
       },
@@ -185,7 +185,7 @@ export const LEGAL_PAGES = [
       {
         heading: 'Rates and figures are indicative',
         body: [
-          'Every rate, amount, tenure and eligibility criterion on this site is indicative and subject to the lender’s policy at the time of application. Where we quote a starting rate, it is the lowest advertised rate across our partner lenders — it is not a rate we can offer, and it is not a rate every applicant qualifies for.',
+          'Every rate, amount, tenure and eligibility criterion on this site is indicative and subject to the lender’s policy at the time of application. Where we quote a starting rate, it is the lowest advertised rate across our partner lenders. It is not a rate we can offer, and it is not a rate every applicant qualifies for.',
           'Where a rate is not published for a product, we say what the rate depends on rather than quoting a number we cannot stand behind.',
         ],
       },
@@ -199,7 +199,7 @@ export const LEGAL_PAGES = [
       {
         heading: 'No guarantee of approval',
         body: [
-          'No intermediary can guarantee that a loan will be approved. Anyone who tells you otherwise — including anyone claiming to act for us — is misrepresenting the position.',
+          'No intermediary can guarantee that a loan will be approved. Anyone who tells you otherwise, including anyone claiming to act for us, is misrepresenting the position.',
         ],
       },
       {
@@ -232,13 +232,13 @@ export const LEGAL_PAGES = [
         heading: 'What we set',
         body: [
           'This website is a set of static pages. It does not set advertising cookies, does not run third-party tracking scripts, and does not build a profile of you across other websites.',
-          'Your browser may store a small amount of data locally to remember a preference — for example, the last figures you used in a calculator, so they are still there if you come back to the page. That data stays on your device, is readable only by this site, and is never transmitted to us.',
+          'Your browser may store a small amount of data locally to remember a preference, for example, the last figures you used in a calculator, so they are still there if you come back to the page. That data stays on your device, is readable only by this site, and is never transmitted to us.',
         ],
       },
       {
         heading: 'What we measure',
         body: [
-          'We look at aggregate traffic figures — which pages are read, and where visitors arrived from — to understand what is useful. This does not identify you individually.',
+          'We look at aggregate traffic figures, which pages are read, and where visitors arrived from, to understand what is useful. This does not identify you individually.',
         ],
       },
       {
@@ -262,32 +262,32 @@ export const LEGAL_PAGES = [
     title: 'Grievance Redressal',
     updated: UPDATED,
     description:
-      'How to raise a complaint with PayYou Advisory, what happens next, and how to escalate — including to the lender and to the RBI Ombudsman.',
+      'How to raise a complaint with PayYou Advisory, what happens next, and how to escalate, including to the lender and to the RBI Ombudsman.',
     intro:
       'If something has gone wrong, this page tells you exactly who to contact and what to expect. It also tells you how to escalate past us, which is the part that matters if we are the problem.',
     sections: [
       {
-        heading: 'Step one — raise it with us',
+        heading: 'Step one: raise it with us',
         body: [
           `Call ${CONTACT.landlineDisplay} or write to ${CONTACT.email} with your name, mobile number, the product concerned and what went wrong. If you have a lender application reference, include it.`,
           'We will acknowledge a written complaint within two working days and aim to resolve it within fifteen working days. Where a complaint needs information from a lender, that timeline depends partly on them, and we will tell you if it is going to run over.',
         ],
       },
       {
-        heading: 'Step two — escalate within PayYou',
+        heading: 'Step two: escalate within PayYou',
         body: [
           `If the response does not resolve it, ask for the matter to be escalated to the Grievance Officer, in writing, at ${CONTACT.email} or by post to ${OFFICE_LINE}. Mark the subject line "Escalation".`,
           'You are entitled to be told the name of the person handling your complaint. Ask for it.',
         ],
       },
       {
-        heading: 'Step three — take it to the lender',
+        heading: 'Step three: take it to the lender',
         body: [
-          'If your complaint concerns the loan itself — the rate applied, a charge levied, the servicing of the account or a recovery practice — the lender is the correct respondent, not us. Every bank and NBFC publishes a grievance redressal mechanism with defined timelines, and we will give you the current contact details for the relevant one and help you frame the complaint.',
+          'If your complaint concerns the loan itself, the rate applied, a charge levied, the servicing of the account or a recovery practice. The lender is the correct respondent, not us. Every bank and NBFC publishes a grievance redressal mechanism with defined timelines, and we will give you the current contact details for the relevant one and help you frame the complaint.',
         ],
       },
       {
-        heading: 'Step four — the Ombudsman',
+        heading: 'Step four. The Ombudsman',
         body: [
           'Where a complaint against a bank or NBFC is not resolved within the period that institution’s own policy allows, or you are dissatisfied with its response, you may escalate to the Reserve Bank of India’s Integrated Ombudsman Scheme. Complaints can be filed online through the RBI’s complaint management portal, by post, or by email. There is no fee.',
           'For an insurance complaint, the equivalent escalation is to the insurer’s grievance cell and then to the Insurance Ombudsman.',

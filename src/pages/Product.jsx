@@ -100,11 +100,8 @@ export default function Product({ slug, trail }) {
         <div className="container-page">
           <SectionHead title={`What a ${p.name.toLowerCase()} gives you`} />
           <div className="grid gap-x-12 gap-y-9 sm:grid-cols-2">
-            {p.features.map((f, i) => (
+            {p.features.map((f) => (
               <div key={f.title}>
-                <span className="fig mb-3 block text-2xs tracking-[0.16em] text-accent">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
                 <h3 className="h-card leading-snug text-ink">{f.title}</h3>
                 <p className="mt-2.5 max-w-prose text-base leading-relaxed text-ink-soft">{f.body}</p>
               </div>
@@ -170,12 +167,9 @@ export default function Product({ slug, trail }) {
               standfirst="Across multiple insurers rather than a single one, which at least removes the worst version of the conflict every insurance sale carries."
             />
             <ul className="border-t border-ink/15">
-              {p.covers.map((c, i) => (
+              {p.covers.map((c) => (
                 <li key={c.name} className="grid gap-x-8 gap-y-2 border-b border-ink/15 py-6 lg:grid-cols-12">
-                  <span className="index-num lg:col-span-1">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <h3 className="text-xl text-ink lg:col-span-3">{c.name}</h3>
+                  <h3 className="text-xl text-ink lg:col-span-4">{c.name}</h3>
                   <p className="max-w-prose text-base leading-relaxed text-ink-soft lg:col-span-8">
                     {c.body}
                   </p>
@@ -281,15 +275,13 @@ export default function Product({ slug, trail }) {
               />
             </div>
             <ol className="lg:col-span-7">
-              {RATE_DEPENDS_ON.map((d, i) => (
+              {RATE_DEPENDS_ON.map((d) => (
                 <li
                   key={d}
-                  className="flex gap-5 border-b border-paper/12 py-4 first:border-t first:border-paper/12"
+                  className="flex gap-4 border-b border-white/12 py-4 first:border-t first:border-white/12"
                 >
-                  <span className="fig shrink-0 text-2xs tracking-[0.16em] text-accent">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <span className="text-base leading-relaxed text-paper/75">{d}</span>
+                  <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                  <span className="text-base leading-relaxed text-white/75">{d}</span>
                 </li>
               ))}
               <li className="pt-6 text-sm leading-relaxed text-paper/50">
@@ -307,7 +299,7 @@ export default function Product({ slug, trail }) {
           <div className="container-page">
             <SectionHead
               title="Tax treatment"
-              standfirst="General in nature and dependent on your circumstances. Confirm your own position with a qualified tax adviser before relying on it — these provisions change."
+              standfirst="General in nature and dependent on your circumstances. Confirm your own position with a qualified tax adviser before relying on it, because these provisions change."
             />
             <div className="scroll-x">
               <table className="table-doc min-w-[34rem]">
@@ -403,7 +395,7 @@ export default function Product({ slug, trail }) {
               {p.name} by area
             </h2>
             <p className="mb-6 max-w-prose text-sm leading-relaxed text-ink-soft">
-              What borrowers in each locality actually run into on this product — Bhosari’s MIDC
+              What borrowers in each locality actually run into on this product. Bhosari’s MIDC
               leaseholds are a different problem from Hinjewadi’s approved-project lists.
             </p>
             <ul className="flex flex-wrap gap-x-5 gap-y-2.5">

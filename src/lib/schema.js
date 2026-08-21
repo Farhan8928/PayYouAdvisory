@@ -106,7 +106,7 @@ export function localBusinessSchema() {
     telephone: `+91${CONTACT.landline.replace(/^0/, '')}`,
     email: CONTACT.email,
     image: abs('/og-image.jpg'),
-    priceRange: 'Advisory service — fee paid by the lender on disbursal',
+    priceRange: 'Advisory service: fee paid by the lender on disbursal',
     currenciesAccepted: 'INR',
     address: postalAddress(PRIMARY_OFFICE),
     geo: {

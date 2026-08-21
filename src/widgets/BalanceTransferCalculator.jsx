@@ -118,7 +118,7 @@ export default function BalanceTransferCalculator() {
               <span className="text-sm leading-relaxed text-ink-soft">
                 Keep the same remaining tenure
                 <span className="mt-1 block text-2xs text-ink-faint">
-                  Uncheck to model a longer one — which lowers the EMI and raises the total.
+                  Uncheck to model a longer one, which lowers the EMI and raises the total.
                 </span>
               </span>
             </label>
@@ -190,9 +190,9 @@ export default function BalanceTransferCalculator() {
           </div>
 
           {r.tenureExtended ? (
-            <p className="mt-6 border-l-2 border-accent pl-4 text-sm leading-relaxed text-ink-soft">
+            <p className="mt-6 rounded-md bg-paper-deep px-4 py-3 text-sm leading-relaxed text-ink-soft">
               You have extended the tenure by {fmtMonths(newTenure - remaining)}. That is where most
-              of the lower EMI is coming from — not from the rate. Compare the total figures above,
+              of the lower EMI is coming from, not from the rate. Compare the total figures above,
               not the monthly ones.
             </p>
           ) : null}
@@ -200,7 +200,7 @@ export default function BalanceTransferCalculator() {
       </div>
 
       <p className="border-t border-ink/15 bg-paper-deep px-6 py-4 text-2xs leading-relaxed text-ink-faint sm:px-8">
-        Indicative. Switching costs vary by lender and by property — ask for the full schedule of
+        Indicative. Switching costs vary by lender and by property. Ask for the full schedule of
         charges in writing before you commit. Computed in your browser; nothing you enter is
         transmitted.
       </p>

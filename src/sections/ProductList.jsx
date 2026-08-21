@@ -30,13 +30,13 @@ export default function ProductList() {
     <Section id="products" size="lg">
       <div className="container-page">
         <SectionHead
-          index="01 — What we place"
+          index="What we place"
           title="Eight products, and what each one is actually for."
           standfirst="Rates and limits below are the lowest across our partner panel, not offers. Where a lender has not published a figure we say what it depends on rather than invent one."
         />
 
         {/* Two wide cards. */}
-        <div className="grid gap-6 lg:grid-cols-2" data-stagger>
+        <div className="grid gap-6 lg:grid-cols-2">
           {[lead, second].map((p) => (
             <FeatureCard key={p.slug} product={p} />
           ))}
@@ -65,12 +65,7 @@ function FeatureCard({ product: p }) {
       >
         <span className="absolute inset-0 bg-gradient-to-t from-ink-deep/85 via-ink-deep/25 to-transparent" />
         <span className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6">
-          <span>
-            <span className="fig block text-2xs tracking-[0.16em] text-accent">{p.index}</span>
-            <span className="mt-1.5 block font-display text-3xl leading-none text-paper">
-              {p.name}
-            </span>
-          </span>
+          <span className="block font-display text-3xl leading-none text-white">{p.name}</span>
           <span className="mb-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-paper/25 bg-paper/10 backdrop-blur-sm transition-all duration-300 ease-brand group-hover:border-accent group-hover:bg-accent">
             <ArrowRight className="h-4 w-4 text-paper transition-colors group-hover:text-ink-deep" />
           </span>
@@ -106,9 +101,6 @@ function ProductCard({ product: p }) {
         className="photo-rule"
       >
         <span className="absolute inset-0 bg-gradient-to-t from-ink-deep/70 to-transparent" />
-        <span className="fig absolute left-5 top-4 text-2xs tracking-[0.16em] text-accent">
-          {p.index}
-        </span>
       </Photo>
 
       <div className="flex flex-1 flex-col p-5">

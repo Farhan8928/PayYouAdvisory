@@ -27,7 +27,7 @@ export default function Process() {
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
             <SectionHead
-              index="03 — How it runs"
+              index="How it runs"
               title="Four steps, and what does not happen at each."
               standfirst="Nothing is submitted anywhere until you say so. The credit check we run first is a soft one and leaves no mark on your report."
               className="mb-8"
@@ -41,7 +41,7 @@ export default function Process() {
           </div>
 
           <div className="lg:col-span-7">
-            <ol className="relative" data-stagger>
+            <ol className="relative">
               {/* The connecting line. Inset at top and bottom so it starts and
                   ends at the first and last marker rather than floating past
                   them. */}

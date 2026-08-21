@@ -37,7 +37,7 @@ export default function Calculators({ tool = 'all', trail }) {
       {(tool === 'all' || tool === 'emi') && (
         <Section size="md">
           <div className="container-page">
-            {tool === 'all' ? <SectionHead index="01" title="EMI, and what it really costs" /> : null}
+            {tool === 'all' ? <SectionHead title="EMI, and what it really costs" /> : null}
             <EmiCalculator />
           </div>
         </Section>
@@ -47,7 +47,7 @@ export default function Calculators({ tool = 'all', trail }) {
         <Section tone="deep" size="md">
           <div className="container-page">
             {tool === 'all' ? (
-              <SectionHead index="02" title="What a lender would lend you" />
+              <SectionHead title="What a lender would lend you" />
             ) : null}
             <EligibilityCalculator />
           </div>
@@ -58,7 +58,7 @@ export default function Calculators({ tool = 'all', trail }) {
         <Section size="md">
           <div className="container-page">
             {tool === 'all' ? (
-              <SectionHead index="03" title="Whether switching is worth the cost" />
+              <SectionHead title="Whether switching is worth the cost" />
             ) : null}
             <BalanceTransferCalculator />
           </div>
@@ -71,7 +71,7 @@ export default function Calculators({ tool = 'all', trail }) {
           <div className="lg:col-span-5">
             <SectionHead
               title="One number worth knowing: flat versus reducing"
-              standfirst="Vehicle and consumer finance is still sometimes quoted at a “flat” rate, which charges interest on the whole original amount for the entire tenure — even though you have repaid most of it. It sounds far cheaper than it is."
+              standfirst="Vehicle and consumer finance is still sometimes quoted at a “flat” rate, which charges interest on the whole original amount for the entire tenure, even though you have repaid most of it. It sounds far cheaper than it is."
               invert
               className="mb-0"
             />
@@ -113,7 +113,7 @@ export default function Calculators({ tool = 'all', trail }) {
 
             <p className="mt-6 max-w-prose text-sm leading-relaxed text-paper/60">
               Read the right-hand columns. A “9% flat” loan over five years costs roughly the same as
-              a 16% reducing-balance one. If a quote does not say which basis it is on, ask — and if
+              a 16% reducing-balance one. If a quote does not say which basis it is on, ask, and if
               the answer is flat, ask for the reducing equivalent in writing before you sign.
             </p>
           </div>
@@ -159,7 +159,7 @@ export default function Calculators({ tool = 'all', trail }) {
             They compute standard reducing-balance mathematics on the figures you enter and exclude
             processing fees, insurance premiums, statutory charges and any lender-specific levy. What
             a lender will actually offer depends on your credit profile, your income, your existing
-            obligations and — on a secured loan — the property. PayYou Advisory is a Direct Selling
+            obligations and, on a secured loan. The property. PayYou Advisory is a Direct Selling
             Agent and does not set rates.
           </Disclosure>
         </div>
@@ -174,12 +174,12 @@ const TOOLS = {
   all: {
     title: 'Do the arithmetic before anyone asks for your PAN.',
     standfirst:
-      'Three calculators. Every figure you type stays in your browser — there is no form, no OTP, and no follow-up call you did not ask for.',
+      'Three calculators. Every figure you type stays in your browser. There is no form, no OTP, and no follow-up call you did not ask for.',
   },
   emi: {
     short: 'EMI calculator',
     href: '/emi-calculator/',
-    title: 'What the EMI is — and what the loan actually costs.',
+    title: 'What the EMI is, and what the loan actually costs.',
     standfirst:
       'The monthly figure, the total interest at the same size, the year-by-year split, and what paying a little extra each month would save. Total interest is promoted deliberately: choosing a tenure on the EMI alone is how people pay for the same thing twice.',
   },
@@ -188,7 +188,7 @@ const TOOLS = {
     href: '/eligibility-calculator/',
     title: 'What could you actually borrow?',
     standfirst:
-      'Worked the way a lender does it — on the ratio of your total EMIs to your net income. Most applicants are limited by the loans they already carry rather than by their salary, and this shows you by how much.',
+      'Worked the way a lender does it, on the ratio of your total EMIs to your net income. Most applicants are limited by the loans they already carry rather than by their salary, and this shows you by how much.',
   },
   bt: {
     short: 'Balance transfer',

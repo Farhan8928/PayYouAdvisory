@@ -17,7 +17,7 @@ const POINTS = [
   {
     n: '01',
     title: 'We tell you when the answer is no',
-    body: 'If your file will not clear, we say so at the first conversation and explain what would have to change — a settled account cleared, an EMI closed, six months of consistent banking. Submitting an application we expect to fail costs you a hard enquiry and a month.',
+    body: 'If your file will not clear, we say so at the first conversation and explain what would have to change, a settled account cleared, an EMI closed, six months of consistent banking. Submitting an application we expect to fail costs you a hard enquiry and a month.',
     against: 'It also costs us the commission we would have earned by letting you find out the slow way.',
   },
   {
@@ -30,12 +30,12 @@ const POINTS = [
     n: '03',
     title: 'The lender pays us, and we say so',
     body: 'Our fee is a referral commission from the lender on a completed disbursal. That is how every DSA in the country is paid; the difference is that it is written on this page rather than left for you to assume.',
-    against: 'You should weigh our recommendation in that light — which is why we show you the comparison between lenders rather than only our conclusion.',
+    against: 'You should weigh our recommendation in that light, which is why we show you the comparison between lenders rather than only our conclusion.',
   },
   {
     n: '04',
     title: 'The hard files are the point',
-    body: 'Cash salary. An MIDC leasehold shed. Grampanchayat land. A thin credit file. Seasonal agricultural income. These are declined by most banks as a matter of policy and are ordinary business for specific NBFCs on our panel — knowing which is the job.',
+    body: 'Cash salary. An MIDC leasehold shed. Grampanchayat land. A thin credit file. Seasonal agricultural income. These are declined by most banks as a matter of policy and are ordinary business for specific NBFCs on our panel. Knowing which is the job.',
     against: 'A straightforward salaried applicant at a top employer may well do just as well walking into a branch. We will tell you that too.',
   },
 ]
@@ -55,7 +55,7 @@ export default function Argument() {
           <div className="lg:col-span-5">
             <div className="lg:sticky lg:top-28">
               <SectionHead
-                index="05 — Why a broker at all"
+                index="Why a broker at all"
                 title="Four things we do, and what each costs us."
                 standfirst="Every advisory firm claims to be transparent and customer-first. Those are not claims, they are words. These four are specific enough that you could catch us failing at them."
                 className="mb-8"
@@ -70,16 +70,15 @@ export default function Argument() {
           </div>
 
           <div className="lg:col-span-7">
-            <div className="grid gap-5" data-stagger>
+            <div className="grid gap-5">
               {POINTS.map((p) => (
                 <article
                   key={p.n}
                   className="group rounded-lg border border-ink/10 bg-paper p-7 shadow-card transition-all duration-300 ease-brand hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-lift"
                 >
-                  <span className="fig mb-4 block text-2xs tracking-[0.16em] text-accent">{p.n}</span>
                   <h3 className="font-display text-2xl leading-tight text-ink">{p.title}</h3>
                   <p className="mt-4 max-w-prose text-base leading-relaxed text-ink-soft">{p.body}</p>
-                  <p className="mt-5 border-l-2 border-accent/50 pl-5 text-sm leading-relaxed text-ink-faint">
+                  <p className="mt-5 border-t border-ink/10 pt-4 text-sm leading-relaxed text-ink-faint">
                     {p.against}
                   </p>
                 </article>

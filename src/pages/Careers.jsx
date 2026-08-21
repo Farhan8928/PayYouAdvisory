@@ -29,7 +29,7 @@ export default function Careers({ trail }) {
       <PageHeader
         eyebrow="Careers · Pune, Pimpri-Chinchwad, Baramati & Phaltan"
         title="Learn how credit actually gets decided."
-        standfirst="Most people in lending learn one lender's policy. Working on a panel of twenty-five, you learn why the same file passes at one and fails at another — which is the only knowledge in this industry that keeps its value."
+        standfirst="Most people in lending learn one lender's policy. Working on a panel of twenty-five, you learn why the same file passes at one and fails at another, which is the only knowledge in this industry that keeps its value."
         trail={trail}
         photo="careers"
       />
@@ -46,7 +46,7 @@ export default function Careers({ trail }) {
               leasehold shed, and telling people the truth when the answer is no.
             </p>
             <p className="prose-body mb-5">
-              It is a sales role and we will not pretend otherwise — the business only earns when a
+              It is a sales role and we will not pretend otherwise. The business only earns when a
               loan disburses. But it is the kind of sales where the product is a judgement, and the
               people who do it well are the ones who get good at the judgement rather than at the
               pitch.
@@ -63,11 +63,11 @@ export default function Careers({ trail }) {
               <h3 className="h-card text-ink">Who we look for</h3>
               <ul className="mt-4 space-y-3">
                 {[
-                  'Graduates from any stream — we have no preference for commerce or finance, and some of the best people in this industry came from neither.',
+                  'Graduates from any stream. We have no preference for commerce or finance, and some of the best people in this industry came from neither.',
                   'Anyone who can read a bank statement and get curious about what it shows.',
                   'People who would rather lose a file than mis-sell one.',
                   'Local knowledge of Pune, PCMC, Baramati or Phaltan is a genuine advantage.',
-                  'Marathi and Hindi alongside English — most of this job happens in them.',
+                  'Marathi and Hindi alongside English, most of this job happens in them.',
                 ].map((x) => (
                   <li key={x} className="flex gap-2.5 text-base leading-relaxed text-ink-soft">
                     <Check className="mt-1.5 h-3.5 w-3.5 shrink-0 text-accent" />
@@ -101,10 +101,9 @@ export default function Careers({ trail }) {
           />
 
           <ul className="border-t border-ink/15">
-            {ROLES.map((r, i) => (
+            {ROLES.map((r) => (
               <li key={r.title} className="grid gap-x-8 gap-y-3 border-b border-ink/15 py-8 lg:grid-cols-12">
-                <span className="index-num lg:col-span-1">{String(i + 1).padStart(2, '0')}</span>
-                <div className="lg:col-span-4">
+                <div className="lg:col-span-5">
                   <h3 className="text-2xl text-ink">{r.title}</h3>
                   <p className="mt-1.5 text-2xs uppercase tracking-[0.12em] text-accent">{r.level}</p>
                 </div>
@@ -133,7 +132,7 @@ export default function Careers({ trail }) {
 
             <div className="flex flex-wrap gap-3">
               <a
-                href={`mailto:${CONTACT.email}?subject=${encodeURIComponent('Application — careers')}`}
+                href={`mailto:${CONTACT.email}?subject=${encodeURIComponent('Application: careers')}`}
                 className="btn-accent"
               >
                 <Mail className="h-4 w-4" />
@@ -194,19 +193,19 @@ const ROLES = [
   {
     title: 'Credit & Documentation Officer',
     level: 'Mid · office',
-    body: 'You read the file before a lender does — bank statements, ITRs, GST returns, credit reports, property papers — and decide whether it is ready. The job is finding the problem before the underwriter does.',
+    body: 'You read the file before a lender does: bank statements, ITRs, GST returns, credit reports, property papers, and decide whether it is ready. The job is finding the problem before the underwriter does.',
     needs: 'An eye for detail and a tolerance for spreadsheets. Prior experience at a bank, NBFC or DSA is useful but not required.',
   },
   {
     title: 'Secured Loans Specialist',
     level: 'Experienced',
-    body: 'Home loans, loans against property and lease rental discounting, including the awkward security — MIDC leasehold, industrial sheds, Grampanchayat land. You need to know which lender takes what, and why a valuation came back low.',
+    body: 'Home loans, loans against property and lease rental discounting, including the awkward security. MIDC leasehold, industrial sheds, Grampanchayat land. You need to know which lender takes what, and why a valuation came back low.',
     needs: 'Two or more years placing secured loans in Pune or PCMC, and familiarity with local title and approval practice.',
   },
   {
     title: 'Insurance Advisor',
     level: 'Entry to mid',
-    body: 'Life, health and loan protection placed across multiple insurers. The part of this job that matters is loan protection — making sure a family does not inherit a home loan alongside a bereavement.',
+    body: 'Life, health and loan protection placed across multiple insurers. The part of this job that matters is loan protection: making sure a family does not inherit a home loan alongside a bereavement.',
     needs: 'The relevant certification, or a willingness to obtain it. We will support the process.',
   },
   {

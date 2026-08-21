@@ -365,6 +365,70 @@ in which anything is hidden.
 
 ---
 
+## Reading as machine-written
+
+The client's first verdict was "entire website is looking fully AI". That is not
+a vague complaint: the tells are documented and countable, and
+`npm run audit:tells` counts them on every build.
+
+### The em dash
+
+**This site ran at 15.0 spaced em dashes per 1000 words.** Edited human prose
+runs at one or two. It is the most-cited giveaway there is, and it was
+everywhere in this copy.
+
+Before writing one, ask what it is standing in for. It is almost always:
+
+| The dash is doing the job of | Use |
+|---|---|
+| a pause between two independent clauses | a full stop |
+| an explanation of what came before | a colon |
+| an appositive or an aside | a comma |
+| a parenthetical pair | brackets |
+
+The audit caps the rate at 3 per 1000. It counts only the **spaced** dash
+mid-sentence, because that is the habit — a standalone `—` in a table cell is
+the correct symbol for "no value", and 21–65 is an en dash doing its job.
+
+### Decorative numbering
+
+`01 / 02 / 03` down the side of four feature cards is decoration pretending to
+be structure. A genuine sequence keeps its numbers: the four-step process is
+ordered, and numbering it is information. A catalogue of eight products is not
+a sequence, and neither is a list of four reasons.
+
+### Uniform scroll reveal
+
+Every section fading up on scroll is one of the loudest tells, and it is what
+this site did — `SectionHead` carried `data-reveal`, so *every* heading on
+*every* page animated. Motion that happens everywhere stops being motion and
+becomes texture. Reveals now appear at three call sites on the homepage, and the
+audit fails above half a page's sections.
+
+### The left accent stripe
+
+A thin coloured rule down the left of a paragraph is a real device and was being
+used as a default: seven of them, in five different contexts. Two remain, both
+where the stripe means "this is a formal notice" — the sitewide disclosure and
+the fraud warning. Elsewhere the paragraph got the device it actually needed: a
+top rule for a conclusion, a tinted panel for a computed result, a bottom rule
+for a definition list.
+
+### What is deliberately *not* chased
+
+Several widely-cited tells are just correct practice, and following them makes a
+page worse:
+
+- **Curly apostrophes and quotes.** Typographically correct; the straight
+  keyboard versions are the error.
+- **Numbered steps in a real sequence.** See above.
+- **Sans-serif body type, generous leading, a card.** Not tells. Typography.
+
+A checklist applied without judgement produces a page that is merely differently
+generic.
+
+---
+
 ## What is deliberately absent
 
 | Absent | Why |

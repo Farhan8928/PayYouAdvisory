@@ -21,7 +21,7 @@ export default function FaqHome() {
       <div className="container-page grid gap-10 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-4">
           <SectionHead
-            index="06 — Straight answers"
+            index="Straight answers"
             title="The questions people ask on the phone."
             className="mb-6"
           />

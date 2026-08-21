@@ -39,7 +39,7 @@ export default function Credits({ trail }) {
             </strong>{' '}
             They are licensed stock images chosen to illustrate the products and the places we
             work in. Photographs of our own office at Chapekar Chowk, our team and our actual
-            clients will replace them as they become available, and they will be better — because
+            clients will replace them as they become available, and they will be better, because
             they will be true.
           </div>
 
@@ -70,7 +70,7 @@ export default function Credits({ trail }) {
 
           <p className="mt-12 border-t border-ink/10 pt-6 text-2xs leading-relaxed text-ink-faint">
             Photographs are downloaded at build time, resized into a 480 / 960 / 1600 WebP set and
-            served from this site’s own origin — nothing is hot-linked, so no third party is told
+            served from this site’s own origin, nothing is hot-linked, so no third party is told
             which pages you read here.
           </p>
         </div>

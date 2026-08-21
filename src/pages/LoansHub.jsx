@@ -89,9 +89,8 @@ export default function LoansHub({ trail }) {
               <li key={p.slug}>
                 <a
                   href={`/${p.slug}/`}
-                  className="group grid gap-x-8 gap-y-3 border-b border-ink/15 py-8 lg:grid-cols-12"
+                  className="group grid gap-x-8 gap-y-3 border-b border-ink/15 py-8 lg:grid-cols-11"
                 >
-                  <span className="index-num lg:col-span-1">{p.index}</span>
                   <div className="lg:col-span-4">
                     <h3 className="text-2xl text-ink">{p.name}</h3>
                     <p className="mt-1 text-2xs uppercase tracking-[0.12em] text-accent">
@@ -128,7 +127,7 @@ export default function LoansHub({ trail }) {
 const bestFor = {
   'personal-loan': 'A requirement that will not wait, where you have nothing to pledge',
   'business-loan': 'Stock, machinery or expansion, without giving up equity',
-  'home-loan': 'Buying or building — the cheapest borrowing available to an individual',
+  'home-loan': 'Buying or building, the cheapest borrowing available to an individual',
   'loan-against-property': 'Raising a large sum against property you keep using',
   'car-loan': 'A vehicle, at a rate a personal loan cannot match',
   'gold-loan': 'A short, urgent requirement, with a damaged or thin credit file',

@@ -134,7 +134,13 @@ export function Section({ id, tone = 'paper', size = 'md', children, className =
  */
 export function SectionHead({ index, title, standfirst, invert = false, className = '' }) {
   return (
-    <div className={`mb-12 sm:mb-16 ${className}`} data-reveal>
+    // No `data-reveal` here. It used to be, which meant every single section
+    // on every page faded up on scroll — and "sections fading in as you
+    // scroll" is one of the most-cited signs a page was generated. Motion that
+    // happens everywhere stops being motion and becomes texture. Reveals are
+    // now applied at four specific call sites where the sequencing says
+    // something; see `npm run audit:tells`.
+    <div className={`mb-12 sm:mb-16 ${className}`}>
       {index ? <p className="mb-4 font-mono text-2xs tracking-[0.18em] text-accent">{index}</p> : null}
       <span className="rule-mark" />
       <h2 className={`h-section max-w-3xl ${invert ? 'text-paper' : 'text-ink'}`}>{title}</h2>

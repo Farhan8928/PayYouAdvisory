@@ -3,7 +3,7 @@
 A statically rendered React site for PayYou Advisory Private Limited, a loan
 advisory firm (Direct Selling Agent) in Pimpri-Chinchwad, Pune.
 
-**137 pages**, every one rendered to complete HTML at build time, gated by five
+**137 pages**, every one rendered to complete HTML at build time, gated by six
 audits that fail the build rather than warn.
 
 ---
@@ -32,6 +32,7 @@ npm run preview         # serve dist/ exactly as it will be served in production
 | `audit:brand` | Palette, icons, manifest and type stack agree | A non-palette colour, a banned typeface, a stale icon |
 | `audit:images` | Photography resolves, is responsive and is complete | A missing file, a bare `<img>`, no `srcset`, no width/height |
 | `audit:dupes` | How alike the 112 locality pages actually are | A locality page is under 40% distinct from its sibling |
+| `audit:tells` | The countable signs of machine-written work | Em dashes over 3 per 1000 words, cliché copy, emoji-as-icons, decorative 01/02/03, uniform scroll reveals |
 | `audit:seo` | Titles, canonicals, schema, links, redirects, NAP | Duplicate titles, wrong canonical, broken internal link, missing disclosure |
 
 Plus one that needs a browser and therefore runs separately:
@@ -40,9 +41,9 @@ Plus one that needs a browser and therefore runs separately:
 |---|---|---|
 | `audit:viewport` | Loads 5 page kinds x 8 viewports in real Chrome | A CTA falls below the fold, anything overflows horizontally, or a tap target is under its WCAG minimum |
 
-Current state: **44% mean distinctness** across the locality grid, 22
-photographs, 734 `<img>` tags, and the viewport audit passing on all 40
-page/viewport combinations. Zero warnings anywhere.
+Current state: **44% mean distinctness** across the locality grid, **0.7 em
+dashes per 1000 words** (down from 15.0), 22 photographs, and the viewport audit
+passing on all 40 page/viewport combinations. Zero warnings anywhere.
 
 `npm run images` is deliberately **not** part of the build: a deploy must work
 offline and on a CI box with no network egress, and must never silently depend
@@ -108,7 +109,8 @@ scripts/
   fetch-images.mjs · fetch-logos.mjs · make-brand-assets.mjs
   prerender.mjs
   css-audit.mjs · brand-audit.mjs · image-audit.mjs
-  duplication-audit.mjs · seo-audit.mjs · viewport-audit.mjs
+  duplication-audit.mjs · ai-tells-audit.mjs
+  seo-audit.mjs · viewport-audit.mjs
 ```
 
 **`src/routes.js` is the single source of truth for what pages exist.** The
@@ -175,6 +177,19 @@ see `npm run audit:viewport`.
 **Never write a bare `<img>`.** Use `<Photo>` or `<PhotoBackdrop>` so the
 intrinsic dimensions, the blur placeholder, the `srcset` and the focal point all
 come from the manifest. `audit:images` fails the build on a bare one.
+
+**Do not reach for an em dash.** It is the single most-cited sign of
+machine-written copy, and this site ran at 15.0 per 1000 words before anyone
+counted. Ask what the dash is standing in for: a comma, a colon, a full stop or
+a pair of brackets. It is almost always one of those. `audit:tells` caps the
+rate at 3 per 1000.
+
+**Do not number a list that is not a sequence.** `01 / 02 / 03` down the side of
+four feature cards is decoration. A four-step process is genuinely ordered and
+keeps its numbers; a catalogue of eight products does not.
+
+**Do not reveal every section on scroll.** Motion that happens everywhere stops
+being motion. `audit:tells` fails if more than half a page's sections carry one.
 
 **Never size a layout by arithmetic. Measure it.** The hero was budgeted twice
 on paper — "headline 2 lines ≈ 120px, standfirst 2 lines ≈ 56px" — and was wrong

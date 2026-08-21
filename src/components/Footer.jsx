@@ -31,7 +31,7 @@ export default function Footer() {
           <div className="border-l-[3px] border-accent pl-5">
             <p className="max-w-prose text-sm leading-relaxed text-paper/70">
               <strong className="font-semibold text-paper">
-                {COMPANY.name} is a loan referral and advisory firm — a Direct Selling Agent.
+                {COMPANY.name} is a loan referral and advisory firm, a Direct Selling Agent.
               </strong>{' '}
               We are not a bank or an NBFC. We do not lend, sanction or disburse, and we do not set
               interest rates. Every credit decision is made by the lender under its own policy. Rates

@@ -27,7 +27,7 @@ export default function NotFound() {
         </h1>
         <p className="prose-body mt-6">
           The site was rebuilt, and a few addresses changed. Almost every old link redirects
-          automatically — this one did not, which is our fault rather than yours. What were you
+          automatically. This one did not, which is our fault rather than yours. What were you
           looking for?
         </p>
 

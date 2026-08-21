@@ -104,11 +104,12 @@ export default function ProductArea({ productSlug, areaSlug, trail }) {
                 are true about borrowing in this place, so they differentiate
                 all seven of this area's pages from every other area's at once. */}
             <ul className="mt-7 border-t border-ink/12">
-              {a.localNotes.map((note, i) => (
-                <li key={note} className="flex gap-5 border-b border-ink/12 py-4">
-                  <span className="fig shrink-0 text-2xs tracking-[0.16em] text-accent">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
+              {a.localNotes.map((note) => (
+                <li key={note} className="flex gap-4 border-b border-ink/12 py-4">
+                  <span
+                    aria-hidden="true"
+                    className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                  />
                   <span className="text-base leading-relaxed text-ink-soft">{note}</span>
                 </li>
               ))}
@@ -151,7 +152,7 @@ export default function ProductArea({ productSlug, areaSlug, trail }) {
               <p className="mt-3 text-sm leading-relaxed text-ink-soft">
                 One branch on {a.landmarks[0]} gives you one credit policy and one answer. We hold{' '}
                 {PARTNER_COUNT_CLAIM} of them, and for a {a.name} file the difference between the
-                right lender and the wrong one is frequently approval versus decline — not{' '}
+                right lender and the wrong one is frequently approval versus decline, not{' '}
                 {pct(0.25)} on the rate.
               </p>
               <a href="/lenders/" className="btn-ghost btn-sm mt-5">
@@ -181,7 +182,7 @@ export default function ProductArea({ productSlug, areaSlug, trail }) {
             />
             <p className="text-base leading-relaxed text-ink-soft">
               Full eligibility criteria, the document checklist, the rate drivers and the questions
-              people actually ask are on the {p.name.toLowerCase()} page — they are the same
+              people actually ask are on the {p.name.toLowerCase()} page. They are the same
               wherever in Pune you are. What differs by locality is everything above.
             </p>
             <a href={`/${p.slug}/`} className="btn-primary mt-6">
@@ -223,7 +224,7 @@ export default function ProductArea({ productSlug, areaSlug, trail }) {
           <div className="lg:col-span-7">
             <h2 className="text-2xl text-ink">Before you call, get a rough figure</h2>
             <p className="mt-3 max-w-prose text-base leading-relaxed text-ink-soft">
-              Our eligibility calculator works it the way a lender does — on your income less the
+              Our eligibility calculator works it the way a lender does, on your income less the
               EMIs you already pay, which is what usually decides the answer. It runs in your
               browser and asks for no name, no number and no OTP.
             </p>

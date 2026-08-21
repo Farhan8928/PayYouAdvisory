@@ -32,14 +32,9 @@ export default function Legal({ slug, trail }) {
 
       <Section size="md">
         <div className="container-narrow">
-          {doc.sections.map((s, i) => (
+          {doc.sections.map((s) => (
             <section key={s.heading} className="mb-12 last:mb-0">
-              <div className="mb-4 flex items-baseline gap-4">
-                <span className="fig shrink-0 text-2xs tracking-[0.16em] text-accent">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <h2 className="text-2xl text-ink">{s.heading}</h2>
-              </div>
+              <h2 className="mb-4 text-2xl text-ink">{s.heading}</h2>
 
               {s.body?.map((para) => (
                 <p key={para.slice(0, 40)} className="mb-4 max-w-prose text-base leading-relaxed text-ink-soft">

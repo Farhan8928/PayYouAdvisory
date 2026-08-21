@@ -52,7 +52,7 @@ const staticRoutes = [
     kind: 'home',
     priority: '1.0',
     changefreq: 'weekly',
-    title: 'Loan Advisory in Pune & PCMC — 25+ Lenders | PayYou Advisory',
+    title: 'Loan Advisory in Pune & PCMC: 25+ Lenders | PayYou Advisory',
     description:
       'PayYou Advisory compares your profile across 25+ banks and NBFCs, then applies to one. Personal, business, home, property, car and gold loans in Pune and Pimpri-Chinchwad. One credit enquiry, not twenty-five.',
     keywords: [
@@ -74,7 +74,7 @@ const staticRoutes = [
     kind: 'loans-hub',
     priority: '0.9',
     changefreq: 'weekly',
-    title: 'Loans in Pune & PCMC — Compare Every Product | PayYou Advisory',
+    title: 'Loans in Pune & PCMC: Compare Every Product | PayYou Advisory',
     description:
       'Every loan we place, side by side: personal, business, home, loan against property, car, gold and working capital. Rates, amounts, tenures and what each one is actually for.',
     keywords: ['loan products Pune', 'types of loans Pune', 'compare loans PCMC', 'loan advisory services Pune'],
@@ -92,7 +92,7 @@ const staticRoutes = [
     path: '/lenders/',
     kind: 'lenders',
     priority: '0.8',
-    title: 'Our Bank & NBFC Panel — 25+ Lending Partners | PayYou Advisory',
+    title: 'Our Bank & NBFC Panel: 25+ Lending Partners | PayYou Advisory',
     description:
       'The banks and NBFCs we place files with, and what each is actually good for. Why a panel beats a single lender, and how we are paid.',
     keywords: ['loan DSA partners Pune', 'bank NBFC partners', 'loan partners Pimpri Chinchwad', 'NBFC loan Pune'],
@@ -137,7 +137,7 @@ const staticRoutes = [
     path: '/contact/',
     kind: 'contact',
     priority: '0.9',
-    title: 'Contact PayYou Advisory — Chinchwad, Baramati & Phaltan',
+    title: 'Contact PayYou Advisory. Chinchwad, Baramati & Phaltan',
     description:
       'Call 020 2735 0055 or +91 91755 35507. Office at Vishal Arcade, Chapekar Chowk, Chinchwad, Pune 411033. Branch offices in Baramati and Phaltan. Mon–Sat, 9:30 am – 6:30 pm.',
     keywords: [
@@ -155,7 +155,7 @@ const staticRoutes = [
     path: '/faq/',
     kind: 'faq',
     priority: '0.7',
-    title: 'Loan Questions Answered — CIBIL & Costs | PayYou Advisory',
+    title: 'Loan Questions Answered. CIBIL & Costs | PayYou Advisory',
     description:
       'Straight answers on eligibility, low CIBIL scores, cash income, what a DSA charges, how long a file takes, and what actually delays one. No sales copy.',
     keywords: [
@@ -174,7 +174,7 @@ const staticRoutes = [
     kind: 'calculators',
     priority: '0.8',
     changefreq: 'weekly',
-    title: 'Loan Calculators — EMI & Eligibility | PayYou Advisory',
+    title: 'Loan Calculators. EMI & Eligibility | PayYou Advisory',
     description:
       'Work out an EMI with the full amortisation, what you could actually borrow at your income, and whether a balance transfer would save anything. Everything runs in your browser.',
     keywords: ['EMI calculator India', 'loan eligibility calculator', 'balance transfer calculator', 'home loan EMI calculator Pune'],
@@ -223,9 +223,9 @@ const staticRoutes = [
     kind: 'calc-eligibility',
     priority: '0.8',
     changefreq: 'weekly',
-    title: 'Loan Eligibility Calculator — How Much? | PayYou Advisory',
+    title: 'Loan Eligibility Calculator. How Much? | PayYou Advisory',
     description:
-      'An indicative borrowing figure from your net income, your existing EMIs and the tenure — worked the way a lender does it, on the fixed-obligation-to-income ratio.',
+      'An indicative borrowing figure from your net income, your existing EMIs and the tenure, worked the way a lender does it, on the fixed-obligation-to-income ratio.',
     keywords: ['loan eligibility calculator', 'how much loan can I get', 'FOIR calculator', 'personal loan eligibility India'],
     breadcrumbs: [
       HOME_CRUMB,
@@ -246,9 +246,9 @@ const staticRoutes = [
     kind: 'calc-bt',
     priority: '0.7',
     changefreq: 'weekly',
-    title: 'Balance Transfer Calculator — Real Saving | PayYou Advisory',
+    title: 'Balance Transfer Calculator. Real Saving | PayYou Advisory',
     description:
-      'Models the real saving on a loan balance transfer, net of processing fees, valuation and stamp duty — not just the difference between two interest rates.',
+      'Models the real saving on a loan balance transfer, net of processing fees, valuation and stamp duty, not just the difference between two interest rates.',
     keywords: ['balance transfer calculator', 'home loan balance transfer saving', 'loan transfer calculator India'],
     breadcrumbs: [
       HOME_CRUMB,

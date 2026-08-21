@@ -43,7 +43,7 @@ export default function Lenders({ trail }) {
       <Section size="md">
         <div className="container-page">
           <SectionHead
-            title="Bank or NBFC — the difference from your side"
+            title="Bank or NBFC. The difference from your side"
             standfirst="Not a question of which is better. They underwrite differently, and which one suits you depends almost entirely on how standard your profile is."
           />
 
@@ -70,8 +70,8 @@ export default function Lenders({ trail }) {
             </table>
           </div>
 
-          <p className="mt-8 max-w-prose border-l-2 border-accent pl-5 text-base leading-relaxed text-ink-soft">
-            The practical rule: start with a bank if your profile is standard — salaried, clean
+          <p className="mt-8 max-w-prose border-t-2 border-accent pt-5 text-base leading-relaxed text-ink-soft">
+            The practical rule: start with a bank if your profile is standard: salaried, clean
             credit, a well-titled flat in a mainstream project. Go to an NBFC when it is not, and
             treat the higher rate as the price of an approval you would not otherwise get. Refinance
             to a bank in two years once the record is established. That last step is the one almost
@@ -103,7 +103,7 @@ const COMPARISON = [
   {
     criterion: 'Interest rate',
     bank: 'Generally lower, and on home loans linked to the RBI repo rate so it moves with policy.',
-    nbfc: 'Generally higher — the premium is for taking on files a bank’s policy will not.',
+    nbfc: 'Generally higher. The premium is for taking on files a bank’s policy will not.',
   },
   {
     criterion: 'Underwriting',

@@ -26,7 +26,7 @@
 
 /** Shared across products: what a lender actually decides a rate on. */
 const RATE_DEPENDS_ON = [
-  'Your CIBIL score — 750+ generally reaches the lowest published band',
+  'Your CIBIL score: 750+ generally reaches the lowest published band',
   'Net monthly income and existing EMI obligations',
   'Employment type, employer category and job or business vintage',
   'Loan amount and the tenure you choose',
@@ -46,14 +46,14 @@ export const PRODUCTS = [
     summary:
       'An unsecured loan against your income alone. Nothing is pledged, nothing is mortgaged, and the lender does not ask what you plan to spend it on.',
     intro: [
-      'A personal loan is the fastest money a bank will lend an individual, because there is no asset to value and no title to verify — only your income and your repayment record. That is also why it is priced higher than a home loan or a loan against property, and why your CIBIL score moves the rate more here than anywhere else.',
+      'A personal loan is the fastest money a bank will lend an individual, because there is no asset to value and no title to verify: only your income and your repayment record. That is also why it is priced higher than a home loan or a loan against property, and why your CIBIL score moves the rate more here than anywhere else.',
       'PayYou compares your profile across 25+ banks and NBFCs before a single application is submitted. Lenders differ enormously on the same file: one declines a cash-salaried applicant outright, another underwrites the same person from bank statements. Knowing which is which in advance is the entire job.',
     ],
     spec: {
       rateFrom: null,
       rateNote: 'Rates are set by the lender, not by PayYou, and vary by profile.',
       amountMax: null,
-      amountNote: 'Based on your income and the lender’s multiplier — no fixed ceiling.',
+      amountNote: 'Based on your income and the lender’s multiplier, no fixed ceiling.',
       tenure: '12 – 60 months',
       security: 'None. Nothing is pledged.',
       disbursal: '24 – 48 hours after approval and document verification',
@@ -95,7 +95,7 @@ export const PRODUCTS = [
         },
         {
           criterion: 'Vintage',
-          salaried: 'Per lender — typically 6+ months in current job',
+          salaried: 'Per lender, typically 6+ months in current job',
           selfEmployed: '2+ years in the current business',
         },
         { criterion: 'CIBIL score', salaried: '650+ preferred', selfEmployed: '650+ preferred' },
@@ -105,9 +105,9 @@ export const PRODUCTS = [
     accepted: {
       title: 'Profiles our partner lenders accept',
       items: [
-        'Salaried — private companies, MNCs, government and PSU',
-        'Self-employed professionals — doctors, chartered accountants, architects, consultants',
-        'Business owners — proprietors, partners, directors',
+        'Salaried: private companies, MNCs, government and PSU',
+        'Self-employed professionals: doctors, chartered accountants, architects, consultants',
+        'Business owners: proprietors, partners, directors',
         'Cash-salaried applicants, verified through bank statements',
         'Teaching professionals',
         'Defence personnel',
@@ -131,7 +131,7 @@ export const PRODUCTS = [
       },
       {
         q: 'Do I need to pledge anything?',
-        a: 'No. A personal loan is unsecured — it is assessed on your income and credit profile alone. That is why it carries a higher rate than a secured loan such as a loan against property.',
+        a: 'No. A personal loan is unsecured. It is assessed on your income and credit profile alone. That is why it carries a higher rate than a secured loan such as a loan against property.',
       },
       {
         q: 'How quickly is the money disbursed?',
@@ -147,7 +147,7 @@ export const PRODUCTS = [
       },
     ],
     seo: {
-      title: 'Personal Loan in Pune & PCMC — 25+ Lenders | PayYou Advisory',
+      title: 'Personal Loan in Pune & PCMC: 25+ Lenders | PayYou Advisory',
       description:
         'Unsecured personal loans in Pune and Pimpri-Chinchwad. One application compared across 25+ banks and NBFCs, one credit enquiry. Cash-salary profiles accepted. Call 020 2735 0055.',
       keywords: [
@@ -173,7 +173,7 @@ export const PRODUCTS = [
     categoryLabel: 'Unsecured · MSME',
     tagline: 'Working capital that does not cost you equity.',
     summary:
-      'Funding for stock, staff, machinery and expansion — assessed on your turnover and banking, not on what you are willing to mortgage.',
+      'Funding for stock, staff, machinery and expansion, assessed on your turnover and banking, not on what you are willing to mortgage.',
     intro: [
       'Most businesses that need funding do not need an investor. They need six months of working capital to hold stock through a season, or eighteen months to pay for a machine that will pay for itself. A business loan does that without diluting a single share.',
       'What actually decides the outcome is your banking: average balance, credit consistency, cheque returns, and how the GST and ITR line up with what the account shows. We read that file the way an underwriter will, before it goes anywhere.',
@@ -195,7 +195,7 @@ export const PRODUCTS = [
       },
       {
         title: 'Unsecured options',
-        body: 'Many partner lenders fund eligible businesses with no collateral at all — assessed on turnover, banking and vintage.',
+        body: 'Many partner lenders fund eligible businesses with no collateral at all, assessed on turnover, banking and vintage.',
       },
       {
         title: 'Interest is deductible',
@@ -234,7 +234,7 @@ export const PRODUCTS = [
       title: 'Business types our partner lenders fund',
       items: [
         'Proprietorships, partnerships and private limited companies',
-        'Professionals — doctors, chartered accountants, architects, consultants',
+        'Professionals: doctors, chartered accountants, architects, consultants',
         'Medical shops and clinics',
         'Manufacturing units',
         'Trading and distribution businesses',
@@ -257,7 +257,7 @@ export const PRODUCTS = [
       },
       {
         q: 'Is collateral required?',
-        a: 'Not always. Many business loans are unsecured and require no collateral where the business clears the turnover and vintage criteria. Secured options exist too, and they price lower — a loan against property is usually the cheaper way to raise a large amount.',
+        a: 'Not always. Many business loans are unsecured and require no collateral where the business clears the turnover and vintage criteria. Secured options exist too, and they price lower. A loan against property is usually the cheaper way to raise a large amount.',
       },
       {
         q: 'What is the maximum amount available?',
@@ -265,7 +265,7 @@ export const PRODUCTS = [
       },
       {
         q: 'My business is three years old but I have been in the trade for eight. Does that count?',
-        a: 'Often, yes. Most lenders look at both the vintage of the entity and total experience in the line of business, which is why the criteria above list both. Bring the earlier registration or employment record — it does real work.',
+        a: 'Often, yes. Most lenders look at both the vintage of the entity and total experience in the line of business, which is why the criteria above list both. Bring the earlier registration or employment record. It does real work.',
       },
       {
         q: 'Can a business with mostly cash sales get funded?',
@@ -273,7 +273,7 @@ export const PRODUCTS = [
       },
     ],
     seo: {
-      title: 'Business Loan in Pune — Up to ₹2 Cr from 10.50% | PayYou Advisory',
+      title: 'Business Loan in Pune. Up to ₹2 Cr from 10.50% | PayYou Advisory',
       description:
         'MSME and working-capital business loans in Pune and PCMC. Up to ₹2 Crore, rates from 10.50% p.a., unsecured options. One profile compared across 25+ banks and NBFCs.',
       keywords: [
@@ -298,7 +298,7 @@ export const PRODUCTS = [
     categoryLabel: 'Secured · Long tenure',
     tagline: 'The cheapest money you will ever be lent.',
     summary:
-      'Finance for a purchase, a plot, a construction or a renovation — secured on the property, priced accordingly, and deductible twice over under the Income Tax Act.',
+      'Finance for a purchase, a plot, a construction or a renovation, secured on the property, priced accordingly, and deductible twice over under the Income Tax Act.',
     intro: [
       'A home loan is the longest and cheapest borrowing available to an individual, because the lender holds the property and the tenure spreads the burden. It is also the loan where a small difference in rate is worth the most: a quarter of a percent over twenty years is a large number.',
       'Which is why the file is worth preparing properly. Title, approvals, the builder’s standing with each bank, and whether the property is on a lender’s approved-project list all decide the outcome before your income is even discussed.',
@@ -335,7 +335,7 @@ export const PRODUCTS = [
       { name: 'Plot purchase', body: 'For a residential plot, usually with a requirement to begin construction within a defined period.' },
       { name: 'Construction', body: 'For building on a plot you already own, disbursed in stages.' },
       { name: 'Renovation & extension', body: 'For repair, improvement or adding to an existing home.' },
-      { name: 'Balance transfer', body: 'Moving an existing loan to a lender with a lower rate. Worth modelling before moving — see the calculator.' },
+      { name: 'Balance transfer', body: 'Moving an existing loan to a lender with a lower rate. Worth modelling before moving; see the calculator.' },
       { name: 'Top-up', body: 'Additional borrowing on an existing home loan, usually at a rate far below a personal loan.' },
     ],
     taxBenefits: [
@@ -344,7 +344,7 @@ export const PRODUCTS = [
       { section: '80EEA', limit: 150000, on: 'Additional interest, eligible first-time buyers', note: 'Subject to the conditions in force' },
     ],
     eligibility: {
-      note: 'Indicative. On a home loan the property is assessed as hard as the applicant — a clean profile on a property the lender will not fund still gets declined.',
+      note: 'Indicative. On a home loan the property is assessed as hard as the applicant. A clean profile on a property the lender will not fund still gets declined.',
       rows: [
         { criterion: 'Age', salaried: '21 – 60 years', selfEmployed: '21 – 65 years' },
         { criterion: 'Minimum income', salaried: '₹25,000 per month', selfEmployed: 'Per lender, evidenced by ITR' },
@@ -361,7 +361,7 @@ export const PRODUCTS = [
     accepted: {
       title: 'Also eligible',
       items: [
-        'NRI applicants — with passport, visa or residency proof, NRE/NRO statements, overseas income proof and a Power of Attorney',
+        'NRI applicants, with passport, visa or residency proof, NRE/NRO statements, overseas income proof and a Power of Attorney',
         'Joint applications with a spouse, parent or child, which raise the eligible amount',
         'Balance transfers from an existing lender, with or without a top-up',
       ],
@@ -377,15 +377,15 @@ export const PRODUCTS = [
     faqs: [
       {
         q: 'How much of the property value can I borrow?',
-        a: 'Lenders typically finance 75% to 90% of the property value. The rest — plus stamp duty, registration and any brokerage — has to come from you, and lenders check that the margin is genuinely yours rather than borrowed elsewhere.',
+        a: 'Lenders typically finance 75% to 90% of the property value. The rest, plus stamp duty, registration and any brokerage, has to come from you, and lenders check that the margin is genuinely yours rather than borrowed elsewhere.',
       },
       {
         q: 'Can I take a home loan on an under-construction flat?',
-        a: 'Yes. Disbursement is done in stages linked to construction progress, and you pay only Pre-EMI — interest on the amount drawn so far — until the loan is fully disbursed. Check whether your project is on the lender’s approved list first; it shortens everything.',
+        a: 'Yes. Disbursement is done in stages linked to construction progress, and you pay only Pre-EMI (interest on the amount drawn so far) until the loan is fully disbursed. Check whether your project is on the lender’s approved list first; it shortens everything.',
       },
       {
         q: 'What tax benefit does a home loan actually give?',
-        a: 'Principal repayment qualifies under Section 80C up to ₹1.5 lakh a year, shared with your other 80C investments. Interest qualifies under Section 24(b) up to ₹2 lakh a year on a self-occupied property. Eligible first-time buyers may claim a further ₹1.5 lakh of interest under Section 80EEA. Confirm your own position with a tax adviser — the conditions change.',
+        a: 'Principal repayment qualifies under Section 80C up to ₹1.5 lakh a year, shared with your other 80C investments. Interest qualifies under Section 24(b) up to ₹2 lakh a year on a self-occupied property. Eligible first-time buyers may claim a further ₹1.5 lakh of interest under Section 80EEA. Confirm your own position with a tax adviser, the conditions change.',
       },
       {
         q: 'Is a balance transfer worth it?',
@@ -397,7 +397,7 @@ export const PRODUCTS = [
       },
     ],
     seo: {
-      title: 'Home Loan in Pune & PCMC — up to 90% Funding | PayYou Advisory',
+      title: 'Home Loan in Pune & PCMC: up to 90% Funding | PayYou Advisory',
       description:
         'Home loans in Pune and Pimpri-Chinchwad for purchase, plot, construction, renovation, balance transfer and top-up. 75–90% funding, tenure to 30 years, NRI applications accepted.',
       keywords: [
@@ -423,11 +423,11 @@ export const PRODUCTS = [
     categoryLabel: 'Secured · Large ticket',
     tagline: 'Raise money against property you keep using.',
     summary:
-      'A mortgage on a property you already own, at a fraction of the cost of unsecured borrowing — and you continue to live in it or trade from it throughout.',
+      'A mortgage on a property you already own, at a fraction of the cost of unsecured borrowing, and you continue to live in it or trade from it throughout.',
     intro: [
       'A loan against property is the cheapest way to raise a large sum without selling anything. Because the lender holds a mortgage, the rate sits far below a personal or unsecured business loan, and the tenure runs to fifteen or twenty years rather than five.',
       'The trade-off is real and should be said plainly: the property is security. Default and it is at risk. It is the right instrument for funding a business expansion or consolidating expensive debt, and the wrong one for a discretionary expense.',
-      'The other thing that separates lenders here is which properties they will accept at all. Our partner list includes NBFCs that fund MIDC units, godowns, hospitals and Grampanchayat land — properties most banks decline outright.',
+      'The other thing that separates lenders here is which properties they will accept at all. Our partner list includes NBFCs that fund MIDC units, godowns, hospitals and Grampanchayat land: properties most banks decline outright.',
     ],
     spec: {
       rateFrom: null,
@@ -437,7 +437,7 @@ export const PRODUCTS = [
       amountNote: 'Typically 60% – 70% of the assessed market value of the property.',
       tenure: 'Up to 15 – 20 years',
       security: 'Mortgage of the property; you retain possession and use',
-      disbursal: 'After legal and technical valuation — typically 2 – 4 weeks',
+      disbursal: 'After legal and technical valuation, typically 2 – 4 weeks',
     },
     features: [
       {
@@ -500,11 +500,11 @@ export const PRODUCTS = [
       },
       {
         q: 'How much can I raise?',
-        a: 'Generally 60% to 70% of the property’s assessed market value — the lender’s valuation, which is frequently lower than the price you believe the property would fetch.',
+        a: 'Generally 60% to 70% of the property’s assessed market value. The lender’s valuation, which is frequently lower than the price you believe the property would fetch.',
       },
       {
         q: 'Will a lender accept a Grampanchayat property or a godown?',
-        a: 'Some will. Non-agricultural open land, Grampanchayat properties of 11 guntha or more, MIDC units, industrial sheds and godowns are all fundable with the right lender, subject to approval and valuation. This is exactly where a broad lender panel earns its keep — a bank that declines the property is not a negotiation, it is a dead end.',
+        a: 'Some will. Non-agricultural open land, Grampanchayat properties of 11 guntha or more, MIDC units, industrial sheds and godowns are all fundable with the right lender, subject to approval and valuation. This is exactly where a broad lender panel earns its keep, a bank that declines the property is not a negotiation, it is a dead end.',
       },
       {
         q: 'How is a LAP different from a home loan?',
@@ -512,13 +512,13 @@ export const PRODUCTS = [
       },
       {
         q: 'What happens if I cannot repay?',
-        a: 'The property is security and the lender can enforce against it. That is the honest answer, and it is why a LAP should fund something that generates a return or replaces costlier debt — not a discretionary expense.',
+        a: 'The property is security and the lender can enforce against it. That is the honest answer, and it is why a LAP should fund something that generates a return or replaces costlier debt, not a discretionary expense.',
       },
     ],
     seo: {
-      title: 'Loan Against Property in Pune — 60–70% LTV | PayYou Advisory',
+      title: 'Loan Against Property in Pune: 60–70% LTV | PayYou Advisory',
       description:
-        'LAP in Pune and PCMC against residential, commercial, industrial or NA land — including MIDC units, godowns and Grampanchayat property. 60–70% of value, tenure to 20 years.',
+        'LAP in Pune and PCMC against residential, commercial, industrial or NA land, including MIDC units, godowns and Grampanchayat property. 60–70% of value, tenure to 20 years.',
       keywords: [
         'loan against property Pune',
         'LAP Pune',
@@ -541,9 +541,9 @@ export const PRODUCTS = [
     categoryLabel: 'Secured · Vehicle',
     tagline: 'Financed against the car, not against you.',
     summary:
-      'Funding for a new or pre-owned vehicle, secured by hypothecation of the car itself — which is why it prices well below a personal loan for the same amount.',
+      'Funding for a new or pre-owned vehicle, secured by hypothecation of the car itself, which is why it prices well below a personal loan for the same amount.',
     intro: [
-      'A car loan is secured on the vehicle, so it costs less than borrowing the same amount unsecured. The variables worth attention are the funding percentage on the ex-showroom versus on-road price, whether insurance and accessories are being financed too, and the foreclosure terms — which differ sharply between banks and NBFCs.',
+      'A car loan is secured on the vehicle, so it costs less than borrowing the same amount unsecured. The variables worth attention are the funding percentage on the ex-showroom versus on-road price, whether insurance and accessories are being financed too, and the foreclosure terms, which differ sharply between banks and NBFCs.',
       'Pre-owned vehicles are a separate underwriting question: the age of the car, its valuation and the seller’s paperwork decide as much as your income does.',
     ],
     spec: {
@@ -605,9 +605,9 @@ export const PRODUCTS = [
       },
     ],
     seo: {
-      title: 'Car Loan in Pune & PCMC — New & Used | PayYou Advisory',
+      title: 'Car Loan in Pune & PCMC: New & Used | PayYou Advisory',
       description:
-        'Car loans in Pune and Pimpri-Chinchwad for new and pre-owned vehicles, compared across 25+ banks and NBFCs — not just the lenders your dealership has a tie-up with.',
+        'Car loans in Pune and Pimpri-Chinchwad for new and pre-owned vehicles, compared across 25+ banks and NBFCs, not just the lenders your dealership has a tie-up with.',
       keywords: [
         'car loan in Pune',
         'car loan Pimpri Chinchwad',
@@ -628,10 +628,10 @@ export const PRODUCTS = [
     categoryLabel: 'Secured · Same day',
     tagline: 'The fastest secured money there is.',
     summary:
-      'A loan against gold jewellery, valued and disbursed the same day, with no credit score requirement — because the security is in the lender’s vault.',
+      'A loan against gold jewellery, valued and disbursed the same day, with no credit score requirement, because the security is in the lender’s vault.',
     intro: [
       'A gold loan is the only borrowing where your credit history is broadly irrelevant: the lender holds the asset, values it against purity and weight, and lends a regulated percentage of that value. Approval takes hours, not days.',
-      'It is genuinely useful for a short, sharp requirement. It is a poor instrument for a long one — the repayment structures vary a great deal, and some are bullet repayments that catch people out at maturity. Read the structure, not just the rate.',
+      'It is genuinely useful for a short, sharp requirement. It is a poor instrument for a long one. The repayment structures vary a great deal, and some are bullet repayments that catch people out at maturity. Read the structure, not just the rate.',
     ],
     spec: {
       rateFrom: null,
@@ -682,15 +682,15 @@ export const PRODUCTS = [
       },
       {
         q: 'How much will I get for my jewellery?',
-        a: 'A regulated percentage of the assessed value, which is calculated on the weight of gold at the assessed purity — stones, and the making, are not funded. The valuation is done at the branch in front of you.',
+        a: 'A regulated percentage of the assessed value, which is calculated on the weight of gold at the assessed purity: stones, and the making, are not funded. The valuation is done at the branch in front of you.',
       },
       {
         q: 'What happens if the gold price falls during the loan?',
-        a: 'Lenders may ask for a part-payment or additional security to restore the loan-to-value ratio. Ask what the trigger is before you borrow — it is in the agreement and rarely mentioned at the counter.',
+        a: 'Lenders may ask for a part-payment or additional security to restore the loan-to-value ratio. Ask what the trigger is before you borrow. It is in the agreement and rarely mentioned at the counter.',
       },
     ],
     seo: {
-      title: 'Gold Loan in Pune & PCMC — Same-day Disbursal | PayYou Advisory',
+      title: 'Gold Loan in Pune & PCMC: Same-day Disbursal | PayYou Advisory',
       description:
         'Gold loans in Pune and Pimpri-Chinchwad. Same-day valuation and disbursal, no credit score requirement. Compare bank and NBFC schemes and repayment structures before you pledge.',
       keywords: [
@@ -712,7 +712,7 @@ export const PRODUCTS = [
     categoryLabel: 'Business facilities',
     tagline: 'Facilities for a business that has outgrown a term loan.',
     summary:
-      'Cash credit, overdraft, and Lease Rental Discounting — structured facilities for established businesses, priced and sized on turnover, receivables or rental income.',
+      'Cash credit, overdraft, and Lease Rental Discounting: structured facilities for established businesses, priced and sized on turnover, receivables or rental income.',
     intro: [
       'A term loan is the wrong shape for a working-capital problem. A business whose money is tied up in stock and receivables needs a revolving facility it can draw on and repay as the cycle turns, paying interest only on what is outstanding.',
       'Lease Rental Discounting is a different instrument again: if you own commercial property let to a creditworthy tenant, the lender advances against the future rent stream. It is one of the cheapest ways for a property owner to raise a large sum, and one of the least understood.',
@@ -733,7 +733,7 @@ export const PRODUCTS = [
       },
       {
         title: 'Sized to the cycle',
-        body: 'The limit is assessed on your actual working-capital gap — stock plus receivables less creditors — rather than on a round number.',
+        body: 'The limit is assessed on your actual working-capital gap (stock plus receivables less creditors) rather than on a round number.',
       },
       {
         title: 'Lease Rental Discounting',
@@ -775,7 +775,7 @@ export const PRODUCTS = [
       },
       {
         q: 'What is Lease Rental Discounting?',
-        a: 'A loan advanced against the future rent from a commercial property you own and have let. The lender assesses the lease, the tenant’s standing and the remaining term, and lends against that income stream — usually at a rate close to a home loan, because the security and the cash flow are both strong.',
+        a: 'A loan advanced against the future rent from a commercial property you own and have let. The lender assesses the lease, the tenant’s standing and the remaining term, and lends against that income stream, usually at a rate close to a home loan, because the security and the cash flow are both strong.',
       },
       {
         q: 'How is the working-capital limit decided?',
@@ -839,7 +839,7 @@ export const PRODUCTS = [
       rows: [
         { criterion: 'Age', salaried: 'By product; term plans commonly 18 – 65', selfEmployed: 'By product' },
         { criterion: 'Medical underwriting', salaried: 'May be required above certain ages or sums insured', selfEmployed: 'Same' },
-        { criterion: 'Disclosure', salaried: 'Full and accurate — non-disclosure voids claims', selfEmployed: 'Full and accurate' },
+        { criterion: 'Disclosure', salaried: 'Full and accurate: non-disclosure voids claims', selfEmployed: 'Full and accurate' },
       ],
     },
     documents: [
@@ -852,7 +852,7 @@ export const PRODUCTS = [
     faqs: [
       {
         q: 'Is insurance compulsory when I take a loan?',
-        a: 'No. Insurance is generally optional, though lenders will often suggest a loan protection plan alongside the sanction. It should be your decision, taken on its merits — and you are entitled to buy that cover from someone other than the lender.',
+        a: 'No. Insurance is generally optional, though lenders will often suggest a loan protection plan alongside the sanction. It should be your decision, taken on its merits, and you are entitled to buy that cover from someone other than the lender.',
       },
       {
         q: 'Can I buy a policy without taking a loan?',
@@ -860,7 +860,7 @@ export const PRODUCTS = [
       },
       {
         q: 'How is the premium calculated?',
-        a: 'On your age, your health, the sum insured, the policy tenure and the type of plan. Age is the variable that punishes delay most — the same cover bought five years later costs materially more for the rest of the policy’s life.',
+        a: 'On your age, your health, the sum insured, the policy tenure and the type of plan. Age is the variable that punishes delay most. The same cover bought five years later costs materially more for the rest of the policy’s life.',
       },
       {
         q: 'What tax benefits apply?',
@@ -872,7 +872,7 @@ export const PRODUCTS = [
       },
     ],
     seo: {
-      title: 'Insurance Plans in Pune — Life, Health & Motor | PayYou Advisory',
+      title: 'Insurance Plans in Pune. Life, Health & Motor | PayYou Advisory',
       description:
         'Life, health, motor, property, business and loan-protection insurance in Pune and PCMC, placed across multiple insurers. Tax benefits under 80C, 80D and 10(10D).',
       keywords: [
@@ -906,13 +906,13 @@ export const PROCESS = [
   {
     step: '02',
     title: 'We read your profile the way an underwriter will',
-    body: 'Income, vintage, existing EMIs, credit report, and — for a secured loan — the property. This is where a file is either fixed or found to be unfixable, and it is the part most brokers skip.',
+    body: 'Income, vintage, existing EMIs, credit report, and, for a secured loan. The property. This is where a file is either fixed or found to be unfixable, and it is the part most brokers skip.',
     detail: 'Soft check only. No hard enquiry on your credit report.',
   },
   {
     step: '03',
     title: 'We shortlist the lenders you actually clear',
-    body: 'Out of 25+ partners, usually two or three are genuinely right for a given profile. You see what each would offer — rate, amount, tenure, fees — side by side, before anything is submitted.',
+    body: 'Out of 25+ partners, usually two or three are genuinely right for a given profile. You see what each would offer (rate, amount, tenure, fees) side by side, before anything is submitted.',
     detail: 'You choose. We do not submit anywhere without your instruction.',
   },
   {

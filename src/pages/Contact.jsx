@@ -90,7 +90,7 @@ export default function Contact({ trail }) {
           <div className="lg:col-span-5">
             <SectionHead title="What to have in front of you" className="mb-6" />
             <p className="prose-body">
-              None of this is needed to call — but if you have it to hand, the answer you get will
+              None of this is needed to call, but if you have it to hand, the answer you get will
               be a real one rather than a range.
             </p>
           </div>
@@ -99,7 +99,7 @@ export default function Contact({ trail }) {
             <ul className="border-t border-ink/15">
               {[
                 ['The amount and what it is for', 'The purpose changes which product is right, and sometimes changes the rate.'],
-                ['Your net monthly income', 'Take-home, after deductions — not the CTC figure.'],
+                ['Your net monthly income', 'Take-home, after deductions, not the CTC figure.'],
                 ['Your existing EMIs', 'All of them, including credit-card EMIs. This is what most often decides the answer.'],
                 ['Your credit score, if you know it', 'If not, we will check it with a soft pull that leaves no mark.'],
                 ['For a secured loan, the property', 'Type, location, roughly what it is worth, and whether the title is clear.'],
@@ -119,7 +119,7 @@ export default function Contact({ trail }) {
                 <strong className="font-semibold text-ink">We will never</strong> ask you to pay a
                 fee in cash to secure a sanction, ask for an internet-banking password or an OTP, or
                 ask you to transfer money to an individual account to release a loan. Anyone doing so
-                in our name is not acting for us — tell us, and tell the police.
+                in our name is not acting for us. Tell us, and tell the police.
               </p>
             </div>
           </div>

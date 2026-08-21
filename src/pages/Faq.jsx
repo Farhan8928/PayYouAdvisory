@@ -34,9 +34,6 @@ export default function Faq({ trail }) {
         <Section key={group.group} tone={i % 2 === 0 ? 'paper' : 'deep'} size="md">
           <div className="container-page grid gap-8 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-4">
-              <span className="fig mb-3 block text-2xs tracking-[0.16em] text-accent">
-                {String(i + 1).padStart(2, '0')}
-              </span>
               <span className="rule-mark" />
               <h2 className="h-section text-ink">{group.group}</h2>
               <p className="fig mt-4 text-2xs text-ink-faint">
@@ -58,7 +55,7 @@ export default function Faq({ trail }) {
             Questions about a specific product
           </h2>
           <p className="mb-6 max-w-prose text-sm leading-relaxed text-ink-soft">
-            Each product page carries its own set — eligibility, documents, rates and the traps
+            Each product page carries its own set: eligibility, documents, rates and the traps
             particular to that instrument.
           </p>
           <ul className="grid gap-px border border-ink/12 bg-ink/12 sm:grid-cols-2 lg:grid-cols-4">

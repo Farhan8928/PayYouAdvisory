@@ -155,7 +155,7 @@ export const PANEL_ARGUMENT = [
   },
   {
     title: 'Applying widely damages you',
-    body: 'Every formal application puts a hard enquiry on your credit report, and several in a short window lower your score — at precisely the moment you need it highest. Shortlisting first is not a convenience, it is protection.',
+    body: 'Every formal application puts a hard enquiry on your credit report, and several in a short window lower your score, at precisely the moment you need it highest. Shortlisting first is not a convenience, it is protection.',
   },
   {
     title: 'The cheapest advertised rate is often irrelevant',
@@ -163,6 +163,6 @@ export const PANEL_ARGUMENT = [
   },
   {
     title: 'We are paid by the lender, and you should know that',
-    body: 'PayYou is a Direct Selling Agent. Our fee comes from the lender on a completed disbursal, not from you. You should weigh any broker’s recommendation in that light — including ours — which is why we show you the comparison rather than just the conclusion.',
+    body: 'PayYou is a Direct Selling Agent. Our fee comes from the lender on a completed disbursal, not from you. You should weigh any broker’s recommendation in that light, including ours, which is why we show you the comparison rather than just the conclusion.',
   },
 ]

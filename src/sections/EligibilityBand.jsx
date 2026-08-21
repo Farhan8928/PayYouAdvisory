@@ -27,12 +27,12 @@ export default function EligibilityBand() {
       <div className="container-page grid gap-10 lg:grid-cols-12 lg:gap-14">
         <div className="lg:col-span-4">
           <SectionHead
-            index="00 — Start here"
+            index="Start here"
             title="What could you actually borrow?"
             className="mb-6"
           />
           <p className="prose-body">
-            Worked the way a lender does it — on your income less the EMIs you already pay, which is
+            Worked the way a lender does it, on your income less the EMIs you already pay, which is
             what usually decides the answer rather than your salary.
           </p>
 
@@ -55,7 +55,7 @@ export default function EligibilityBand() {
           </a>
         </div>
 
-        <div className="lg:col-span-8" data-reveal>
+        <div className="lg:col-span-8">
           <EligibilityCalculator />
         </div>
       </div>

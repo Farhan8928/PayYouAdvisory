@@ -127,7 +127,7 @@ export default function EligibilityCalculator({ compact = false }) {
             emphasis
             sub={
               result.amount > 0
-                ? `at ${pct(rate)} over ${fmtMonths(tenure)} — an EMI of about ${inr(emi(result.amount, rate, tenure))}`
+                ? `at ${pct(rate)} over ${fmtMonths(tenure)}, an EMI of about ${inr(emi(result.amount, rate, tenure))}`
                 : 'Your existing EMIs already use the room a lender would allow.'
             }
           />
@@ -153,14 +153,14 @@ export default function EligibilityCalculator({ compact = false }) {
             </div>
 
             <p className="mt-3 text-2xs leading-relaxed text-ink-faint">
-              Lenders cap total EMIs — existing and new — at roughly{' '}
+              Lenders cap total EMIs — existing and new, at roughly{' '}
               <span className="fig text-ink-soft">{pct(result.foir * 100, 0)}</span> of net income at
               your level. Your current EMIs use{' '}
               <span className="fig text-ink-soft">{pct(usedByObligations, 0)}</span> of that.
             </p>
 
             {obligations > 0 && cost > 0 ? (
-              <p className="mt-4 border-l-2 border-accent pl-4 text-sm leading-relaxed text-ink-soft">
+              <p className="mt-4 rounded-md bg-paper-deep px-4 py-3 text-sm leading-relaxed text-ink-soft">
                 Those existing EMIs are costing you about{' '}
                 <span className="fig font-semibold text-ink">{inrCompact(cost)}</span> of borrowing
                 capacity. Clearing the smallest of them before you apply is frequently worth more
@@ -189,7 +189,7 @@ export default function EligibilityCalculator({ compact = false }) {
 
       <p className="border-t border-ink/15 bg-paper-deep px-6 py-4 text-2xs leading-relaxed text-ink-faint sm:px-8">
         Indicative only. A lender also weighs your credit score, employer, job or business vintage
-        and — on a secured loan — the property, and each sets its own ratio. Computed in your
+        and, on a secured loan, the property, and each sets its own ratio. Computed in your
         browser; nothing you enter is transmitted.
       </p>
     </div>

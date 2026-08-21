@@ -74,12 +74,12 @@ export default function ContactStrip() {
           </ul>
         </div>
 
-        <div className="lg:col-span-6" data-reveal>
+        <div className="lg:col-span-6">
           <h3 className="mb-5 text-2xs font-bold uppercase tracking-[0.16em] text-paper/45">
             Where to find us
           </h3>
 
-          <ul className="space-y-3" data-stagger>
+          <ul className="space-y-3">
             {OFFICES.map((o) => (
               <li
                 key={o.id}

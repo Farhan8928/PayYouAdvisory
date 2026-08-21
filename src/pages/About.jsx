@@ -27,7 +27,7 @@ export default function About({ trail }) {
       <PageHeader
         eyebrow={`A venture of ${COMPANY.parent}`}
         title="A broker that tells you when the answer is no."
-        standfirst={`${COMPANY.name} is a loan advisory firm in Pimpri-Chinchwad. We are a Direct Selling Agent for ${PARTNER_COUNT_CLAIM} banks and NBFCs, which means we do not lend — we work out who will, and manage the file until they do.`}
+        standfirst={`${COMPANY.name} is a loan advisory firm in Pimpri-Chinchwad. We are a Direct Selling Agent for ${PARTNER_COUNT_CLAIM} banks and NBFCs, which means we do not lend. We work out who will, and manage the file until they do.`}
         trail={trail}
         photo="team-office"
         aside={
@@ -64,14 +64,15 @@ export default function About({ trail }) {
             <p className="prose-body mb-5">
               We are not a bank, an NBFC or a housing finance company. We do not accept deposits
               under any circumstances. We do not lend our own money, we cannot sanction anything, and
-              we do not set interest rates — every one of those is the lender’s decision under its
+              we do not set interest rates. Every one of those is the lender’s decision under its
               own credit policy.
             </p>
             <p className="prose-body">
               What we do control is which lender sees the file, how it is presented, and whether an
-              application should be made at all. On a non-standard profile — cash income, a thin
-              credit file, an MIDC leasehold shed, seasonal agricultural earnings — that is the
-              difference between an approval and a decline, not between one rate and another.
+              application should be made at all. Some profiles are not standard: cash income, a thin
+              credit file, an MIDC leasehold shed, seasonal agricultural earnings. On those, the
+              choice of lender is the difference between an approval and a decline, not between one
+              rate and another.
             </p>
 
             <Disclosure className="mt-8" />
@@ -89,7 +90,7 @@ export default function About({ trail }) {
               <h3 className="mt-8 h-card text-ink">Mission</h3>
               <p className="mt-2.5 text-base leading-relaxed text-ink-soft">
                 To bring convenience to people’s financial lives through secured and unsecured
-                credit solutions matched to what they actually need — not to what pays the most to
+                credit solutions matched to what they actually need, not to what pays the most to
                 place.
               </p>
 
@@ -100,7 +101,7 @@ export default function About({ trail }) {
                   ['Transparency', 'about how we are paid and what we cannot promise'],
                   ['Compliance', 'with the law and with each lender’s code of conduct'],
                 ].map(([k, v]) => (
-                  <li key={k} className="border-l-2 border-accent pl-4 text-base leading-relaxed text-ink-soft">
+                  <li key={k} className="border-b border-ink/10 pb-2 text-base leading-relaxed text-ink-soft last:border-b-0">
                     <span className="font-semibold text-ink">{k}</span> — {v}
                   </li>
                 ))}
