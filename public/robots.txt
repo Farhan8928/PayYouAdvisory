@@ -1,0 +1,30 @@
+# PayYou Advisory Private Limited — payyouadvisory.com
+#
+# Everything here is public marketing and reference content and is meant to be
+# crawled. There is no login area, no user data and no server-side application:
+# the whole site is static HTML rendered at build time.
+
+User-agent: *
+Allow: /
+
+# The previous site's URLs are 301-redirected (see vercel.json). Nothing needs
+# blocking — a redirect passes authority on, a Disallow throws it away.
+
+# AI crawlers are deliberately allowed. Increasingly they answer questions like
+# "loan advisor in Pimpri Chinchwad" directly, and a business that blocks them
+# is invisible in that answer. /llms.txt is written for them specifically and
+# states plainly that PayYou is an intermediary rather than a lender, which is
+# the one thing a summary must not get wrong.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://payyouadvisory.com/sitemap.xml

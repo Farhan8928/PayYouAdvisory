@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!--
+      ── Per-page head ────────────────────────────────────────────────────────
+      Everything between the PAGE-HEAD markers is replaced for each of the ~140
+      routes by scripts/prerender.mjs, using the metadata attached to that route
+      in src/routes.js. The block below is the homepage's own version and is
+      what the dev server serves for every route, which is fine — in development
+      nothing is indexing the site.
+
+      Do not add a page-specific tag outside the markers, and do not remove the
+      markers. The prerenderer fails the build if it cannot find them, rather
+      than silently shipping 140 pages that all claim to be the homepage — which
+      is what happens when this kind of substitution quietly no-ops.
+    -->
+    <!--PAGE-HEAD-->
+    <title>Loan Advisory in Pune &amp; PCMC — 25+ Lenders, One Application | PayYou Advisory</title>
+    <meta
+      name="description"
+      content="PayYou Advisory compares your profile across 25+ banks and NBFCs, then applies to one. Personal, business, home, property, car and gold loans in Pune and Pimpri-Chinchwad."
+    />
+    <link rel="canonical" href="https://payyouadvisory.com/" />
+    <!--/PAGE-HEAD-->
+
+    <!-- ── Sitewide ─────────────────────────────────────────────────────── -->
+    <meta name="author" content="PayYou Advisory Private Limited" />
+    <meta name="publisher" content="PayYou Advisory Private Limited" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <meta name="bingbot" content="index, follow" />
+    <meta name="rating" content="general" />
+    <meta name="format-detection" content="telephone=yes" />
+    <meta name="theme-color" content="#061223" />
+    <meta name="color-scheme" content="light" />
+    <meta http-equiv="content-language" content="en-IN" />
+
+    <!-- Geo tags for the local pack. These are the Chinchwad corporate office
+         and must stay identical to the verified Google Business Profile pin —
+         see the TODO(client) beside `geo` in src/data/site.js. -->
+    <meta name="geo.region" content="IN-MH" />
+    <meta name="geo.placename" content="Chinchwad, Pimpri-Chinchwad, Pune, Maharashtra" />
+    <meta name="geo.position" content="18.6437;73.7997" />
+    <meta name="ICBM" content="18.6437, 73.7997" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- ── Type ─────────────────────────────────────────────────────────────
+         Three families, each with a job.
+
+         Instrument Serif — display only, and only above roughly 32px, where its
+         very high contrast reads expensive. It ships one weight, which is the
+         point: hierarchy below display size is the sans's problem.
+
+         Plus Jakarta Sans — interface and body, 400 to 800. Modern humanist
+         geometric; the register premium fintech actually uses.
+
+         IBM Plex Mono — every figure. Functional rather than decorative:
+         tabular lining figures are why a column of rupee amounts lines up and
+         why a decimal point cannot drift. See DESIGN.md § The figure rule.
+
+         `preconnect` to both Google hosts — the stylesheet on
+         fonts.googleapis.com and the font files on fonts.gstatic.com are two
+         separate connections, and warming only the first saves nothing. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
