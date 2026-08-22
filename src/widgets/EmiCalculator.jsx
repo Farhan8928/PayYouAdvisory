@@ -106,7 +106,7 @@ export default function EmiCalculator({ compact = false, initial }) {
                   setRate(p.rate)
                   setTenure(p.months)
                 }}
-                className="shrink-0 rounded px-3 py-2 text-xs font-medium text-ink-soft transition-colors hover:bg-paper hover:text-ink"
+                className="flex min-h-[44px] shrink-0 items-center rounded px-3 text-xs font-medium text-ink-soft transition-colors hover:bg-paper hover:text-ink"
               >
                 {p.label}
               </button>
@@ -160,7 +160,13 @@ export default function EmiCalculator({ compact = false, initial }) {
 
         {/* ── Results ───────────────────────────────────────────────────── */}
         <div className="p-6 sm:p-8">
-          <div className="grid grid-cols-2 gap-6">
+          {/* One column until `sm`. Two columns on a 360px phone leaves 123px
+              per cell, and "₹40,05,71,382" at this size is roughly twice that
+              — the figure spilled out of the card and took the whole page
+              sideways with it, nav and hero included. Stacking keeps both
+              numbers at the same size, which is the point of the pair; it is
+              only the side-by-side that the width cannot afford. */}
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <Readout label="Monthly EMI" value={inr(instalment)} emphasis />
             <Readout
               label="Total interest"
@@ -259,7 +265,7 @@ export default function EmiCalculator({ compact = false, initial }) {
               {...fieldProps}
             />
 
-            <div className="grid grid-cols-2 gap-6 self-center">
+            <div className="grid grid-cols-1 gap-6 self-center sm:grid-cols-2">
               {prepay ? (
                 <>
                   <Readout

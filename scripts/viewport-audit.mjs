@@ -57,13 +57,31 @@ const VIEWPORTS = [
   { name: 'desktop', width: 1920, height: 960 },
 ]
 
-/** The pages worth checking. One of each layout kind. */
+/**
+ * The pages worth checking. One of each layout kind.
+ *
+ * The calculators were missing from this list until a phone screenshot showed
+ * the whole page scrolling sideways on one. They are the densest layouts on the
+ * site — two large tabular figures side by side, sliders, a chart, a wide table
+ * — so leaving them out meant this audit was checking the easy pages and
+ * declaring the site sound. Any page with a widget on it belongs here.
+ *
+ * `stress: 'max'` drives every slider to its maximum before measuring. This is
+ * the other half of the same miss: at the default ₹25,00,000 the readouts hold
+ * ten characters and fit, and at the ₹5,00,00,000 ceiling they hold thirteen and
+ * do not. Measuring only the state the page loads in tests the one case the
+ * reader is guaranteed to leave.
+ */
 const PAGES = [
   { path: '/', kind: 'home' },
   { path: '/personal-loan/', kind: 'product' },
   { path: '/business-loan-bhosari/', kind: 'locality' },
   { path: '/lenders/', kind: 'lenders' },
   { path: '/contact/', kind: 'contact' },
+  { path: '/calculators/', kind: 'calculators', stress: 'max' },
+  { path: '/emi-calculator/', kind: 'calc-emi', stress: 'max' },
+  { path: '/eligibility-calculator/', kind: 'calc-eligibility', stress: 'max' },
+  { path: '/balance-transfer-calculator/', kind: 'calc-bt', stress: 'max' },
 ]
 
 const MIME = {
@@ -139,10 +157,48 @@ async function main() {
     for (const target of PAGES) {
       await page.goto(`http://localhost:${PORT}${target.path}`, { waitUntil: 'networkidle' })
 
+      // ── Worst-case content ─────────────────────────────────────────────
+      // Push every slider to its ceiling so the figures are as long as the
+      // widget can ever make them. Assigning to `.value` is not enough: React
+      // caches the last value it wrote, sees no change, and skips the update.
+      // Going through the prototype's setter defeats that cache, which is the
+      // documented way to drive a controlled input from outside React.
+      if (target.stress === 'max') {
+        await page.evaluate(() => {
+          const setValue = Object.getOwnPropertyDescriptor(
+            window.HTMLInputElement.prototype,
+            'value',
+          ).set
+          for (const el of document.querySelectorAll('input[type="range"]')) {
+            setValue.call(el, el.max)
+            el.dispatchEvent(new Event('input', { bubbles: true }))
+            el.dispatchEvent(new Event('change', { bubbles: true }))
+          }
+        })
+        await page.waitForTimeout(120)
+      }
+
       const result = await page.evaluate(() => {
-        const vh = window.innerHeight
-        const vw = window.innerWidth
         const doc = document.documentElement
+
+        // ── Which viewport number to trust ──────────────────────────────
+        //
+        // Not `window.innerWidth`. Under Chrome's mobile emulation it reports
+        // the *visual* viewport, which the browser widens to fit overflowing
+        // content: on a 360px phone whose page is 520px wide it returns 520,
+        // and innerHeight is inflated the same way (925 for a 640px screen).
+        //
+        // That is not a rounding difference, it is the wrong quantity. Every
+        // check below compares an element against the viewport, so measuring
+        // the viewport as "however wide the content turned out to be" makes
+        // the overflow test tautologically true — which is exactly why this
+        // audit passed a page a phone screenshot showed scrolling sideways.
+        //
+        // `documentElement.clientWidth/clientHeight` is the layout viewport
+        // and matches the CSS pixel the media queries use. Verified against
+        // both emulated and non-emulated contexts at 360/390/430/768.
+        const vw = doc.clientWidth
+        const vh = doc.clientHeight
 
         /** The first genuinely primary action in the page's own content. */
         const main = document.getElementById('main')
@@ -161,33 +217,55 @@ async function main() {
             ? Math.round(h1Box.height / parseFloat(h1Style.lineHeight || '0'))
             : 0
 
-        // Anything sticking out horizontally. Reported with a selector so the
-        // culprit is findable rather than just "something overflows".
+        // ── Does the page scroll sideways? ──────────────────────────────
+        //
+        // This is the reader's actual complaint, and it has a single honest
+        // measure. Everything else in this block only exists to say *which
+        // element* caused it.
+        const sidewaysBy = Math.max(0, doc.scrollWidth - vw)
+
+        // ── Which element caused it ─────────────────────────────────────
+        //
+        // An element wider than the viewport is only a fault if nothing
+        // between it and <html> clips or scrolls it. A wide table inside
+        // `.scroll-x` is the design working; the same table with the wrapper
+        // missing is the bug. The previous version decided this by looking
+        // for class names — `.scroll-x`, `[class*="overflow-hidden"]` — which
+        // guesses at the styling instead of reading it, and got it wrong in
+        // both directions. Computed style is the thing that actually governs.
+        const CONTAINS = new Set(['hidden', 'clip', 'auto', 'scroll'])
+        const isContained = (el) => {
+          for (let p = el.parentElement; p && p !== doc; p = p.parentElement) {
+            const cs = getComputedStyle(p)
+            if (CONTAINS.has(cs.overflowX)) return true
+            // A fixed/absolute box establishes its own containing block, so a
+            // wide child of one does not push the document — the marquee rows
+            // and the off-canvas drawer both rely on this.
+            if (cs.position === 'fixed') return true
+          }
+          return false
+        }
+
         const overflowing = []
         for (const el of document.querySelectorAll('body *')) {
           const r = el.getBoundingClientRect()
           if (r.width === 0 || r.height === 0) continue
-          if (r.right > vw + 1 || r.left < -1) {
-            const cs = getComputedStyle(el)
-            // Deliberately scrollable containers are fine, as are the marquee
-            // track and anything clipped by an ancestor.
-            if (cs.overflowX === 'auto' || cs.overflowX === 'scroll') continue
-            if (el.closest('.scroll-x, .marquee-track, [class*="overflow-hidden"]')) continue
-            // The closed mobile drawer genuinely lives off-canvas: it is
-            // translate-x-full and marked aria-hidden. Reporting it as overflow
-            // flagged five "faults" on every page that were the design working
-            // exactly as intended — and an audit that is wrong five times a page
-            // is one nobody reads.
-            if (el.closest('[aria-hidden="true"]')) continue
-            if (cs.transform !== 'none' && cs.transform.includes('matrix')) {
-              const tx = parseFloat(cs.transform.split(',')[4] || '0')
-              if (tx >= r.width - 1) continue
-            }
-            overflowing.push(
-              `${el.tagName.toLowerCase()}${el.className && typeof el.className === 'string' ? '.' + el.className.split(' ').slice(0, 2).join('.') : ''} → ${Math.round(r.right)}px`,
-            )
-            if (overflowing.length > 4) break
-          }
+          if (r.right <= vw + 1 && r.left >= -1) continue
+          // The closed mobile drawer genuinely lives off-canvas: it is
+          // translate-x-full and marked aria-hidden. Reporting it as overflow
+          // flagged five "faults" on every page that were the design working
+          // exactly as intended — and an audit that is wrong five times a page
+          // is one nobody reads.
+          if (el.closest('[aria-hidden="true"]')) continue
+          if (CONTAINS.has(getComputedStyle(el).overflowX)) continue
+          if (isContained(el)) continue
+          // Report the innermost offender. When a wide child pushes its
+          // parent, naming both is noise; the child is the thing to fix.
+          if ([...el.children].some((c) => c.getBoundingClientRect().right > vw + 1)) continue
+          overflowing.push(
+            `${el.tagName.toLowerCase()}${el.className && typeof el.className === 'string' ? '.' + el.className.trim().split(/\s+/).slice(0, 3).join('.') : ''} — ${Math.round(r.width)}px wide, ends at ${Math.round(r.right)}px`,
+          )
+          if (overflowing.length > 4) break
         }
 
         // ── Tap targets ──────────────────────────────────────────────────
@@ -244,6 +322,7 @@ async function main() {
           h1Height: h1Box ? Math.round(h1Box.height) : null,
           h1Lines,
           h1Font: h1Style ? Math.round(parseFloat(h1Style.fontSize)) : null,
+          sidewaysBy,
           overflowing,
           small,
         }
@@ -254,8 +333,11 @@ async function main() {
       // ── Assertions ─────────────────────────────────────────────────────
       const where = `${target.path} @ ${vp.name} (${vp.width}x${vp.height})`
 
-      if (result.scrollWidth > result.vw + 1)
-        errors.push(`${where}: page scrolls horizontally (${result.scrollWidth}px > ${result.vw}px)`)
+      // The reader's complaint, stated the way they would state it.
+      if (result.sidewaysBy > 1)
+        errors.push(
+          `${where}: page scrolls sideways by ${result.sidewaysBy}px (content ${result.scrollWidth}px in a ${result.vw}px screen)`,
+        )
 
       for (const o of result.overflowing) errors.push(`${where}: overflows — ${o}`)
 

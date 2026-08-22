@@ -398,8 +398,20 @@
   }
 
   /* Wide content scrolls inside its own container; the page body never does. */
+  /**
+   * A horizontally scrollable strip — wide tables, tab rails, chip rows.
+   *
+   * `min-w-0` says the strip may be narrower than the thing it scrolls. On its
+   * own it does not save you: when a `min-w-[30rem]` table blew the calculator
+   * pages 160px wide on a 360px phone, adding this changed nothing, because the
+   * width was coming from the *grid track* above it, not from here. The track
+   * has to be `minmax(0, 1fr)` — which is what `grid-cols-1` emits and what a
+   * grid with only `lg:grid-cols-*` never gets at mobile width. Keep both:
+   * this one states the intent locally, the base column count is what enforces
+   * it.
+   */
   .scroll-x {
-    @apply -mx-5 overflow-x-auto px-5 sm:mx-0 sm:px-0;
+    @apply -mx-5 min-w-0 overflow-x-auto px-5 sm:mx-0 sm:px-0;
   }
 
   .mask-fade-r {

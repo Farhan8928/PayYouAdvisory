@@ -162,7 +162,7 @@ export default function BalanceTransferCalculator() {
             </p>
           </div>
 
-          <div className="mt-7 grid grid-cols-2 gap-6">
+          <div className="mt-7 grid grid-cols-1 gap-6 sm:grid-cols-2">
             <Readout label="EMI now" value={inr(r.currentEmi)} />
             <Readout
               label="EMI after"

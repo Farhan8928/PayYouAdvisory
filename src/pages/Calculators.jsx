@@ -67,7 +67,7 @@ export default function Calculators({ tool = 'all', trail }) {
 
       {/* ── The flat-rate trap ──────────────────────────────────────────── */}
       <Section tone="dark" size="md">
-        <div className="container-page grid gap-10 lg:grid-cols-12 lg:gap-16">
+        <div className="container-page grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
             <SectionHead
               title="One number worth knowing: flat versus reducing"
