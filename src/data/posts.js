@@ -87,7 +87,7 @@ export const POSTS = [
     updated: '2026-08-12',
     readingMinutes: 6,
     topic: 'How we work',
-    photo: 'consult-desk',
+    photo: 'meeting-india',
     body: [
       {
         heading: 'We are not a lender, and that distinction matters',

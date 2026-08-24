@@ -901,7 +901,7 @@ export const PRODUCTS = [
     shortName: 'Securities',
     category: 'secured',
     categoryLabel: 'Secured · Financial assets',
-    photo: 'consult-desk',
+    photo: 'office-window',
     tagline: 'Borrow against the portfolio without selling it.',
     summary:
       'An overdraft against shares, mutual funds, bonds, insurance policies or fixed deposits you already hold, so the investment stays invested.',

@@ -36,11 +36,21 @@ export const PHOTOS = {
     alt: 'A loan adviser and a client shaking hands across a desk after agreeing terms',
     focal: '50% 42%',
   },
-  'consult-desk': {
-    src: 'https://images.unsplash.com/photo-1681505526188-b05e68c77582',
-    alt: 'Two people shaking hands across an office desk with documents between them',
-    focal: '50% 45%',
-  },
+  /* ── 'consult-desk' was removed on 24 Aug 2026 ──────────────────────────
+     The photograph showed a real office with "AXIS BANK | PUNE" signage
+     legible on the glass, twice. It had been in use in six places, including
+     the Discover card in the Borrow mega-menu.
+
+     A competitor's branded premises on a loan advisory's own site is not a
+     small thing: it implies an association that does not exist, it puts
+     another company's trade mark on PayYou's pages, and to a reader who
+     recognises it the whole site looks borrowed.
+
+     Every photograph here is licensed stock of a real place, so this is a
+     standing risk rather than a one-off. Before adding one, look at it at full
+     size and read every sign, screen and lanyard in it. The alt text is not a
+     substitute for looking. */
+
   'review-documents': {
     src: 'https://images.unsplash.com/photo-1775163024488-e88e4a71179f',
     alt: 'Two people reviewing loan documents together at a table',

@@ -3,6 +3,7 @@ import { NAV, CONTACT, COMPANY, fmtMobile } from '../data/site.js'
 import { telHref } from '../lib/format.js'
 import { Phone, ChevronDown, Menu, Close, ArrowRight, Search, Lock, ShieldCheck } from './Icon.jsx'
 import Wordmark from './Wordmark.jsx'
+import MegaPanel, { SupportPanel } from './MegaPanel.jsx'
 import SearchOverlay from './SearchOverlay.jsx'
 
 /**
@@ -170,40 +171,9 @@ export default function Nav({ path = '/', overlay = false }) {
                     />
                   </a>
 
-                  {/* Mega Menu Dropdown */}
-                  {item.children ? (
-                    <div
-                      hidden={open !== item.label}
-                      onMouseEnter={() => openPanel(item.label)}
-                      onMouseLeave={scheduleClose}
-                      className="absolute left-0 top-full z-50 w-[30rem] overflow-hidden rounded-2xl border border-ink/10 bg-paper p-3 shadow-lift animate-slide-up"
-                    >
-                      <div className="grid gap-1">
-                        {item.children.map((child) => (
-                          <a
-                            key={child.href}
-                            href={child.href}
-                            className="group flex items-center justify-between rounded-xl px-3.5 py-2.5 transition-all hover:bg-paper-deep"
-                          >
-                            <div>
-                              <span className="flex items-center gap-2 text-sm font-bold text-ink group-hover:text-accent">
-                                {child.label}
-                                <ArrowRight className="h-3 w-3 -translate-x-1 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100" />
-                              </span>
-                              {child.meta ? (
-                                <span className="fig text-2xs text-ink-faint">
-                                  {child.meta}
-                                </span>
-                              ) : null}
-                            </div>
-                            <span className="text-2xs font-semibold text-accent opacity-0 group-hover:opacity-100">
-                              Explore →
-                            </span>
-                          </a>
-                        ))}
-                      </div>
-                    </div>
-                  ) : null}
+                  {/* The panel itself is rendered once, outside the <ul>, so it
+                      can span the full window rather than being trapped inside a
+                      list item. See the block below the nav bar. */}
                 </li>
               ))}
             </ul>
@@ -228,6 +198,10 @@ export default function Nav({ path = '/', overlay = false }) {
               {/* IDFC Odometer Rotating Customer Support Button */}
               <a
                 href="/contact/"
+                onMouseEnter={() => openPanel('__support')}
+                onMouseLeave={scheduleClose}
+                onFocus={() => openPanel('__support')}
+                aria-expanded={open === '__support'}
                 className={`hidden h-11 items-center gap-2 rounded-full border px-4 text-xs font-semibold transition-all duration-200 xl:flex ${
                   clear
                     ? 'border-white/20 bg-white/10 text-white hover:bg-white/20'
@@ -266,6 +240,28 @@ export default function Nav({ path = '/', overlay = false }) {
                 <Menu className="h-6 w-6" />
               </button>
             </div>
+          </div>
+
+          {/* ── The mega sheets ────────────────────────────────────────────
+              Rendered here, inside <nav> but outside the <ul>, so a panel can
+              span the full window instead of being trapped in the width of a
+              list item. One is visible at a time, chosen by `open`. Desktop
+              only: the drawer below carries the same links on a phone. */}
+          <div className="hidden lg:block">
+            {NAV.filter((n) => n.children).map((n) => (
+              <MegaPanel
+                key={n.label}
+                group={n.label}
+                open={open === n.label}
+                onEnter={() => openPanel(n.label)}
+                onLeave={scheduleClose}
+              />
+            ))}
+            <SupportPanel
+              open={open === '__support'}
+              onEnter={() => openPanel('__support')}
+              onLeave={scheduleClose}
+            />
           </div>
         </nav>
 

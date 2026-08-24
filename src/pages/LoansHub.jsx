@@ -25,7 +25,7 @@ export default function LoansHub({ trail }) {
         title="Which of these is the right instrument?"
         standfirst="Eight products, four of them secured. The cheapest money is almost always secured on something, and the fastest is almost always the dearest. Below is the whole panel in one column of figures."
         trail={trail}
-        photo="consult-desk"
+        photo="meeting-india"
       />
 
       {/* ── The comparison ──────────────────────────────────────────────── */}

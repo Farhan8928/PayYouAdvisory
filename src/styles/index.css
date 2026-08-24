@@ -689,6 +689,47 @@
     background-image: linear-gradient(120deg, theme(colors.accent.DEFAULT), theme(colors.accent.deep));
   }
 
+
+  /* ── The mega-menu sheet ────────────────────────────────────────────────
+     Full window width, anchored under the bar. `absolute` against the sticky
+     <header>, so it travels with the bar on scroll rather than detaching.
+     The shadow does the separating; there is no border, because a hairline
+     across the full width of a white sheet on a white page reads as a seam. */
+  .mega-sheet {
+    @apply absolute inset-x-0 top-full z-40 border-t border-ink/8 bg-paper shadow-lift;
+  }
+
+  .mega-cat {
+    @apply flex w-full items-center rounded-r-xl px-5 py-3.5 text-left text-sm font-semibold
+           text-ink-soft transition-colors duration-150;
+  }
+
+  .mega-cat[data-active='true'] {
+    @apply bg-paper-deep font-bold text-accent;
+  }
+
+  .mega-cat:hover {
+    @apply bg-paper-deep text-ink;
+  }
+
+  .mega-viewall {
+    @apply inline-flex items-center gap-1 text-2xs font-bold text-accent transition-colors
+           hover:text-accent-deep;
+  }
+
+  /* min-h-[44px]: every link in the menu is a control-sized target. A 20px
+     text link in a dense two-column list is the commonest tap-target failure
+     on a banking site. */
+  .mega-link {
+    @apply flex min-h-[44px] items-center text-sm text-ink-soft transition-colors
+           hover:text-accent;
+  }
+
+  .support-tile {
+    @apply block h-full rounded-xl border border-ink/10 bg-paper p-4 transition-all duration-200
+           hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-card;
+  }
+
   .photo-rule::after {
     content: '';
     @apply pointer-events-none absolute inset-x-0 top-0 h-[3px] bg-accent-rule;

@@ -19,15 +19,6 @@ export const IMAGES = {
     "source": "https://images.unsplash.com/photo-1698047682091-782b1e5c6536",
     "blur": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAADwAwCdASoUAA0APxFysFAsJqSisAgBgCIJYwAAV5kAJSCZ5ZSfwn4AAP7oHRTzPUH6osdPfcUZFLenVnYH0Z9Ot3Gy6+HMWisxinv/EbY7DGIyyc5ytN1EuXJFARCEPQyQ/84SiUlUEV0sAAA="
   },
-  "consult-desk": {
-    "width": 2000,
-    "height": 1333,
-    "ratio": 1.5,
-    "alt": "Two people shaking hands across an office desk with documents between them",
-    "focal": "50% 45%",
-    "source": "https://images.unsplash.com/photo-1681505526188-b05e68c77582",
-    "blur": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAACQAwCdASoUAA0APxFysFAsJqSisAgBgCIJQAAGdu3EQaNv/J8AAP7aHyOYMpnB90U2P3fK6L45kifdleQNX1YzHkHxviLqf0JzEgLWd+YIe2Q725qozf+z7cHE+CDaEoN9F1hPpwgiIdi36AA="
-  },
   "review-documents": {
     "width": 2000,
     "height": 1333,

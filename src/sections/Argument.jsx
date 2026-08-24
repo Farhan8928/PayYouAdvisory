@@ -61,7 +61,7 @@ export default function Argument() {
                 className="mb-8"
               />
               <Photo
-                name="consult-desk"
+                name="review-documents"
                 ratio="5 / 4"
                 sizes="(min-width: 1024px) 36vw, 92vw"
                 className="photo-rule rounded-lg shadow-card"
