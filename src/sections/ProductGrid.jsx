@@ -95,7 +95,7 @@ export default function ProductGrid() {
             <div
               role="tablist"
               aria-label="Banking and advisory categories"
-              className="flex min-w-max"
+              className="flex"
             >
               {TABS.map((t) => {
                 const Art = LINE_ART[t.art]

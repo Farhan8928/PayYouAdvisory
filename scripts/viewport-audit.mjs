@@ -226,6 +226,25 @@ async function main() {
             ? Math.round(h1Box.height / parseFloat(h1Style.lineHeight || '0'))
             : 0
 
+        // ── The tab rail's items must be equal width ────────────────────
+        //
+        // Not a general rule — a specific one, for a specific device. The
+        // reference site's category rail sets every tab to exactly the same
+        // width, and ours shipped sized to its labels instead: "Loans" at
+        // 120px beside "Calculators & Tools" at 245px. It read as ragged and
+        // nothing here caught it, because a ragged row is neither overflow nor
+        // an undersized target.
+        //
+        // Sub-pixel layout means these are rarely integer-equal, so the test is
+        // a 2px spread rather than exact equality.
+        const tabs = [...document.querySelectorAll('.tab-item')].map((el) =>
+          el.getBoundingClientRect().width,
+        )
+        let tabSpread = 0
+        if (tabs.length > 1) {
+          tabSpread = Math.round(Math.max(...tabs) - Math.min(...tabs))
+        }
+
         // ── Does the page scroll sideways? ──────────────────────────────
         //
         // This is the reader's actual complaint, and it has a single honest
@@ -332,6 +351,8 @@ async function main() {
           h1Lines,
           h1Font: h1Style ? Math.round(parseFloat(h1Style.fontSize)) : null,
           sidewaysBy,
+          tabSpread,
+          tabCount: tabs.length,
           overflowing,
           small,
         }
@@ -341,6 +362,11 @@ async function main() {
 
       // ── Assertions ─────────────────────────────────────────────────────
       const where = `${target.path} @ ${vp.name} (${vp.width}x${vp.height})`
+
+      if (result.tabSpread > 2)
+        errors.push(
+          `${where}: tab rail is ragged — ${result.tabCount} tabs vary by ${result.tabSpread}px, they should be equal width`,
+        )
 
       // The reader's complaint, stated the way they would state it.
       if (result.sidewaysBy > 1)
