@@ -4,6 +4,7 @@ import { telHref } from '../lib/format.js'
 import { Phone, ChevronDown, Menu, Close, ArrowRight, Search, Lock, ShieldCheck } from './Icon.jsx'
 import Wordmark from './Wordmark.jsx'
 import MegaPanel, { SupportPanel } from './MegaPanel.jsx'
+import ReadingControls from './ReadingControls.jsx'
 import SearchOverlay from './SearchOverlay.jsx'
 
 /**
@@ -86,7 +87,7 @@ export default function Nav({ path = '/', overlay = false }) {
       <header className="sticky top-0 z-50">
         {/* Top utility / accessibility bar */}
         <div className={`transition-colors duration-300 ${clear ? 'bg-ink-deep/60 backdrop-blur-md text-white/80' : 'bg-ink-deep text-white/90'}`}>
-          <div className="container-page flex h-8 items-center justify-between gap-4 text-2xs">
+          <div className="container-page flex h-11 items-center justify-between gap-4 text-2xs">
             <div className="flex items-center gap-3 truncate">
               <span className="inline-flex items-center gap-1 font-bold text-accent-light">
                 <ShieldCheck className="h-3 w-3" />
@@ -98,7 +99,12 @@ export default function Nav({ path = '/', overlay = false }) {
               </p>
             </div>
             <div className="flex shrink-0 items-center gap-4">
-              <span className="hidden text-white/60 sm:inline">{CONTACT.hours}</span>
+              {/* Reader controls, as the reference carries them. See
+                  components/ReadingControls.jsx for why a lender's site in
+                  particular should have them. */}
+              <ReadingControls invert />
+              <span className="hidden text-white/30 lg:inline">|</span>
+              <span className="hidden text-white/60 lg:inline">{CONTACT.hours}</span>
               <a
                 href={telHref(CONTACT.landline)}
                 className="fig -my-3 flex items-center gap-1.5 py-3 font-bold text-white transition-colors hover:text-sky sm:-my-2 sm:py-2"
@@ -202,7 +208,7 @@ export default function Nav({ path = '/', overlay = false }) {
                 onMouseLeave={scheduleClose}
                 onFocus={() => openPanel('__support')}
                 aria-expanded={open === '__support'}
-                className={`hidden h-11 items-center gap-2 rounded-full border px-4 text-xs font-semibold transition-all duration-200 xl:flex ${
+                className={`hidden h-11 items-center gap-2 rounded-full border px-4 text-xs font-semibold transition-all duration-200 2xl:flex ${
                   clear
                     ? 'border-white/20 bg-white/10 text-white hover:bg-white/20'
                     : 'border-ink/12 bg-paper text-ink hover:border-accent/40 hover:text-accent shadow-sm'
@@ -221,7 +227,7 @@ export default function Nav({ path = '/', overlay = false }) {
                 // min-h-[44px]: `btn-sm` is 38px tall, which fails WCAG 2.5.5
                 // for a control. The padding grows the target without changing
                 // the pill's visual weight beside the other two.
-                className="btn-accent btn-sm flex min-h-[44px] items-center gap-1.5 shadow-sm"
+                className="btn-accent btn-sm hidden min-h-[44px] items-center gap-1.5 shadow-sm sm:flex"
               >
                 <Lock className="h-3.5 w-3.5" />
                 <span>Eligibility</span>

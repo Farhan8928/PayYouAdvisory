@@ -8,7 +8,7 @@
 
     /* Utility strip (44px on a phone, 36px from sm) plus the nav bar (80px at
        rest). The homepage hero slides up under both. */
-    --masthead-h: 7.75rem;
+    --masthead-h: 8.5rem;
 
     /* ── Context-aware emphasis colour ──────────────────────────────────────
        The brand red has a contrast problem that only appears on one of the two
@@ -37,11 +37,22 @@
 
   @media (min-width: 640px) {
     :root {
-      --masthead-h: 7.25rem;
+      --masthead-h: 8.5rem;
     }
   }
 
+  /* ── Reader controls ────────────────────────────────────────────────────
+     Driven by components/ReadingControls.jsx. `--text-scale` multiplies the
+     root font size so every rem on the site follows, which is the whole reason
+     the type scale is expressed in rem. Both default to no change, so a reader
+     who never touches the controls sees exactly the designed page. */
+  :root {
+    --text-scale: 1;
+    --tracking-extra: 0em;
+  }
+
   html {
+    font-size: calc(100% * var(--text-scale));
     scroll-behavior: smooth;
     scroll-padding-top: 6rem;
     -webkit-text-size-adjust: 100%;
@@ -49,6 +60,7 @@
 
   body {
     @apply bg-paper font-sans text-ink-text antialiased;
+    letter-spacing: var(--tracking-extra);
   }
 
   ::selection {
@@ -738,6 +750,20 @@
   .support-tile {
     @apply block h-full rounded-xl border border-ink/10 bg-paper p-4 transition-all duration-200
            hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-card;
+  }
+
+
+  /* 44px hit area on a small glyph: the target is the padding. A row of 18px
+     letter buttons is exactly the kind of control an accessibility feature
+     must not itself be inaccessible. */
+  .reading-btn {
+    @apply flex h-11 min-w-[1.75rem] items-center justify-center rounded px-1.5 text-2xs
+           font-bold transition-colors duration-150 hover:text-current
+           disabled:cursor-not-allowed disabled:opacity-35;
+  }
+
+  .reading-btn[data-active='true'] {
+    @apply bg-white/15 text-white;
   }
 
   .photo-rule::after {

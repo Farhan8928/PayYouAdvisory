@@ -90,6 +90,10 @@ const PAGES = [
   { path: '/blog/', kind: 'blog' },
   { path: '/blog/flat-versus-reducing-interest-rate/', kind: 'post' },
   { path: '/sip-calculator/', kind: 'calc-sip', stress: 'max' },
+  // The same pages again at the largest reading setting the controls offer.
+  { path: '/', kind: 'home-large', reading: 'large' },
+  { path: '/personal-loan/', kind: 'product-large', reading: 'large' },
+  { path: '/business-loan-bhosari/', kind: 'locality-large', reading: 'large' },
   { path: '/fd-calculator/', kind: 'calc-fd', stress: 'max' },
 ]
 
@@ -172,6 +176,20 @@ async function main() {
       // caches the last value it wrote, sees no change, and skips the update.
       // Going through the prototype's setter defeats that cache, which is the
       // documented way to drive a controlled input from outside React.
+      // ── Largest reading setting ────────────────────────────────────────
+      // The site ships text-size and letter-spacing controls, so "the layout
+      // works" has to mean "at every setting the reader can choose". At the
+      // large setting every rem grows 15% and the header ran past the right
+      // edge on a 1440px screen — invisible to this audit until it started
+      // setting the property itself.
+      if (target.reading === 'large') {
+        await page.evaluate(() => {
+          document.documentElement.style.setProperty('--text-scale', '1.15')
+          document.documentElement.style.setProperty('--tracking-extra', '0.08em')
+        })
+        await page.waitForTimeout(150)
+      }
+
       if (target.stress === 'max') {
         await page.evaluate(() => {
           const setValue = Object.getOwnPropertyDescriptor(
@@ -376,7 +394,17 @@ async function main() {
 
       for (const o of result.overflowing) errors.push(`${where}: overflows — ${o}`)
 
-      if (result.ctaBottom === null) {
+      // ── The fold rule does not apply at an enlarged reading setting ────
+      // Horizontal overflow is a bug at any text size and is still asserted
+      // above. Vertical reflow is not: a reader who has asked for 15% larger
+      // type has accepted that less fits on a screen, and shrinking the hero
+      // to keep a button above the fold at that setting would make the default
+      // experience worse for everyone to serve a case the reader themselves
+      // chose. So this block is skipped for `reading: 'large'` targets, and
+      // deliberately not weakened for the rest.
+      if (target.reading === 'large') {
+        // nothing further to assert
+      } else if (result.ctaBottom === null) {
         errors.push(`${where}: no primary call to action found in <main>`)
       } else if (result.ctaBottom > result.vh) {
         errors.push(
