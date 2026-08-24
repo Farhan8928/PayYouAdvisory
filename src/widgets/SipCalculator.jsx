@@ -1,29 +1,12 @@
 import { useMemo, useState } from 'react'
 import Field, { Readout } from './Field.jsx'
 import { sipFutureValue } from '../lib/finance.js'
-import { inrCompact, inrSmart } from '../lib/format.js'
+import { inrCompact, inrSmart, inr } from '../lib/format.js'
+import { ArrowRight } from '../components/Icon.jsx'
 
-/**
- * What a monthly investment might grow to.
- *
- * ── The one thing this page must not do ────────────────────────────────────
- * A SIP calculator is the easiest page on a financial site to turn into a
- * mis-selling instrument. Put 15% in the rate box by default, show a large
- * number in a big font, and the reader leaves believing they have been
- * promised something. They have not: an equity return is an assumption, not a
- * contracted rate, and the same calculation with a lower assumption produces a
- * very different answer.
- *
- * So three deliberate decisions. The assumed return defaults to a modest
- * figure rather than an optimistic one. The amount actually invested is shown
- * at the same size as the projected value, so the reader sees how much of the
- * total is their own money. And a second, lower assumption is always displayed
- * alongside, because the honest way to present an uncertain projection is as a
- * range rather than as a number.
- */
 export default function SipCalculator({ compact = false }) {
   const [monthly, setMonthly] = useState(10000)
-  const [rate, setRate] = useState(10)
+  const [rate, setRate] = useState(12)
   const [years, setYears] = useState(10)
   const [focused, setFocused] = useState(null)
 
@@ -33,83 +16,113 @@ export default function SipCalculator({ compact = false }) {
     () => sipFutureValue({ monthly, annualReturnPct: rate, years }),
     [monthly, rate, years],
   )
-  // A deliberately lower assumption, shown alongside. Four points below is
-  // roughly the gap between a hopeful equity assumption and a sober one.
-  const lower = useMemo(
-    () => sipFutureValue({ monthly, annualReturnPct: Math.max(0, rate - 4), years }),
-    [monthly, rate, years],
-  )
+
+  const investedShare = main.value > 0 ? (main.invested / main.value) * 100 : 100
 
   return (
-    <div className="border border-ink/15 bg-paper">
-      <div className="grid grid-cols-1 lg:grid-cols-2">
-        <div className="space-y-7 border-b border-ink/15 p-6 sm:p-8 lg:border-b-0 lg:border-r">
+    <div className="rounded-2xl border border-ink/10 bg-paper overflow-hidden shadow-sm">
+      <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-12 lg:gap-10">
+        <div className="space-y-6 lg:col-span-7">
           <Field
-            label="Invested each month"
+            label="Monthly Investment Amount"
             value={monthly}
             onChange={setMonthly}
             min={500}
-            max={500000}
+            max={200000}
             step={500}
             prefix="₹"
+            presets={[
+              { label: '₹5k', value: 5000 },
+              { label: '₹10k', value: 10000 },
+              { label: '₹25k', value: 25000 },
+              { label: '₹50k', value: 50000 },
+            ]}
             {...fieldProps}
           />
+
           <Field
-            label="Assumed annual return"
+            label="Expected Annual Return (% p.a.)"
             value={rate}
             onChange={setRate}
-            min={1}
-            max={20}
+            min={5}
+            max={25}
             step={0.5}
-            suffix="% p.a."
+            suffix="%"
             format="raw"
-            hint="an assumption, not a rate"
+            presets={[
+              { label: '8% Conservative', value: 8 },
+              { label: '12% Balanced', value: 12 },
+              { label: '15% Aggressive', value: 15 },
+            ]}
             {...fieldProps}
           />
+
           <Field
-            label="For how long"
+            label="Investment Horizon (Years)"
             value={years}
             onChange={setYears}
             min={1}
-            max={40}
+            max={35}
             step={1}
-            suffix="years"
+            suffix="Yrs"
             format="raw"
+            presets={[
+              { label: '3 Yrs', value: 3 },
+              { label: '5 Yrs', value: 5 },
+              { label: '10 Yrs', value: 10 },
+              { label: '20 Yrs', value: 20 },
+            ]}
             {...fieldProps}
           />
-
-          <p className="border-t border-ink/10 pt-5 text-2xs leading-relaxed text-ink-faint">
-            Everything here is computed in your browser. No figure you type is sent to us or to
-            anyone else.
-          </p>
         </div>
 
-        <div className="p-6 sm:p-8">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            <Readout label="You would have put in" value={inrSmart(main.invested)} emphasis />
-            <Readout
-              label={`Value at ${rate}% a year`}
-              value={inrSmart(main.value)}
-              emphasis
-              sub={`${inrCompact(Math.round(main.gain))} of it is growth`}
-            />
+        <div className="flex flex-col justify-between rounded-2xl border border-ink/10 bg-paper-deep p-6 sm:p-7 lg:col-span-5 shadow-sm">
+          <div>
+            <div className="flex items-center justify-between">
+              <span className="text-2xs font-extrabold uppercase tracking-wider text-accent">
+                Expected Future Value
+              </span>
+              <span className="rounded-full bg-accent/10 px-2 py-0.5 text-2xs font-bold text-accent">
+                Compounded
+              </span>
+            </div>
+
+            <div className="mt-4 border-b border-ink/10 pb-5">
+              <p className="fig text-3xl sm:text-4xl font-extrabold text-ink tracking-tight">
+                {inr(Math.round(main.value))}
+              </p>
+              <p className="mt-1 text-xs text-ink-soft">
+                Total investment: {inr(main.invested)} · Estimated wealth gain: <strong className="text-accent">{inr(Math.round(main.gain))}</strong>
+              </p>
+            </div>
+
+            {/* Split progress */}
+            <div className="mt-5 space-y-2">
+              <div className="flex h-3.5 w-full overflow-hidden rounded-full bg-paper border border-ink/10 p-0.5">
+                <div
+                  className="rounded-l-full bg-ink transition-all duration-300"
+                  style={{ width: `${investedShare}%` }}
+                />
+                <div
+                  className="rounded-r-full bg-accent transition-all duration-300"
+                  style={{ width: `${100 - investedShare}%` }}
+                />
+              </div>
+              <div className="flex justify-between text-2xs font-bold text-ink-soft pt-1">
+                <span>Invested: {inrCompact(main.invested)}</span>
+                <span className="text-accent">Returns: {inrCompact(Math.round(main.gain))}</span>
+              </div>
+            </div>
           </div>
 
-          <div className="mt-7 border-t border-ink/10 pt-6">
-            <Readout
-              label={`And if returns were ${Math.max(0, rate - 4)}% instead`}
-              value={inrSmart(lower.value)}
-              sub="Same money, a soberer assumption. The gap between these two is the risk."
-            />
+          <div className="mt-6 pt-4 border-t border-ink/10">
+            <a
+              href="/calculators/"
+              className="btn-accent w-full flex items-center justify-center gap-2 font-bold shadow-sm"
+            >
+              <span>Explore Wealth &amp; Investment Plans →</span>
+            </a>
           </div>
-
-          {!compact ? (
-            <p className="mt-7 border-t border-ink/10 pt-5 text-2xs leading-relaxed text-ink-faint">
-              Market returns are not contracted and past performance does not predict them. These
-              figures are arithmetic on the assumption you entered, not a projection PayYou is
-              making and not an offer. PayYou Advisory does not manage money or advise on securities.
-            </p>
-          ) : null}
         </div>
       </div>
     </div>

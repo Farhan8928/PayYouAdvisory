@@ -3,25 +3,11 @@ import { clamp } from '../lib/finance.js'
 import { num } from '../lib/format.js'
 
 /**
- * A number field with a slider beneath it.
- *
- * Both controls edit the same value, because neither alone is good enough: a
- * slider cannot express "₹37,50,000" and a bare text input makes exploring a
- * range tedious. Together they cover both the reader who knows their number and
- * the one who is playing with possibilities — which on a loan calculator is
- * most people.
- *
- * ── Why the text input is `type="text"` ────────────────────────────────────
- * `type="number"` looks like the right answer and is not. It silently discards
- * a value the browser considers invalid mid-typing, so clearing the field to
- * retype an amount can yield an empty string that coerces to 0 and momentarily
- * shows an EMI of ₹0. It also renders spinners nobody wants and, on iOS, does
- * not reliably bring up the numeric keypad. `inputMode="numeric"` does bring up
- * the keypad, and parsing the string ourselves means we control exactly what
- * happens to "12,50,000" and to "".
- *
- * The displayed value is grouped Indian-style while the field is not focused
- * and left raw while it is, so grouping never fights the caret.
+ * Modern Bank-Grade Number & Slider Field (IDFC FIRST Bank style):
+ * - Clean layout with ample spacing
+ * - Suffix and prefix clearly separated from input value (no overlapping text)
+ * - Custom gradient-filled slider
+ * - Quick selection pills
  */
 export default function Field({
   label,
@@ -33,6 +19,7 @@ export default function Field({
   prefix,
   suffix,
   hint,
+  presets,
   format = 'group',
   focused,
   onFocus,
@@ -48,98 +35,127 @@ export default function Field({
       : String(value)
 
   const commit = (raw) => {
-    // Strip everything that is not a digit or a decimal point, so a pasted
-    // "₹12,50,000" lands as 1250000 rather than as NaN.
     const cleaned = String(raw).replace(/[^\d.]/g, '')
     if (cleaned === '') return onChange(min)
     onChange(clamp(parseFloat(cleaned), min, max))
   }
 
+  // Calculate percentage for custom slider track fill
+  const pct = Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100))
+
   return (
-    <div>
-      <label htmlFor={id} className="field-label">
-        {label}
-      </label>
+    <div className="rounded-xl bg-paper p-4 border border-ink/10 shadow-sm space-y-3">
+      {/* Top row: Label on left, Clean Input on right */}
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <label htmlFor={id} className="text-xs font-extrabold uppercase tracking-wider text-ink">
+          {label}
+        </label>
 
-      <div className="relative">
-        {prefix ? (
-          <span className="fig pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-base text-ink-faint">
-            {prefix}
-          </span>
-        ) : null}
+        {/* Input box with clean badge styling */}
+        <div className="flex items-center rounded-lg border border-ink/20 bg-paper-deep px-3 py-1.5 focus-within:border-accent focus-within:bg-white focus-within:ring-2 focus-within:ring-accent/20 transition-all">
+          {prefix ? (
+            <span className="text-sm font-bold text-ink-soft mr-1.5 select-none">
+              {prefix}
+            </span>
+          ) : null}
+          <input
+            id={id}
+            type="text"
+            inputMode="decimal"
+            autoComplete="off"
+            value={display}
+            onChange={(e) => commit(e.target.value)}
+            onFocus={() => onFocus?.(id)}
+            onBlur={() => onBlur?.()}
+            className="w-32 sm:w-36 bg-transparent text-right text-base sm:text-lg font-extrabold text-ink outline-none"
+          />
+          {suffix ? (
+            <span className="text-xs font-bold text-ink-soft ml-1.5 select-none whitespace-nowrap">
+              {suffix}
+            </span>
+          ) : null}
+        </div>
+      </div>
+
+      {/* Slider Track with Custom Red Progress Fill */}
+      <div className="py-1">
         <input
-          id={id}
-          type="text"
-          inputMode="decimal"
-          autoComplete="off"
-          value={display}
-          onChange={(e) => commit(e.target.value)}
-          onFocus={() => onFocus?.(id)}
-          onBlur={() => onBlur?.()}
-          className={`field-fig ${prefix ? 'pl-8' : ''} ${suffix ? 'pr-12' : ''}`}
+          type="range"
+          aria-label={`${label} slider`}
+          min={min}
+          max={max}
+          step={step}
+          value={clamp(value, min, max)}
+          onChange={(e) => onChange(parseFloat(e.target.value))}
+          style={{
+            background: `linear-gradient(to right, #e31e24 0%, #e31e24 ${pct}%, #e2e8f0 ${pct}%, #e2e8f0 100%)`,
+          }}
+          className="slider w-full cursor-pointer appearance-none rounded-full h-2"
         />
-        {suffix ? (
-          <span className="fig pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-sm text-ink-faint">
-            {suffix}
+      </div>
+
+      {/* Range Min, Hint, and Max Indicators with clear spacing */}
+      <div className="flex items-center justify-between text-2xs font-semibold text-ink-faint">
+        <span>
+          {prefix ? prefix + ' ' : ''}
+          {num(min)} {suffix ? suffix : ''}
+        </span>
+        {hint ? (
+          <span className="rounded-full bg-accent/10 px-2 py-0.5 font-bold text-accent">
+            {hint}
           </span>
         ) : null}
-      </div>
-
-      <input
-        type="range"
-        aria-label={`${label} slider`}
-        min={min}
-        max={max}
-        step={step}
-        value={clamp(value, min, max)}
-        onChange={(e) => onChange(parseFloat(e.target.value))}
-        className="slider mt-3"
-      />
-
-      <div className="mt-1.5 flex justify-between">
-        <span className="fig text-2xs text-ink-faint">
-          {prefix}
-          {num(min)}
-          {suffix}
-        </span>
-        {hint ? <span className="text-2xs text-ink-faint">{hint}</span> : null}
-        <span className="fig text-2xs text-ink-faint">
-          {prefix}
-          {num(max)}
-          {suffix}
+        <span>
+          {prefix ? prefix + ' ' : ''}
+          {num(max)} {suffix ? suffix : ''}
         </span>
       </div>
+
+      {/* Quick Select Preset Pills */}
+      {presets && presets.length > 0 ? (
+        <div className="flex flex-wrap gap-1.5 pt-1 border-t border-ink/8">
+          {presets.map((p) => (
+            <button
+              key={p.label}
+              type="button"
+              onClick={() => onChange(p.value)}
+              className={`rounded-full px-3 py-1 text-2xs font-bold transition-all ${
+                value === p.value
+                  ? 'bg-accent text-white shadow-sm'
+                  : 'bg-paper-deep text-ink-soft hover:bg-ink/10 hover:text-ink'
+              }`}
+            >
+              {p.label}
+            </button>
+          ))}
+        </div>
+      ) : null}
     </div>
   )
 }
 
 /**
- * A read-out: a label above a large tabular figure.
- * `emphasis` promotes the one number the reader actually came for.
+ * Modern read-out card for calculated outputs.
  */
 export function Readout({ label, value, sub, emphasis = false, invert = false }) {
   return (
-    <div>
+    <div className={`rounded-xl p-4 transition-all ${emphasis ? 'bg-accent/10 border border-accent/25' : 'bg-paper-deep border border-ink/8'}`}>
       <span
-        className={`mb-1.5 block text-2xs font-medium uppercase tracking-[0.12em] ${
-          invert ? 'text-paper/50' : 'text-ink-faint'
+        className={`block text-2xs font-bold uppercase tracking-wider ${
+          emphasis ? 'text-accent' : 'text-ink-soft'
         }`}
       >
         {label}
       </span>
       <span
-        className={`fig block font-semibold leading-none ${
-          emphasis ? 'text-3xl sm:text-4xl' : 'text-xl'
-        } ${invert ? 'text-paper' : 'text-ink'}`}
+        className={`fig mt-1 block font-extrabold leading-none ${
+          emphasis ? 'text-2xl sm:text-3xl text-ink' : 'text-lg sm:text-xl text-ink'
+        }`}
       >
         {value}
       </span>
       {sub ? (
-        <span
-          className={`mt-1.5 block text-2xs leading-snug ${
-            invert ? 'text-paper/50' : 'text-ink-faint'
-          }`}
-        >
+        <span className="mt-1 block text-2xs font-medium text-ink-faint">
           {sub}
         </span>
       ) : null}

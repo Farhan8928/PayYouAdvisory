@@ -51,10 +51,12 @@ export default function App({ path = '/' }) {
         Skip to content
       </a>
 
-      {/* `overlay` tells the bar whether there is a dark masthead beneath it to
-          be transparent over. Every real route opens with one; the 404 does
-          not, so there the bar stays solid and legible. */}
-      <Nav path={path} overlay={Boolean(route)} />
+      {/* `overlay` lets the bar sit transparently on the homepage's full-bleed
+          hero and turn solid on scroll, which is the reference site's
+          behaviour. Only the homepage: inner pages open with a masthead that
+          is shorter and carries breadcrumbs, and a transparent bar over those
+          costs legibility for no gain. */}
+      <Nav path={path} overlay={route?.kind === 'home'} />
 
       <main id="main" className="pb-[var(--bar-h)] lg:pb-0">
         {renderPage(route)}

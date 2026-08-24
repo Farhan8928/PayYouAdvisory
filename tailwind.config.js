@@ -44,6 +44,18 @@ export default {
         },
         sky: BRAND.sky,
         whatsapp: BRAND.whatsapp,
+
+        /* The hero stage and its shading ramp. See the block at the foot of
+           src/data/brand.js for why a rendered form needs tones a flat
+           interface palette does not carry. */
+        stage: BRAND.stage,
+        form: {
+          shadow: BRAND.formShadow,
+          mid: BRAND.formMid,
+          lit: BRAND.formLit,
+          edge: BRAND.formEdge,
+          specular: BRAND.formSpecular,
+        },
       },
 
       fontFamily: {

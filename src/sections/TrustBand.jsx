@@ -1,54 +1,76 @@
 import { STATS, COMPANY } from '../data/site.js'
 import Counter from '../components/Counter.jsx'
+import { ShieldCheck, Check, Pin } from '../components/Icon.jsx'
+import { LINE_ART } from '../components/LineArt.jsx'
 
 /**
- * Four figures under the hero, counting up as they arrive.
- *
- * Every one is something a caller could verify — that is the whole selection
- * criterion. It is tempting to put "10,000+ happy customers" and "15 years of
- * excellence" here, and every competitor does, but the company was incorporated
- * in January 2026 and a claim a reader can disprove costs more than a smaller
- * true number earns. See the TODO(client) note above STATS in src/data/site.js
- * about the contradiction on the current site.
- *
- * The third figure is the interesting one. "1 credit enquiry" is not flattering,
- * it is a structural fact about how the service works, and it is the only one on
- * the strip a competitor cannot match by typing a bigger number into theirs.
- *
- * The counters animate from a correct starting render, never from zero — see
- * the note in Counter.jsx. A prerendered page claiming ₹0 facilitated would be
- * a genuinely bad thing to serve to a crawler.
+ * IDFC FIRST Bank inspired Trust & Metrics Band:
+ * - 4 Key verified figures with real-time counters
+ * - Dedicated icon badges
+ * - Subtle hover depth and border animation
  */
+
+const STAT_ICONS = ['growth', 'award', 'shield', 'building']
+
 export default function TrustBand() {
   return (
-    <section className="relative z-10 -mt-px border-y border-ink/10 bg-paper-deep">
-      <div className="container-page py-12 sm:py-16">
-        <dl className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4" data-stagger>
-          {STATS.map((s) => (
-            <div key={s.label} className="group relative pt-5">
-              {/* The gold rule grows on hover — a small, cheap acknowledgement
-                  that the pointer is there. */}
-              <span
-                className="absolute inset-x-0 top-0 h-0.5 w-10 bg-accent transition-all duration-500 ease-brand group-hover:w-full"
-                aria-hidden="true"
-              />
-              <dt className="sr-only">{s.label}</dt>
-              <dd>
-                <Counter
-                  value={s.value}
-                  className="fig block text-4xl font-semibold leading-none text-ink sm:text-5xl"
-                />
-                <span className="mt-3 block text-sm font-bold text-ink">{s.label}</span>
-                <span className="mt-1 block text-2xs leading-snug text-ink-faint">{s.note}</span>
-              </dd>
-            </div>
-          ))}
+    <section className="relative z-10 border-y border-ink/10 bg-paper py-14 sm:py-18">
+      <div className="container-page">
+        <div className="mb-10 text-center">
+          <span className="mx-auto rule-mark" />
+          <h2 className="h-section text-ink">Verified Track Record &amp; Reach</h2>
+          <p className="mt-2 text-base text-ink-soft">
+            Real metrics backed by licensed partnerships and operational presence.
+          </p>
+        </div>
+
+        <dl className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4" data-stagger>
+          {STATS.map((s, i) => {
+            const Art = LINE_ART[STAT_ICONS[i % STAT_ICONS.length]]
+            return (
+              <div
+                key={s.label}
+                className="group relative rounded-2xl border border-ink/8 bg-paper-deep p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/30 hover:bg-paper hover:shadow-lift"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent group-hover:bg-accent group-hover:text-white transition-colors duration-300">
+                    <Art className="h-6 w-6" />
+                  </div>
+                  <span className="rounded-full bg-paper px-2.5 py-0.5 text-2xs font-bold text-ink-faint border border-ink/8">
+                    Verified
+                  </span>
+                </div>
+
+                <dt className="sr-only">{s.label}</dt>
+                <dd className="mt-5">
+                  <Counter
+                    value={s.value}
+                    className="fig block text-3xl font-extrabold leading-none text-ink sm:text-4xl"
+                  />
+                  <span className="mt-3 block text-base font-bold text-ink">
+                    {s.label}
+                  </span>
+                  <span className="mt-1 block text-2xs leading-relaxed text-ink-soft">
+                    {s.note}
+                  </span>
+                </dd>
+
+                {/* Animated bottom border accent */}
+                <div className="absolute inset-x-0 bottom-0 h-1 rounded-b-2xl bg-accent scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
+              </div>
+            )
+          })}
         </dl>
 
-        <p className="mt-10 max-w-prose border-t border-ink/10 pt-6 text-2xs leading-relaxed text-ink-faint">
-          {COMPANY.name} is a venture of {COMPANY.parent}, incorporated in {COMPANY.incorporated}. We
-          publish the figures we can stand behind and none we cannot.
-        </p>
+        <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-ink/8 pt-6 text-xs text-ink-faint">
+          <p>
+            {COMPANY.name} · Venture of {COMPANY.parent} · Incorporated in {COMPANY.incorporated}
+          </p>
+          <div className="flex items-center gap-2 font-semibold text-ink-soft">
+            <ShieldCheck className="h-4 w-4 text-accent" />
+            <span>Direct Selling Agent (DSA) Partner</span>
+          </div>
+        </div>
       </div>
     </section>
   )

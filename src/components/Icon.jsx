@@ -117,6 +117,30 @@ export const ShieldCheck = (p) => (
   </Svg>
 )
 
+export const Search = (p) => (
+  <Svg {...p}>
+    <circle cx="11" cy="11" r="7" />
+    <path d="m20 20-4.35-4.35" />
+  </Svg>
+)
+
+export const Lock = (p) => (
+  <Svg {...p}>
+    <rect x="5" y="11" width="14" height="10" rx="2" />
+    <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+    <circle cx="12" cy="16" r="1" />
+  </Svg>
+)
+
+export const QrCode = (p) => (
+  <Svg {...p}>
+    <rect x="3" y="3" width="7" height="7" rx="1" />
+    <rect x="14" y="3" width="7" height="7" rx="1" />
+    <rect x="3" y="14" width="7" height="7" rx="1" />
+    <path d="M14 14h3v3h-3zM18 18h3v3h-3zM14 18h3v3h-3zM18 14h3v3h-3z" />
+  </Svg>
+)
+
 /* ── Product marks ──────────────────────────────────────────────────────────
    One line-drawn mark per product, on the same 24x24 grid and the same 1.6
    stroke as the functional icons above, so a product mark and a chevron look

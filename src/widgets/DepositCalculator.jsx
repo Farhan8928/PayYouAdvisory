@@ -1,31 +1,14 @@
 import { useMemo, useState } from 'react'
 import Field, { Readout } from './Field.jsx'
 import { depositMaturity, recurringMaturity } from '../lib/finance.js'
-import { inr, inrSmart, pct } from '../lib/format.js'
+import { inr, inrSmart, pct, months as fmtMonths } from '../lib/format.js'
 
-/**
- * Maturity value of a fixed or recurring deposit.
- *
- * ── Why both modes live in one widget ──────────────────────────────────────
- * Because the comparison is the point. People routinely assume a recurring
- * deposit at 7% and a fixed deposit at 7% are equivalent, and they are not:
- * in a recurring deposit each instalment compounds only for the time left to
- * maturity, so the effective yield on the total contributed is meaningfully
- * lower. Putting the two behind one toggle lets a reader see that in about
- * four seconds, which is faster than any paragraph explaining it.
- *
- * ── Why quarterly compounding is the default ───────────────────────────────
- * Indian banks conventionally compound fixed deposit interest quarterly. A
- * deposit quoted at the same nominal rate but compounded annually matures
- * lower, and that difference is real money on a long deposit — so the
- * frequency is exposed as a control rather than buried as an assumption.
- */
 export default function DepositCalculator({ compact = false }) {
   const [mode, setMode] = useState('fd')
   const [amount, setAmount] = useState(500000)
   const [monthly, setMonthly] = useState(10000)
-  const [rate, setRate] = useState(7)
-  const [months, setMonths] = useState(60)
+  const [rate, setRate] = useState(7.75)
+  const [months, setMonths] = useState(36)
   const [freq, setFreq] = useState(4)
   const [focused, setFocused] = useState(null)
 
@@ -46,142 +29,143 @@ export default function DepositCalculator({ compact = false }) {
   )
 
   const invested = isFd ? result.principal : result.invested
-  // The yield actually earned on money contributed, which for a recurring
-  // deposit is visibly below the quoted rate. That gap is the whole lesson.
-  const effective = invested > 0 ? (result.interest / invested) * 100 : 0
 
   return (
-    <div className="border border-ink/15 bg-paper">
-      <div className="scroll-x border-b border-ink/15 bg-paper-deep">
-        <div className="flex gap-1 p-2 sm:px-3">
-          {[
-            { id: 'fd', label: 'Fixed deposit' },
-            { id: 'rd', label: 'Recurring deposit' },
-          ].map((t) => (
-            <button
-              key={t.id}
-              type="button"
-              onClick={() => setMode(t.id)}
-              aria-pressed={mode === t.id}
-              className={`flex min-h-[44px] shrink-0 items-center rounded px-3.5 text-xs font-semibold transition-colors ${
-                mode === t.id ? 'bg-paper text-ink' : 'text-ink-soft hover:bg-paper hover:text-ink'
-              }`}
-            >
-              {t.label}
-            </button>
-          ))}
-        </div>
+    <div className="rounded-2xl border border-ink/10 bg-paper overflow-hidden shadow-sm">
+      {/* Top Deposit Mode Toggle */}
+      <div className="flex gap-2 p-3 bg-paper-deep border-b border-ink/10">
+        {[
+          { id: 'fd', label: 'Fixed Deposit (FD)' },
+          { id: 'rd', label: 'Recurring Deposit (RD)' },
+        ].map((t) => (
+          <button
+            key={t.id}
+            type="button"
+            onClick={() => setMode(t.id)}
+            className={`rounded-xl px-4 py-2 text-xs font-extrabold transition-all ${
+              mode === t.id
+                ? 'bg-accent text-white shadow-sm'
+                : 'bg-paper text-ink-soft hover:text-ink'
+            }`}
+          >
+            {t.label}
+          </button>
+        ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2">
-        <div className="space-y-7 border-b border-ink/15 p-6 sm:p-8 lg:border-b-0 lg:border-r">
+      <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-12 lg:gap-10">
+        <div className="space-y-6 lg:col-span-7">
           {isFd ? (
             <Field
-              label="Amount deposited"
+              label="Total Deposit Amount"
               value={amount}
               onChange={setAmount}
-              min={5000}
+              min={10000}
               max={10000000}
-              step={5000}
+              step={10000}
               prefix="₹"
+              presets={[
+                { label: '₹1L', value: 100000 },
+                { label: '₹5L', value: 500000 },
+                { label: '₹10L', value: 1000000 },
+                { label: '₹25L', value: 2500000 },
+              ]}
               {...fieldProps}
             />
           ) : (
             <Field
-              label="Deposited each month"
+              label="Monthly RD Deposit"
               value={monthly}
               onChange={setMonthly}
-              min={500}
+              min={1000}
               max={200000}
-              step={500}
+              step={1000}
               prefix="₹"
+              presets={[
+                { label: '₹5k', value: 5000 },
+                { label: '₹10k', value: 10000 },
+                { label: '₹25k', value: 25000 },
+              ]}
               {...fieldProps}
             />
           )}
 
           <Field
-            label="Interest rate"
+            label="Interest Rate (% p.a.)"
             value={rate}
             onChange={setRate}
-            min={3}
-            max={12}
+            min={5}
+            max={10}
             step={0.05}
-            suffix="% p.a."
+            suffix="%"
             format="raw"
+            presets={[
+              { label: '7.25% Regular', value: 7.25 },
+              { label: '7.75% Senior', value: 7.75 },
+              { label: '8.50% Corporate', value: 8.5 },
+            ]}
             {...fieldProps}
           />
+
           <Field
-            label="Term"
+            label="Deposit Tenure"
             value={months}
             onChange={setMonths}
             min={6}
             max={120}
             step={6}
-            suffix="months"
-            hint={`${(months / 12).toFixed(months % 12 ? 1 : 0)} years`}
-            format="raw"
+            suffix="Months"
+            hint={fmtMonths(months)}
+            presets={[
+              { label: '1 Yr', value: 12 },
+              { label: '2 Yrs', value: 24 },
+              { label: '3 Yrs', value: 36 },
+              { label: '5 Yrs', value: 60 },
+            ]}
             {...fieldProps}
           />
-
-          <div>
-            <span className="field-label">Compounded</span>
-            <div className="mt-2 flex flex-wrap gap-2">
-              {[
-                { n: 4, label: 'Quarterly' },
-                { n: 1, label: 'Annually' },
-              ].map((f) => (
-                <button
-                  key={f.n}
-                  type="button"
-                  onClick={() => setFreq(f.n)}
-                  aria-pressed={freq === f.n}
-                  className={`flex min-h-[44px] items-center rounded border px-4 text-xs font-semibold transition-colors ${
-                    freq === f.n
-                      ? 'border-ink bg-ink text-paper'
-                      : 'border-ink/20 text-ink-soft hover:border-ink/40'
-                  }`}
-                >
-                  {f.label}
-                </button>
-              ))}
-            </div>
-            <p className="mt-2 text-2xs leading-relaxed text-ink-faint">
-              Indian banks usually compound quarterly. The same rate compounded annually matures
-              lower.
-            </p>
-          </div>
         </div>
 
-        <div className="p-6 sm:p-8">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            <Readout label="You put in" value={inrSmart(invested)} emphasis />
-            <Readout
-              label="Matures at"
-              value={inrSmart(result.value)}
-              emphasis
-              sub={`${inrSmart(result.interest)} of interest`}
-            />
+        <div className="flex flex-col justify-between rounded-2xl border border-ink/10 bg-paper-deep p-6 sm:p-7 lg:col-span-5 shadow-sm">
+          <div>
+            <div className="flex items-center justify-between">
+              <span className="text-2xs font-extrabold uppercase tracking-wider text-accent">
+                Guaranteed Maturity Value
+              </span>
+              <span className="rounded-full bg-accent/10 px-2 py-0.5 text-2xs font-bold text-accent">
+                Quarterly Compounding
+              </span>
+            </div>
+
+            <div className="mt-4 border-b border-ink/10 pb-5">
+              <p className="fig text-3xl sm:text-4xl font-extrabold text-ink tracking-tight">
+                {inr(Math.round(result.maturity))}
+              </p>
+              <p className="mt-1 text-xs text-ink-soft">
+                Total invested: {inr(invested)} · Guaranteed interest: <strong className="text-accent">{inr(Math.round(result.interest))}</strong>
+              </p>
+            </div>
+
+            <div className="mt-5 grid grid-cols-2 gap-3 text-xs">
+              <div className="rounded-xl bg-paper p-3 border border-ink/8">
+                <span className="font-bold text-ink-soft">Principal:</span>
+                <p className="fig text-sm font-extrabold text-ink mt-0.5">{inr(invested)}</p>
+              </div>
+              <div className="rounded-xl bg-paper p-3 border border-ink/8">
+                <span className="font-bold text-ink-soft">Earned Interest:</span>
+                <p className="fig text-sm font-extrabold text-accent mt-0.5">{inr(Math.round(result.interest))}</p>
+              </div>
+            </div>
           </div>
 
-          <div className="mt-7 border-t border-ink/10 pt-6">
-            <Readout
-              label="Interest earned on what you contributed"
-              value={pct(effective, 1)}
-              sub={
-                isFd
-                  ? 'Over the whole term, not per year.'
-                  : `Over the whole term. Lower than ${pct(rate)} because each instalment earns only for the time left to maturity.`
-              }
-            />
+          <div className="mt-6 pt-4 border-t border-ink/10">
+            <a
+              href="/fixed-deposit/"
+              className="btn-accent w-full flex items-center justify-center gap-2 font-bold shadow-sm"
+            >
+              <span>Compare Fixed Deposit Rates →</span>
+            </a>
           </div>
-
-          {!compact ? (
-            <p className="mt-7 border-t border-ink/10 pt-5 text-2xs leading-relaxed text-ink-faint">
-              Interest on a deposit is added to your income and taxed at your slab rate, so the
-              figure above is before tax. Deposit rates are set by the bank or finance company and
-              change frequently. PayYou Advisory refers deposits and does not accept them.
-            </p>
-          ) : null}
         </div>
       </div>
     </div>

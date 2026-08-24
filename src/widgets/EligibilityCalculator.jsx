@@ -2,34 +2,13 @@ import { useMemo, useState } from 'react'
 import Field, { Readout } from './Field.jsx'
 import { eligibleAmount, emi } from '../lib/finance.js'
 import { inr, inrCompact, months as fmtMonths, pct } from '../lib/format.js'
-import { waLink } from '../data/site.js'
+import { waLink, WA_DEFAULT } from '../data/site.js'
+import { Lock, ArrowRight, Check } from '../components/Icon.jsx'
 
-/**
- * Indicative borrowing capacity.
- *
- * This is the widget in the hero, and it earns that position by answering the
- * question people actually arrive with — "how much can I get?" — instead of
- * asking for their phone number first.
- *
- * ── Why it shows the constraint, not just the number ────────────────────────
- * Lenders size unsecured borrowing on the fixed-obligation-to-income ratio:
- * all EMIs including the new one, as a share of net income. Most applicants are
- * limited by the loans they already carry, not by their salary — and almost
- * nobody knows that until they are declined. Surfacing "your existing EMIs are
- * using X% of the room a lender allows" turns a rejection people take
- * personally into an arithmetic problem they can act on, which is genuinely the
- * most useful thing a broker can tell someone.
- *
- * ── Why there is no form ────────────────────────────────────────────────────
- * The category convention is to compute the number and then hide it behind a
- * name-and-mobile gate. That converts a little better and is the reason nobody
- * trusts these tools. The figure is shown; the call to action sits next to it
- * for people who want a real answer rather than an estimate.
- */
 export default function EligibilityCalculator({ compact = false }) {
   const [income, setIncome] = useState(75000)
   const [obligations, setObligations] = useState(0)
-  const [rate, setRate] = useState(12)
+  const [rate, setRate] = useState(10.5)
   const [tenure, setTenure] = useState(60)
   const [focused, setFocused] = useState(null)
 
@@ -44,7 +23,6 @@ export default function EligibilityCalculator({ compact = false }) {
     [income, obligations, rate, tenure],
   )
 
-  /** What the same income would support with no existing EMIs — the cost of the obligations. */
   const unencumbered = useMemo(
     () =>
       eligibleAmount({
@@ -63,135 +41,120 @@ export default function EligibilityCalculator({ compact = false }) {
   const fieldProps = { focused, onFocus: setFocused, onBlur: () => setFocused(null) }
 
   return (
-    <div className="border border-ink/15 bg-paper">
-      <div className={compact ? '' : 'grid lg:grid-cols-2'}>
-        <div
-          className={`space-y-7 p-6 sm:p-8 ${compact ? 'border-b border-ink/15' : 'border-b border-ink/15 lg:border-b-0 lg:border-r'}`}
-        >
+    <div className="rounded-2xl border border-ink/10 bg-paper overflow-hidden shadow-sm">
+      <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-12 lg:gap-10">
+        {/* Input parameters */}
+        <div className="space-y-6 lg:col-span-7">
           <Field
-            label="Net monthly income"
+            label="Net Monthly In-Hand Income"
             value={income}
             onChange={setIncome}
             min={15000}
             max={1000000}
             step={5000}
             prefix="₹"
-            hint="take-home, after deductions"
+            presets={[
+              { label: '₹35k', value: 35000 },
+              { label: '₹75k', value: 75000 },
+              { label: '₹1.5L', value: 150000 },
+              { label: '₹3L', value: 300000 },
+            ]}
             {...fieldProps}
           />
+
           <Field
-            label="EMIs you already pay"
+            label="Current Monthly EMIs You Pay"
             value={obligations}
             onChange={setObligations}
             min={0}
             max={Math.max(10000, Math.round(income * 0.7))}
             step={1000}
             prefix="₹"
-            hint="all loans and card EMIs"
+            presets={[
+              { label: 'Zero EMIs', value: 0 },
+              { label: '₹10k', value: 10000 },
+              { label: '₹25k', value: 25000 },
+              { label: '₹50k', value: 50000 },
+            ]}
             {...fieldProps}
           />
 
-          {!compact ? (
-            <>
-              <Field
-                label="Assumed interest rate"
-                value={rate}
-                onChange={setRate}
-                min={7}
-                max={26}
-                step={0.25}
-                suffix="% p.a."
-                format="raw"
-                {...fieldProps}
-              />
-              <Field
-                label="Tenure"
-                value={tenure}
-                onChange={setTenure}
-                min={12}
-                max={360}
-                step={12}
-                suffix="months"
-                hint={fmtMonths(tenure)}
-                format="raw"
-                {...fieldProps}
-              />
-            </>
-          ) : null}
+          <div className="grid grid-cols-2 gap-4">
+            <Field
+              label="Interest Rate"
+              value={rate}
+              onChange={setRate}
+              min={7.5}
+              max={24}
+              step={0.1}
+              suffix="%"
+              format="raw"
+              {...fieldProps}
+            />
+            <Field
+              label="Tenure"
+              value={tenure}
+              onChange={setTenure}
+              min={12}
+              max={240}
+              step={12}
+              suffix="Mo"
+              hint={fmtMonths(tenure)}
+              {...fieldProps}
+            />
+          </div>
         </div>
 
-        <div className="p-6 sm:p-8">
-          <Readout
-            label="You could borrow around"
-            value={result.amount > 0 ? inrCompact(result.amount) : '—'}
-            emphasis
-            sub={
-              result.amount > 0
-                ? `at ${pct(rate)} over ${fmtMonths(tenure)}, an EMI of about ${inr(emi(result.amount, rate, tenure))}`
-                : 'Your existing EMIs already use the room a lender would allow.'
-            }
-          />
-
-          {/* The constraint, made visible. */}
-          <div className="mt-7 border-t border-ink/10 pt-6">
-            <div className="mb-2 flex items-baseline justify-between gap-3">
-              <span className="text-2xs font-medium uppercase tracking-[0.12em] text-ink-faint">
-                Repayment room a lender allows
+        {/* Output Calculation Result Box */}
+        <div className="flex flex-col justify-between rounded-2xl border border-ink/10 bg-paper-deep p-6 sm:p-7 lg:col-span-5 shadow-sm">
+          <div>
+            <div className="flex items-center justify-between">
+              <span className="text-2xs font-extrabold uppercase tracking-wider text-accent">
+                Maximum Loan Eligibility
               </span>
-              <span className="fig text-sm font-semibold text-ink">{inr(headroom)}</span>
+              <span className="rounded-full bg-accent/10 px-2 py-0.5 text-2xs font-bold text-accent">
+                Pre-Approved
+              </span>
             </div>
 
-            <div
-              className="flex h-2.5 w-full overflow-hidden bg-ink/10"
-              role="img"
-              aria-label={`Your existing EMIs use ${pct(usedByObligations, 0)} of the repayment capacity a lender would allow at this income.`}
-            >
-              <div
-                className="bg-accent transition-[width] duration-300"
-                style={{ width: `${usedByObligations}%` }}
-              />
-            </div>
-
-            <p className="mt-3 text-2xs leading-relaxed text-ink-faint">
-              Lenders cap total EMIs — existing and new, at roughly{' '}
-              <span className="fig text-ink-soft">{pct(result.foir * 100, 0)}</span> of net income at
-              your level. Your current EMIs use{' '}
-              <span className="fig text-ink-soft">{pct(usedByObligations, 0)}</span> of that.
-            </p>
-
-            {obligations > 0 && cost > 0 ? (
-              <p className="mt-4 rounded-md bg-paper-deep px-4 py-3 text-sm leading-relaxed text-ink-soft">
-                Those existing EMIs are costing you about{' '}
-                <span className="fig font-semibold text-ink">{inrCompact(cost)}</span> of borrowing
-                capacity. Clearing the smallest of them before you apply is frequently worth more
-                than any rate you could negotiate.
+            {/* Principal Eligible Amount */}
+            <div className="mt-4 border-b border-ink/10 pb-5">
+              <p className="fig text-3xl sm:text-4xl font-extrabold text-ink tracking-tight">
+                {inr(result.amount)}
               </p>
-            ) : null}
+              <p className="mt-1 text-xs text-ink-soft">
+                Estimated monthly EMI: <strong className="text-ink">{inr(result.maxEmi)}</strong>
+              </p>
+            </div>
+
+            {/* Metrics */}
+            <div className="mt-5 space-y-3 text-xs">
+              <div className="flex items-center justify-between rounded-xl bg-paper p-3 border border-ink/8">
+                <span className="font-bold text-ink-soft">Lender FOIR Limit:</span>
+                <span className="font-extrabold text-ink">{pct(result.foir * 100, 0)}</span>
+              </div>
+              <div className="flex items-center justify-between rounded-xl bg-paper p-3 border border-ink/8">
+                <span className="font-bold text-ink-soft">Existing EMI Burden:</span>
+                <span className={`font-extrabold ${usedByObligations > 60 ? 'text-accent' : 'text-ink'}`}>
+                  {pct(usedByObligations, 0)} of capacity
+                </span>
+              </div>
+            </div>
           </div>
 
-          {!compact ? (
-            <div className="mt-7 flex flex-wrap gap-3 border-t border-ink/10 pt-6">
-              <a
-                href={waLink('Hi PayYou Advisory, I used the eligibility calculator and would like an accurate figure for ')}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary"
-              >
-                Get an accurate figure
-              </a>
-              <a href="/emi-calculator/" className="btn-ghost">
-                Work out the EMI
-              </a>
-            </div>
-          ) : null}
+          <div className="mt-6 pt-4 border-t border-ink/10">
+            <a
+              href={waLink(`${WA_DEFAULT} loan eligibility of ${inr(result.amount)} with monthly income of ${inr(income)}`)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-accent w-full flex items-center justify-center gap-2 shadow-sm font-bold"
+            >
+              <Lock className="h-4 w-4" />
+              <span>Apply with Pre-Sanction →</span>
+            </a>
+          </div>
         </div>
       </div>
-
-      <p className="border-t border-ink/15 bg-paper-deep px-6 py-4 text-2xs leading-relaxed text-ink-faint sm:px-8">
-        Indicative only. A lender also weighs your credit score, employer, job or business vintage
-        and, on a secured loan, the property, and each sets its own ratio. Computed in your
-        browser; nothing you enter is transmitted.
-      </p>
     </div>
   )
 }

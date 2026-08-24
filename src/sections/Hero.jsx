@@ -1,122 +1,180 @@
-import { CONTACT, STATS } from '../data/site.js'
-import { PARTNER_COUNT_CLAIM } from '../data/lenders.js'
-import { telHref } from '../lib/format.js'
-import { Phone, ArrowRight, Check, ShieldCheck } from '../components/Icon.jsx'
-import Photo from '../components/Photo.jsx'
+import { useEffect, useRef, useState } from 'react'
+import { CONTACT } from '../data/site.js'
+import { HERO_SLIDES } from '../data/heroSlides.js'
+import { ArrowRight, ChevronDown, Phone, ShieldCheck } from '../components/Icon.jsx'
+import HeroScene from '../components/HeroScene.jsx'
 
 /**
- * The hero.
- *
- * ── What was wrong with the previous one ───────────────────────────────────
- * It was a full-bleed photograph with a display-serif headline at 76px and the
- * eligibility calculator beside it. On a 1080p laptop at 125% scaling — which
- * is a very ordinary machine in this market — the viewport is about 730px tall,
- * the header takes 116px of it, and the headline alone ate the rest. **The
- * call-to-action was below the fold.** On a page whose entire job is to get
- * someone to phone the office, that is not a styling problem, it is a broken
- * hero.
- *
- * ── How this one is sized ──────────────────────────────────────────────────
- * Everything above is budgeted against ~614px of usable height:
- *
- *   eyebrow 20 · headline 2 lines ≈ 120 · standfirst 2 lines ≈ 56
- *   · buttons 56 · trust row 44 · gaps and padding ≈ 200        → ≈ 500px
- *
- * The headline is two lines, not three, which is why it is shorter than the
- * copy it replaced. `short:` (a height-based breakpoint, not a width one)
- * tightens the padding further on genuinely short viewports.
- *
- * ── Why it is light, not dark ──────────────────────────────────────────────
- * PayYou's logo is royal blue on transparency with no reversed version, so the
- * navigation bar has to be white. A white bar sitting directly on a dark
- * full-bleed hero draws a hard edge across the top of the page. Light hero,
- * white bar, photograph as a framed element on the right — which is also the
- * pattern every bank in the client's reference set uses.
+ * IDFC FIRST Bank inspired Hero Carousel:
+ * - 640px desktop visual stage
+ * - Slide counter badge (01 / 04)
+ * - Auto-advancing slider with pause on hover/interaction
+ * - Polished dot indicators with progress state
+ * - 3D photorealistic asset rendering on the right with ambient glow
  */
 export default function Hero() {
+  const [index, setIndex] = useState(0)
+  const [held, setHeld] = useState(false)
+  const [taken, setTaken] = useState(false)
+  const region = useRef(null)
+
+  const slide = HERO_SLIDES[index]
+  const count = HERO_SLIDES.length
+
+  const go = (n) => {
+    setTaken(true)
+    setIndex(((n % count) + count) % count)
+  }
+
+  // Auto-advance every 6.5s unless paused or interacted
+  useEffect(() => {
+    if (held || taken || count < 2) return undefined
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return undefined
+    }
+    const t = setTimeout(() => setIndex((i) => (i + 1) % count), 6500)
+    return () => clearTimeout(t)
+  }, [index, held, taken, count])
+
   return (
-    <section className="relative overflow-hidden bg-paper-wash">
-      {/* A very quiet blue wash bleeding in from the right, so the white does
-          not read as an empty canvas behind the photograph. Not an orb — no
-          blur radius, no floating shape, just a soft directional tint. */}
+    <section
+      ref={region}
+      aria-roledescription="carousel"
+      aria-label="PayYou Advisory Loan Services"
+      className="hero-band relative isolate overflow-hidden min-h-[580px] lg:min-h-[640px] flex flex-col justify-center"
+      onMouseEnter={() => setHeld(true)}
+      onMouseLeave={() => setHeld(false)}
+      onFocusCapture={() => setHeld(true)}
+      onBlurCapture={() => setHeld(false)}
+    >
+      {/* Background Graphic & 3D Scene Container */}
+      <div className="absolute inset-0 -z-20">
+        {HERO_SLIDES.map((s, i) => (
+          <div
+            key={s.id}
+            aria-hidden={i !== index}
+            className={`absolute inset-0 transition-opacity duration-700 ease-brand ${
+              i === index ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}
+          >
+            {s.image ? (
+              <div className="absolute inset-0 flex items-center justify-end">
+                <div className="relative h-full w-full lg:w-3/5 overflow-hidden">
+                  <img
+                    src={s.image}
+                    alt={s.eyebrow}
+                    className="h-full w-full object-cover object-center lg:object-right opacity-90 transition-transform duration-1000 ease-out scale-105"
+                  />
+                  {/* Left soft fade gradient so text remains ultra-crisp */}
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background: 'linear-gradient(to right, rgba(5, 16, 31, 1) 0%, rgba(5, 16, 31, 0.8) 25%, rgba(5, 16, 31, 0.2) 65%, transparent 100%), linear-gradient(to top, rgba(5, 16, 31, 0.9) 0%, transparent 40%)',
+                    }}
+                  />
+                </div>
+              </div>
+            ) : (
+              <HeroScene scene={s.scene} className="hero-scene" />
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Scrim Overlay */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 right-0 -z-10 w-2/3 bg-gradient-to-l from-ink/[0.07] to-transparent"
+        className="hero-scrim pointer-events-none absolute inset-0 -z-10"
       />
 
-      <div className="container-page grid items-center gap-10 py-12 lg:grid-cols-12 lg:gap-14 lg:py-14 short:py-8">
-        {/* ── The argument ───────────────────────────────────────────────── */}
-        <div className="lg:col-span-7">
-          <p className="eyebrow">Loan advisory · Pune &amp; Pimpri-Chinchwad</p>
+      {/* Content Container */}
+      <div className="container-page relative z-10 grid items-center gap-8 pb-20 pt-8 sm:pb-24 lg:grid-cols-12 lg:pb-24 lg:pt-10">
+        <div className="lg:col-span-7 xl:col-span-6">
+          {/* Slide Tag / Badge + Eyebrow */}
+          <div className="flex flex-wrap items-center gap-3">
+            {slide.badge ? (
+              <span className="rounded-full bg-accent/20 border border-accent/40 px-3 py-0.5 text-2xs font-extrabold uppercase tracking-wider text-white shadow-sm">
+                {slide.badge}
+              </span>
+            ) : null}
+            <p
+              aria-live="polite"
+              className="text-2xs font-bold uppercase tracking-[0.16em] text-accent-light"
+            >
+              {slide.eyebrow}
+            </p>
+          </div>
 
-          <h1 className="h-display text-ink">
-            Twenty-five lenders.
-            <br />
-            <span className="text-accent-sheen">One application.</span>
+          {/* High-Impact Headline */}
+          <h1 className="h-display mt-4 text-paper drop-shadow-md">
+            {slide.headline.map((line, i) => (
+              <span key={line} className="block">
+                {i === slide.accentLine ? <span className="text-sky">{line}</span> : line}
+              </span>
+            ))}
           </h1>
 
-          <p className="mt-5 max-w-prose text-lg leading-relaxed text-ink-soft">
-            Apply to eight banks yourself and you collect eight hard enquiries, and a lower score at
-            exactly the wrong moment. We shortlist which of our {PARTNER_COUNT_CLAIM} partners would
-            actually approve your file, then submit to one.
+          {/* Standfirst */}
+          <p className="mt-4 max-w-prose text-base leading-relaxed text-paper/85 sm:text-lg">
+            {slide.standfirst}
           </p>
 
-          <div className="mt-7 flex flex-wrap items-center gap-3">
-            <a href={telHref(CONTACT.landline)} className="btn-accent btn-lg">
-              <Phone className="h-4 w-4" />
-              <span className="fig">{CONTACT.landlineDisplay}</span>
-            </a>
-            <a href="/eligibility-calculator/" className="btn-ghost btn-lg">
-              Check what you could borrow
+          {/* Call-to-action Buttons */}
+          <div className="mt-7 flex flex-wrap items-center gap-3.5">
+            <a href={slide.primary.href} className="btn-accent btn-lg shadow-lift">
+              {slide.primary.label}
               <ArrowRight className="h-4 w-4" />
             </a>
+            <a href={slide.secondary.href} className="btn-glass btn-lg">
+              {slide.secondary.label}
+            </a>
           </div>
 
-          {/* Three checkable claims, on one line at desktop width. */}
-          <ul className="mt-7 flex flex-wrap items-center gap-x-7 gap-y-2.5 border-t border-ink/10 pt-5">
-            {[
-              'One credit enquiry, not one per lender',
-              'Soft check first, nothing submitted without your word',
-              'Our fee is paid by the lender',
-            ].map((claim) => (
-              <li key={claim} className="flex items-center gap-2 text-sm font-semibold text-ink-soft">
-                <Check className="h-4 w-4 shrink-0 text-accent" />
-                {claim}
-              </li>
-            ))}
-          </ul>
-        </div>
+          {/* IDFC-Style Carousel Indicators & Number Counter */}
+          {count > 1 ? (
+            <div className="mt-10 flex items-center gap-4">
+              {/* Prev Arrow */}
+              <button
+                type="button"
+                onClick={() => go(index - 1)}
+                aria-label="Previous slide"
+                className="hero-arrow"
+              >
+                <ChevronDown className="h-4 w-4 rotate-90" />
+              </button>
 
-        {/* ── The photograph ─────────────────────────────────────────────── */}
-        <div className="lg:col-span-5">
-          <div className="relative">
-            <Photo
-              name="hero-advisory"
-              ratio="5 / 4"
-              priority
-              sizes="(min-width: 1024px) 40vw, 92vw"
-              className="photo-rule rounded-xl shadow-lift"
-            />
+              {/* Progress Dots */}
+              <ul className="-mx-1 flex items-center gap-1">
+                {HERO_SLIDES.map((s, i) => (
+                  <li key={s.id}>
+                    <button
+                      type="button"
+                      onClick={() => go(i)}
+                      aria-label={`Slide ${i + 1} of ${count}: ${s.eyebrow}`}
+                      aria-current={i === index ? 'true' : undefined}
+                      className="hero-dot"
+                      data-active={i === index}
+                    />
+                  </li>
+                ))}
+              </ul>
 
-            {/* A figure lifted onto the corner of the photograph. This is the
-                one piece of overlap on the page: it ties the two columns
-                together and gives the composition a foreground. */}
-            <div className="absolute -bottom-6 -left-4 hidden rounded-xl border border-ink/10 bg-paper p-5 shadow-lift sm:block lg:-left-8">
-              <div className="flex items-center gap-4">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent/10">
-                  <ShieldCheck className="h-5 w-5 text-accent" />
-                </span>
-                <span>
-                  <span className="fig block text-2xl font-semibold leading-none text-ink">
-                    {STATS[1].value}
-                  </span>
-                  <span className="mt-1 block text-2xs font-bold uppercase tracking-[0.14em] text-ink-faint">
-                    Bank &amp; NBFC partners
-                  </span>
-                </span>
-              </div>
+              {/* Next Arrow */}
+              <button
+                type="button"
+                onClick={() => go(index + 1)}
+                aria-label="Next slide"
+                className="hero-arrow"
+              >
+                <ChevronDown className="h-4 w-4 -rotate-90" />
+              </button>
+
+              {/* Number Index Badge */}
+              <span className="fig ml-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-2xs font-bold text-white/85">
+                0{index + 1} / 0{count}
+              </span>
             </div>
-          </div>
+          ) : null}
         </div>
       </div>
     </section>

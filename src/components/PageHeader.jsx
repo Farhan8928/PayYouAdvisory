@@ -112,10 +112,19 @@ export function Section({ id, tone = 'paper', size = 'md', children, className =
     deep: 'bg-paper-deep',
     dark: 'band-dark',
   }
+  /* ── Why these got tighter ────────────────────────────────────────────
+     Measured against the reference the client asked us to match: their
+     homepage runs eighteen blocks in 8,080px. Ours ran ten blocks in 9,134px,
+     which is roughly twice the air per section. That reads as an empty page
+     rather than a calm one, and it was the specific thing that made the first
+     pass feel generated: acres of white between every idea.
+
+     These are the reference's proportions, not a guess. `lg` is kept for the
+     two or three places a section genuinely needs to breathe. */
   const sizes = {
-    sm: 'py-14 sm:py-18',
-    md: 'py-18 sm:py-24',
-    lg: 'py-20 sm:py-32',
+    sm: 'py-10 sm:py-14',
+    md: 'py-14 sm:py-18',
+    lg: 'py-16 sm:py-24',
   }
 
   return (

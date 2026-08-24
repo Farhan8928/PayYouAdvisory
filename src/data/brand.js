@@ -69,6 +69,38 @@ export const BRAND = {
 
   /** Semantic, deliberately outside the brand palette. WhatsApp controls only. */
   whatsapp: '#25d366',
+
+  /* ── The hero shading ramp ──────────────────────────────────────────────
+     Added 24 Aug 2026 with the hero rebuild.
+
+     A rendered object needs tonal steps a flat interface palette does not
+     have: a stage darker than any section ground, three shadow steps to model
+     a form, and a specular highlight. Without them the artwork reads as
+     stacked flat shapes rather than as something lit.
+
+     Every value below is the logo blue moved along one axis, so the artwork
+     cannot drift away from the brand the way a hand-picked shading set would.
+     They live here rather than in the component precisely so that
+     `npm run audit:brand` still catches a stray hex: the audit's allowed set
+     is `Object.values(BRAND)`, and the fix for "this colour is not in the
+     palette" must be a decision recorded here, never a suppression there.
+
+     The reference site's coin is gold. This one is steel, because gold is
+     IDFC's accent and not PayYou's. Their brand is blue and red, so the metal
+     is a cool one and the rupee glyph on it is the logo red. */
+
+  /** The hero stage. Darker than `inkDeep`, so a lit form reads against it. */
+  stage: '#05101f',
+  /** Shadow side of a modelled form. */
+  formShadow: '#0a1e3c',
+  /** Mid-tone body of a form. */
+  formMid: '#0d264a',
+  /** Lit face of a form. */
+  formLit: '#0f2f5c',
+  /** Catching the light: edges, chamfers, the top plane. */
+  formEdge: '#2b6bbd',
+  /** Specular highlight, the brightest point on brushed metal. */
+  formSpecular: '#7fa8dc',
 }
 
 /** Colours that must also appear in the manifest and the theme-color meta tag. */

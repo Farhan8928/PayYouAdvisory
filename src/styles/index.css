@@ -6,6 +6,10 @@
   :root {
     --bar-h: 4.5rem;
 
+    /* Utility strip (44px on a phone, 36px from sm) plus the nav bar (80px at
+       rest). The homepage hero slides up under both. */
+    --masthead-h: 7.75rem;
+
     /* ── Context-aware emphasis colour ──────────────────────────────────────
        The brand red has a contrast problem that only appears on one of the two
        grounds this site uses, which is exactly the kind of thing that ships
@@ -29,6 +33,12 @@
 
   .on-dark {
     --accent-ink: theme(colors.sky);
+  }
+
+  @media (min-width: 640px) {
+    :root {
+      --masthead-h: 7.25rem;
+    }
   }
 
   html {
@@ -174,9 +184,25 @@
 
   /* ── Controls ───────────────────────────────────────────────────────── */
 
+  /* Pills, not rounded rectangles. The reference site sets every control —
+     nav actions, hero calls to action, card buttons — as a full-radius pill,
+     and it is the single clearest signature of that interface. Changing the
+     radius here moves every button on the site at once. */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-md px-6 py-3.5 text-sm
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm
            font-bold tracking-[0.005em] transition-all duration-300 ease-brand;
+  }
+
+  /* The reference pairs a solid pill with a plain underlined text link rather
+     than a second button. It reads as one clear action and one quiet one,
+     where two buttons read as a choice the reader has to make. */
+  .btn-text {
+    @apply inline-flex items-center gap-2 py-3.5 text-sm font-bold underline
+           underline-offset-4 transition-colors duration-200;
+  }
+
+  .btn-text-invert {
+    @apply btn-text text-white hover:text-sky;
   }
 
   .btn-accent {
@@ -382,6 +408,287 @@
 
   /* A red hairline along the top edge of a photograph — the small detail that
      makes an image look placed rather than pasted. */
+
+  /* ── Hero ───────────────────────────────────────────────────────────────
+     The dark masthead the client asked for, modelled on the reference site's
+     format. The ground is near-black rather than the brand navy: the reference
+     runs a rendered film on an almost-black stage, and navy behind a navy
+     scene flattens it. The brand colour lives in the artwork and the accents,
+     which is where it reads. */
+  /* The bar is transparent over this band, so the band has to begin behind it
+     rather than below it. The pull-up and the padding are the same custom
+     property, so they cannot drift apart: change the masthead height in one
+     place and the hero follows. */
+  .hero-band {
+    @apply bg-stage;
+    margin-top: calc(var(--masthead-h) * -1);
+    padding-top: var(--masthead-h);
+  }
+
+  /* The contrast guarantee. Dark at the left where the type sits, clearing to
+     nothing on the right so the artwork is not muddied, plus a vertical fade
+     so the controls at the foot stay legible over anything. Fixed, not derived
+     from the image — see the note in Hero.jsx. */
+  .hero-scrim {
+    background:
+      linear-gradient(
+        to right,
+        rgba(5, 16, 31, 0.94) 0%,
+        rgba(5, 16, 31, 0.9) 30%,
+        rgba(5, 16, 31, 0.5) 50%,
+        rgba(5, 16, 31, 0) 72%
+      ),
+      linear-gradient(to bottom, rgba(5, 16, 31, 0.55) 0%, rgba(5, 16, 31, 0) 26%,
+        rgba(5, 16, 31, 0) 74%, rgba(5, 16, 31, 0.5) 100%);
+  }
+
+  /* On a phone the text sits above the artwork rather than beside it, exactly
+     as the reference does with its portrait cut, so the scrim has to weight
+     the top instead of the left. */
+  @media (max-width: 1023px) {
+    .hero-scrim {
+      background: linear-gradient(
+        to bottom,
+        rgba(5, 16, 31, 0.95) 0%,
+        rgba(5, 16, 31, 0.9) 42%,
+        rgba(5, 16, 31, 0.55) 70%,
+        rgba(5, 16, 31, 0.85) 100%
+      );
+    }
+  }
+
+  /* The SVG stand-in sits right on desktop and low-centre on a phone, which is
+     where the reference's portrait films put their subject. */
+  /* On a phone the subject drops below the copy and the controls, which is
+     where the reference site's portrait cut puts it too. */
+  .hero-scene {
+    @apply translate-x-[6%] translate-y-[30%] scale-[0.9]
+           lg:translate-x-[14%] lg:translate-y-0 lg:scale-[0.94];
+  }
+
+  .btn-glass {
+    @apply btn border border-white/25 bg-white/10 text-white backdrop-blur-sm
+           hover:-translate-y-0.5 hover:border-white/50 hover:bg-white/20;
+  }
+
+  .hero-arrow {
+    @apply flex h-11 w-11 items-center justify-center rounded-full border border-white/25
+           text-white/80 transition-colors hover:border-white/60 hover:text-white;
+  }
+
+  /* The hit area is the button, the mark is the pseudo-element. Both
+     dimensions have to reach 44px: the first version was 44 tall and 20 wide,
+     which `npm run audit:viewport` caught as a WCAG 2.5.5 failure. The dots
+     still read as a tight row because the visible mark is 10px inside a target
+     four times its size. */
+  .hero-dot {
+    @apply relative flex h-11 w-11 items-center justify-center;
+  }
+
+  .hero-dot::after {
+    content: '';
+    @apply h-2.5 w-2.5 rounded-full bg-white/35 transition-all duration-300 ease-brand;
+  }
+
+  .hero-dot[data-active='true']::after {
+    @apply w-6 bg-accent;
+  }
+
+  .hero-dot:hover::after {
+    @apply bg-white/70;
+  }
+
+  .hero-dot[data-active='true']:hover::after {
+    @apply bg-accent;
+  }
+
+
+  /* ── The tab rail ───────────────────────────────────────────────────────
+     Sits over the foot of the hero. Dark glass rather than a solid bar, so the
+     artwork behind it still reads, which is how the reference handles the same
+     overlap. */
+  .tab-rail {
+    @apply on-dark overflow-hidden rounded-t-xl border border-white/12 border-b-0
+           bg-ink-deep/80 backdrop-blur-xl;
+  }
+
+  .tab-item {
+    @apply relative flex min-h-[76px] shrink-0 flex-col items-center justify-center gap-2
+           border-r border-white/10 px-6 py-4 text-xs font-semibold text-white/70
+           transition-colors duration-200 last:border-r-0 hover:bg-white/5 hover:text-white
+           sm:px-9;
+  }
+
+  .tab-item[data-active='true'] {
+    @apply bg-accent/15 text-white;
+  }
+
+  /* The active marker is a rule along the foot, as on the reference, rather
+     than a pill or a colour swap. It survives the horizontal scroll. */
+  .tab-item[data-active='true']::after {
+    content: '';
+    @apply absolute inset-x-0 bottom-0 h-[3px] bg-accent;
+  }
+
+  /* ── Product tiles ──────────────────────────────────────────────────────
+     Flat colour, white type, a cropped line drawing and two actions. The
+     drawing is positioned rather than laid out: it is decoration behind the
+     content, and the content must never reflow around it. */
+  .tile {
+    @apply relative flex h-full flex-col justify-between overflow-hidden rounded-xl
+           p-7 text-white transition-transform duration-300 ease-brand
+           hover:-translate-y-1 sm:p-8;
+  }
+
+  /* The copy column stops short of the drawing rather than sitting over it. */
+  .tile > span {
+    @apply max-w-[75%];
+  }
+
+  .tile-ink {
+    background-image: linear-gradient(135deg, theme(colors.ink.DEFAULT), theme(colors.ink.deep));
+  }
+
+  .tile-mid {
+    background-image: linear-gradient(135deg, theme(colors.ink.mid), theme(colors.ink.DEFAULT));
+  }
+
+  .tile-accent {
+    background-image: linear-gradient(135deg, theme(colors.accent.DEFAULT), theme(colors.accent.deep));
+  }
+
+  /* Cropped at the right edge on purpose. A drawing fully inside its box reads
+     as an icon; one running off the edge reads as artwork. */
+  /* Cropped at the right edge on purpose, and kept clear of the copy: the
+     drawing is decoration, and text running across it is the one thing that
+     makes this device look cheap rather than considered. */
+  .tile-art {
+    @apply pointer-events-none absolute -bottom-4 -right-8 h-36 w-36 text-white/30 sm:h-40 sm:w-40;
+  }
+
+  .tile-pill {
+    @apply inline-flex items-center rounded-full border-2 border-white/70 px-5 py-2
+           text-xs font-bold transition-colors duration-200;
+  }
+
+  .tile:hover .tile-pill {
+    @apply border-white bg-white text-ink;
+  }
+
+
+  /* ── The calculator band ────────────────────────────────────────────────
+     The reference's signature section: a full-bleed coloured band with the
+     argument on the left and a white tool card floating on the right. Ours is
+     the brand blue rather than their red, for the obvious reason. */
+  .calc-band {
+    @apply on-dark text-white;
+    background-image: linear-gradient(150deg, theme(colors.ink.deep), theme(colors.ink.DEFAULT) 58%, theme(colors.stage));
+  }
+
+  /* A soft directional light, so the band is not a flat rectangle of colour. */
+  .calc-band-wash {
+    @apply pointer-events-none absolute inset-0;
+    background-image: radial-gradient(
+      60% 70% at 78% 30%,
+      rgba(30, 90, 174, 0.45),
+      transparent 70%
+    );
+  }
+
+  .calc-card {
+    @apply overflow-hidden rounded-2xl bg-paper shadow-lift;
+  }
+
+  .calc-tab {
+    @apply relative min-h-[52px] shrink-0 px-4 text-xs font-bold text-ink-soft
+           transition-colors duration-200 hover:text-ink sm:px-5 sm:text-sm;
+  }
+
+  .calc-tab[data-active='true'] {
+    @apply text-ink;
+  }
+
+  .calc-tab[data-active='true']::after {
+    content: '';
+    @apply absolute inset-x-3 bottom-0 h-[3px] rounded-full bg-accent;
+  }
+
+  /* ── Horizontal card rails ──────────────────────────────────────────────
+     Used by the highlights row and the article row. Snap points make a rail
+     feel deliberate rather than loose, and `scroll-px` stops the first card
+     sitting flush against the edge after a snap. */
+  /* A full-bleed scrolling rail whose first card still lines up with the
+     container above it.
+     
+     It does NOT use `.scroll-x`. That helper pulls `-mx-5` so a strip can bleed
+     out of a padded parent; this rail is already a full-width child, so the
+     negative margin made its own box wider than the body and the whole page
+     scrolled 20px sideways on every phone. `overflow-x: auto` clips a box's
+     contents, never its own width.
+     
+     Instead the left pad is computed: the container gutter on a phone, and on a
+     wide screen whatever it takes to line up with the 82rem container. `100%`
+     rather than `100vw`, because `100vw` includes the scrollbar and would
+     reintroduce the overflow on desktop. */
+  .rail {
+    @apply min-w-0 snap-x snap-mandatory overflow-x-auto pb-2;
+    padding-left: max(1.25rem, calc((100% - 82rem) / 2 + 1.25rem));
+    padding-right: 1.25rem;
+    scroll-padding-left: max(1.25rem, calc((100% - 82rem) / 2 + 1.25rem));
+  }
+
+  @media (min-width: 640px) {
+    .rail {
+      padding-left: max(2rem, calc((100% - 82rem) / 2 + 2rem));
+      padding-right: 2rem;
+      scroll-padding-left: max(2rem, calc((100% - 82rem) / 2 + 2rem));
+    }
+  }
+
+  .rail > ul > li {
+    @apply snap-start;
+  }
+
+  .rail-card {
+    @apply relative flex h-full flex-col overflow-hidden rounded-xl p-7 text-white
+           transition-transform duration-300 ease-brand hover:-translate-y-1;
+  }
+
+  .rail-art {
+    @apply pointer-events-none absolute -bottom-6 -right-6 h-32 w-32 text-white/20;
+  }
+
+  .card-ink {
+    background-image: linear-gradient(140deg, theme(colors.ink.DEFAULT), theme(colors.ink.deep));
+  }
+
+  .card-mid {
+    background-image: linear-gradient(140deg, theme(colors.ink.mid), theme(colors.ink.DEFAULT));
+  }
+
+  .card-accent {
+    background-image: linear-gradient(140deg, theme(colors.accent.DEFAULT), theme(colors.accent.deep));
+  }
+
+  /* ── Article cards ──────────────────────────────────────────────────────
+     A coloured head band rather than a photograph. Five posts would need five
+     more licensed images to do this with photography, and a coloured head does
+     the same job of separating one card from the next. */
+  .article-card {
+    @apply flex h-full flex-col overflow-hidden rounded-xl border border-ink/10 bg-paper
+           shadow-card transition-all duration-300 ease-brand
+           hover:-translate-y-1 hover:border-accent/30 hover:shadow-lift;
+  }
+
+  .article-head {
+    @apply flex h-16 items-end p-5 text-white;
+    background-image: linear-gradient(120deg, theme(colors.ink.DEFAULT), theme(colors.ink.mid));
+  }
+
+  .rail > ul > li:nth-child(3n + 2) .article-head {
+    background-image: linear-gradient(120deg, theme(colors.accent.DEFAULT), theme(colors.accent.deep));
+  }
+
   .photo-rule::after {
     content: '';
     @apply pointer-events-none absolute inset-x-0 top-0 h-[3px] bg-accent-rule;
@@ -541,4 +848,43 @@
   .marquee-row > ul {
     @apply flex-wrap justify-center;
   }
+}
+
+/* ── Hero scene motion ─────────────────────────────────────────────────────
+   Every one of these is referenced from a `motion-safe:` variant in
+   HeroScene.jsx, so `prefers-reduced-motion: reduce` leaves the composition
+   still rather than half-drawn. Amplitudes are small on purpose: this is a
+   masthead behind a headline, and anything livelier competes with the words it
+   is supposed to support. */
+@keyframes heroFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+@keyframes heroSpin {
+  0%, 100% { transform: scaleX(1) rotate(0deg); }
+  50% { transform: scaleX(0.82) rotate(-4deg); }
+}
+
+@keyframes heroTilt {
+  0%, 100% { transform: rotate(-3deg) translateY(0); }
+  50% { transform: rotate(3deg) translateY(-10px); }
+}
+
+@keyframes heroRise {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(1.06); }
+}
+
+@keyframes heroSheen {
+  0% { transform: translateX(-160px); opacity: 0; }
+  12% { opacity: 0.5; }
+  30% { opacity: 0; }
+  100% { transform: translateX(420px); opacity: 0; }
+}
+
+@keyframes heroPulse {
+  0% { transform: scale(1); opacity: 0.9; }
+  70% { transform: scale(2.6); opacity: 0; }
+  100% { transform: scale(2.6); opacity: 0; }
 }

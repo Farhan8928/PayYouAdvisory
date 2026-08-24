@@ -9,3 +9,4 @@ dist-ssr
 !.env.example
 .viewport-shots
 deliverables/preview-*.png
+.ref-shots
