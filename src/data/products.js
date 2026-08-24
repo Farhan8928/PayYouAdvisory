@@ -885,6 +885,349 @@ export const PRODUCTS = [
       ],
     },
   },
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // Added 24 Aug 2026, from the client's page specification.
+  //
+  // `photo` names an image key from src/data/photos.js rather than defaulting
+  // to the slug. The photography set is licensed, real and finite; a new
+  // product reuses an existing frame rather than acquiring one, because the
+  // alternative is a broken image slot or a made-up Unsplash URL.
+  // ──────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'loan-against-securities',
+    index: '09',
+    name: 'Loan Against Securities',
+    shortName: 'Securities',
+    category: 'secured',
+    categoryLabel: 'Secured · Financial assets',
+    photo: 'consult-desk',
+    tagline: 'Borrow against the portfolio without selling it.',
+    summary:
+      'An overdraft against shares, mutual funds, bonds, insurance policies or fixed deposits you already hold, so the investment stays invested.',
+    intro: [
+      'Selling an investment to raise money has two costs people underestimate: the capital gains tax that crystallises on the sale, and the compounding that stops the day the holding leaves the portfolio. A loan against securities avoids both. The holding is pledged rather than sold, a limit is set against its value, and you draw only what you need.',
+      'It is structured as an overdraft rather than a term loan, so interest accrues on the drawn balance day by day and stops when the balance is repaid. Dividends, interest and growth continue to accrue to you throughout, because you remain the owner. The discipline it demands is watching the margin: if the pledged value falls, the lender will call for more security or for part repayment, and that call has a short deadline.',
+    ],
+    spec: {
+      rateFrom: null,
+      rateNote: 'Priced by the lender against the class of security pledged.',
+      amountMax: null,
+      amountNote: 'A percentage of the pledged value, set by the security type and the lender.',
+      tenure: 'Revolving, usually renewed annually',
+      security: 'Pledge or lien on the securities held',
+      disbursal: '1 – 3 working days once the pledge is marked',
+    },
+    features: [
+      {
+        title: 'The investment keeps working',
+        body: 'You remain the owner throughout. Dividends, interest and capital growth continue to accrue to you while the holding is pledged.',
+      },
+      {
+        title: 'No capital gains event',
+        body: 'Pledging is not a sale, so no gain crystallises and no tax falls due. For a long-held equity position that difference alone can exceed the interest cost.',
+      },
+      {
+        title: 'Interest on what you draw',
+        body: 'The facility is an overdraft. Draw a fraction of the limit and you pay interest on that fraction, day by day.',
+      },
+      {
+        title: 'Margin calls are the real risk',
+        body: 'If the market falls, the lender asks for more security or part repayment at short notice. Borrow well inside the limit rather than at it.',
+      },
+    ],
+    uses: [
+      'A short-term requirement without disturbing a long-term holding',
+      'Bridging between a committed sale and a purchase',
+      'Working capital for a business owner whose wealth sits in investments',
+      'A medical or family emergency where speed matters',
+      'Avoiding a forced sale in a falling market',
+    ],
+    eligibility: {
+      note: 'Indicative. Each lender publishes its own list of approved securities, and a holding outside that list cannot be pledged however sound it is.',
+      rows: [
+        { criterion: 'Holding', salaried: 'In the applicant’s own name', selfEmployed: 'In the applicant’s own name' },
+        {
+          criterion: 'Security type',
+          salaried: 'On the lender’s approved list of shares, funds or bonds',
+          selfEmployed: 'On the lender’s approved list of shares, funds or bonds',
+        },
+        { criterion: 'Demat account', salaried: 'Required for shares and most bonds', selfEmployed: 'Required for shares and most bonds' },
+        { criterion: 'Age', salaried: '18 – 70 years', selfEmployed: '18 – 70 years' },
+        { criterion: 'Income proof', salaried: 'Often light, since the security carries the loan', selfEmployed: 'Often light, since the security carries the loan' },
+      ],
+    },
+    accepted: {
+      title: 'What can usually be pledged',
+      items: [
+        'Listed equity shares on the lender’s approved list',
+        'Mutual fund units, equity and debt',
+        'Traditional and endowment life insurance policies with a surrender value',
+        'Government securities, bonds and debentures',
+        'Fixed deposits held with the lending bank',
+      ],
+    },
+    documents: [
+      { label: 'Demat statement', note: 'Holding statement for shares and bonds' },
+      { label: 'Mutual fund statement', note: 'Consolidated account statement' },
+      { label: 'Policy document', note: 'Where a life insurance policy is pledged' },
+      { label: 'PAN and Aadhaar', note: 'Identity and address' },
+      { label: 'Bank statements', note: 'Last 3 – 6 months' },
+    ],
+    faqs: [
+      {
+        q: 'Do I lose the dividends or growth while the shares are pledged?',
+        a: 'No. You remain the owner throughout. Dividends, interest, bonus issues and capital growth continue to accrue to you. The pledge only prevents you selling the holding while the facility is drawn.',
+      },
+      {
+        q: 'What is a margin call?',
+        a: 'If the market value of the pledged holding falls, the cover behind your limit shrinks. The lender then asks you to pledge more securities or repay part of the drawing, usually within a short deadline. Failing to meet it allows the lender to sell the holding.',
+      },
+      {
+        q: 'How much will I get against my portfolio?',
+        a: 'A percentage of the value, and the percentage depends heavily on what is pledged. Debt instruments and fixed deposits support a higher proportion than equity, because their value moves less. Each lender also maintains its own list of approved securities.',
+      },
+      {
+        q: 'Is this cheaper than a personal loan?',
+        a: 'Usually considerably, because it is secured. And the comparison people forget is against selling: for a long-held equity position, avoiding the capital gains event can be worth more than the entire interest cost of the facility.',
+      },
+    ],
+    seo: {
+      title: 'Loan Against Shares, Mutual Funds & Securities in Pune | PayYou',
+      description:
+        'Overdraft against shares, mutual funds, bonds, insurance policies and deposits in Pune. Keep the investment, avoid the capital gains event, and understand margin calls.',
+      keywords: [
+        'loan against shares Pune',
+        'loan against mutual funds PCMC',
+        'loan against securities Pimpri Chinchwad',
+        'LAS overdraft Pune',
+        'loan against insurance policy Pune',
+      ],
+    },
+  },
+
+  {
+    slug: 'education-loan',
+    index: '10',
+    name: 'Education Loan',
+    shortName: 'Education',
+    category: 'unsecured',
+    categoryLabel: 'Education',
+    photo: 'meeting-india',
+    tagline: 'Repayment starts after the course, not after the cheque.',
+    summary:
+      'Funding for higher education in India and abroad, with a moratorium through the course and a tax deduction on the interest that no other loan carries.',
+    intro: [
+      'An education loan is built around a fact no other retail product accommodates: the borrower has no income yet. Repayment is deferred through the course and for a grace period after it, usually six to twelve months, so the first instalment falls due when the graduate is working rather than while they are studying. Interest accrues during that moratorium and can generally be serviced or capitalised, and servicing it if the family can reduces the eventual burden noticeably.',
+      'Two features make it materially cheaper than borrowing any other way for the same purpose. The interest paid qualifies for deduction under Section 80E of the Income Tax Act, with no ceiling on the amount, for up to eight years. And the loan covers more than tuition: examination fees, library and laboratory charges, books, equipment, travel and, for study abroad, living costs are all normally within scope. Loans up to a threshold are typically unsecured; above it, lenders ask for collateral, and that threshold is the single most important number to establish before choosing a course.',
+    ],
+    spec: {
+      rateFrom: null,
+      rateNote: 'Set by the lender, and often finer for a recognised institution on its approved list.',
+      amountMax: null,
+      amountNote: 'Driven by the course cost and whether collateral is offered.',
+      tenure: 'Course period plus moratorium, then commonly 10 – 15 years',
+      security: 'Usually none up to a threshold; collateral above it',
+      disbursal: 'Semester by semester, direct to the institution',
+    },
+    features: [
+      {
+        title: 'A moratorium through the course',
+        body: 'Repayment begins after the course ends plus a grace period, usually six to twelve months, rather than the month after disbursal.',
+      },
+      {
+        title: 'Section 80E, with no upper limit',
+        body: 'The full interest paid is deductible for up to eight years. It is the most generous interest deduction available on any retail loan in India.',
+      },
+      {
+        title: 'More than tuition is covered',
+        body: 'Examination and library fees, books, equipment, travel and living costs abroad normally fall within the loan.',
+      },
+      {
+        title: 'Disbursed to the institution',
+        body: 'Money is released semester by semester directly to the college, which keeps the drawn balance and therefore the accruing interest low.',
+      },
+    ],
+    uses: [
+      'Undergraduate and postgraduate study in India',
+      'Master’s and doctoral study abroad',
+      'Professional and technical courses on an approved list',
+      'Living costs, travel and equipment for overseas study',
+      'Executive programmes at recognised institutions',
+    ],
+    eligibility: {
+      note: 'Indicative. The student is the borrower and a parent or guardian normally joins as co-applicant; the institution and course carry as much weight as the family’s income.',
+      rows: [
+        { criterion: 'Applicant', salaried: 'The student, with a co-applicant', selfEmployed: 'The student, with a co-applicant' },
+        {
+          criterion: 'Admission',
+          salaried: 'Confirmed seat at a recognised institution',
+          selfEmployed: 'Confirmed seat at a recognised institution',
+        },
+        { criterion: 'Course', salaried: 'On the lender’s approved list', selfEmployed: 'On the lender’s approved list' },
+        {
+          criterion: 'Co-applicant income',
+          salaried: 'Salary slips and Form 16',
+          selfEmployed: '2 years ITR with computation',
+        },
+        { criterion: 'Collateral', salaried: 'Usually above a threshold amount', selfEmployed: 'Usually above a threshold amount' },
+      ],
+    },
+    accepted: {
+      title: 'What lenders look at hardest',
+      items: [
+        'The institution’s standing and whether it sits on the lender’s approved list',
+        'Employability of the course, which drives repayment confidence',
+        'The co-applicant’s income and existing obligations',
+        'Whether collateral is available where the amount exceeds the unsecured threshold',
+        'The student’s academic record, particularly for study abroad',
+      ],
+    },
+    documents: [
+      { label: 'Admission letter', note: 'Confirmed offer from the institution' },
+      { label: 'Fee structure', note: 'Official schedule of course and other charges' },
+      { label: 'Academic records', note: 'Mark sheets and, where applicable, test scores' },
+      { label: 'Co-applicant income proof', note: 'Salary slips and Form 16, or 2 years ITR' },
+      { label: 'Collateral documents', note: 'Where the amount requires security' },
+    ],
+    faqs: [
+      {
+        q: 'When do repayments actually start?',
+        a: 'After the course ends plus a grace period, usually six to twelve months. Interest accrues during that moratorium. If the family can service the interest while the student studies, the eventual repayment is noticeably lighter, and most lenders allow it.',
+      },
+      {
+        q: 'Do I need collateral?',
+        a: 'Usually not up to a threshold amount, above which lenders ask for security such as property or a deposit. That threshold varies between lenders and is one of the first things to establish, because it can determine which courses are realistically affordable.',
+      },
+      {
+        q: 'What is the tax benefit?',
+        a: 'Section 80E allows the whole of the interest paid to be deducted, with no upper limit, for up to eight years from when repayment begins. No other retail loan in India carries an uncapped interest deduction.',
+      },
+      {
+        q: 'Can the loan cover living costs abroad?',
+        a: 'Generally yes. Overseas education loans normally cover tuition, travel, insurance, equipment and living expenses. The sanction is based on a total cost estimate rather than on tuition alone, so build the full figure before applying.',
+      },
+    ],
+    seo: {
+      title: 'Education Loan for India & Abroad from Pune | PayYou Advisory',
+      description:
+        'Education loans in Pune and PCMC for study in India and overseas. Moratorium until after the course, Section 80E interest deduction, and when collateral is required.',
+      keywords: [
+        'education loan Pune',
+        'study abroad loan PCMC',
+        'student loan Pimpri Chinchwad',
+        'education loan without collateral Pune',
+        'abroad education loan Pune',
+      ],
+    },
+  },
+
+  {
+    slug: 'investments',
+    index: '11',
+    name: 'Deposits & Investments',
+    shortName: 'Investments',
+    category: 'protection',
+    categoryLabel: 'Savings',
+    photo: 'calculator-papers',
+    tagline: 'Where surplus money sits while it waits.',
+    summary:
+      'Fixed and recurring deposits and savings products placed with partner banks and NBFCs. PayYou arranges and refers; it does not accept deposits or manage money.',
+    intro: [
+      'Not every conversation about money is about borrowing. A business holding a surplus between seasons, a family building towards a down payment, a retiree who needs income rather than growth: all of them are choosing where to place money rather than where to raise it. PayYou refers these requirements to the same partner banks and finance companies it places loans with, and is paid a referral fee by the institution in the same way.',
+      'What matters most in this category is rarely the headline rate. Deposit insurance covers bank deposits per depositor per bank up to a statutory limit, so spreading a large sum across institutions is often worth more than chasing a fraction of a percent. Premature withdrawal terms decide what happens when plans change. And interest on deposits is taxable as income, so a comparison against a tax-advantaged alternative should be made after tax, not before. We will say where a deposit is the sensible answer and where it plainly is not.',
+    ],
+    spec: {
+      rateFrom: null,
+      rateNote: 'Set by the bank or finance company, and revised frequently. We compare current rates at the time you place.',
+      amountMax: null,
+      amountNote: 'By the institution’s minimum and your requirement.',
+      tenure: '7 days to 10 years, by product',
+      security: 'Not applicable; deposit insurance limits apply to bank deposits',
+      disbursal: 'Not applicable',
+    },
+    features: [
+      {
+        title: 'Deposit insurance has a per-bank limit',
+        body: 'Bank deposits are insured per depositor per bank up to a statutory ceiling. Splitting a large sum across institutions is often worth more than a marginally better rate.',
+      },
+      {
+        title: 'Company deposits pay more and are not insured',
+        body: 'NBFC and corporate deposits typically offer higher rates precisely because that protection does not extend to them. The rating is the thing to read.',
+      },
+      {
+        title: 'Interest is taxable as income',
+        body: 'Deposit interest is added to income and taxed at your slab, with tax deducted at source above a threshold. Compare alternatives after tax.',
+      },
+      {
+        title: 'Premature withdrawal has a cost',
+        body: 'Breaking a deposit early usually means a rate penalty. Laddering across several maturities keeps money accessible without paying it.',
+      },
+    ],
+    uses: [
+      'Parking a business surplus between seasons',
+      'Building a house deposit over a defined period',
+      'Regular monthly saving through a recurring deposit',
+      'Income for a retired household through a monthly payout deposit',
+      'Holding an emergency fund somewhere reachable',
+    ],
+    eligibility: {
+      note: 'Indicative. Individuals, businesses, trusts and societies can all place deposits; the institution’s own account-opening norms apply.',
+      rows: [
+        { criterion: 'Applicant', salaried: 'Individual, jointly or singly', selfEmployed: 'Proprietor, firm, company, trust or society' },
+        { criterion: 'KYC', salaried: 'PAN and Aadhaar', selfEmployed: 'Entity KYC and authorised signatory' },
+        { criterion: 'Minimum amount', salaried: 'Set by the institution', selfEmployed: 'Set by the institution' },
+        { criterion: 'Age', salaried: 'No upper limit; senior citizens often get a better rate', selfEmployed: 'Not applicable' },
+      ],
+    },
+    accepted: {
+      title: 'What we can arrange',
+      items: [
+        'Fixed deposits with banks and rated finance companies',
+        'Recurring deposits for regular monthly saving',
+        'Tax-saving fixed deposits with a statutory lock-in',
+        'Monthly and quarterly income payout deposits',
+        'Savings and current account opening with partner banks',
+      ],
+    },
+    documents: [
+      { label: 'PAN and Aadhaar', note: 'Mandatory for every depositor' },
+      { label: 'Address proof', note: 'Where not covered by Aadhaar' },
+      { label: 'Entity documents', note: 'For a firm, company, trust or society' },
+      { label: 'Form 15G or 15H', note: 'Where you wish to avoid tax deducted at source and qualify' },
+      { label: 'Nomination details', note: 'Strongly recommended on every deposit' },
+    ],
+    faqs: [
+      {
+        q: 'Does PayYou hold my money?',
+        a: 'No, and this matters. PayYou is a referral and advisory firm. The deposit is placed with the bank or finance company, in your name, and the receipt comes from them. We are paid a referral fee by the institution, exactly as we are on a loan.',
+      },
+      {
+        q: 'Is my deposit safe?',
+        a: 'Bank deposits are covered by deposit insurance per depositor per bank up to a statutory limit, which is why splitting a large sum across institutions is sensible. Company and NBFC deposits are not covered by that scheme, which is why they pay more. Read the rating.',
+      },
+      {
+        q: 'What happens if I need the money early?',
+        a: 'Most deposits can be broken, usually with a penalty on the rate. A practical alternative is laddering: several deposits maturing at different dates, so something is always close to maturity and nothing has to be broken.',
+      },
+      {
+        q: 'Is a fixed deposit a good investment?',
+        a: 'It is a good place to keep money you cannot afford to lose or may need soon. Over long periods, after tax and inflation, the real return is usually modest. For a goal many years away, it is worth taking advice on alternatives rather than defaulting to a deposit.',
+      },
+    ],
+    seo: {
+      title: 'Fixed & Recurring Deposits Through PayYou Advisory, Pune',
+      description:
+        'Place fixed and recurring deposits with partner banks and NBFCs in Pune. Deposit insurance limits, taxation of interest, premature withdrawal and laddering explained.',
+      keywords: [
+        'fixed deposit Pune',
+        'recurring deposit PCMC',
+        'best FD rates Pimpri Chinchwad',
+        'company fixed deposit Pune',
+        'savings account opening Pune',
+      ],
+    },
+  },
 ]
 
 export const PRODUCT_BY_SLUG = Object.fromEntries(PRODUCTS.map((p) => [p.slug, p]))

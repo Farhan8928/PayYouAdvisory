@@ -29,7 +29,7 @@ export default function FaqHome() {
             Including the ones a broker would rather you did not ask. Twenty more, on eligibility,
             costs, timelines and what happens if you miss an EMI, are on the questions page.
           </p>
-          <a href="/faq/" className="btn-ghost mt-7">
+          <a href="/resources/" className="btn-ghost mt-7">
             All twenty answers
             <ArrowRight className="h-4 w-4" />
           </a>

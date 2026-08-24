@@ -25,7 +25,10 @@
     { "source": "/bank-nbfc-loan-partners/", "destination": "/lenders/", "permanent": true },
     { "source": "/banks/", "destination": "/lenders/", "permanent": true },
     { "source": "/nbfc/", "destination": "/lenders/", "permanent": true },
-    { "source": "/blog/", "destination": "/faq/", "permanent": true },
+    { "source": "/faq/", "destination": "/resources/", "permanent": true },
+    { "source": "/photo-credits/", "destination": "/about/", "permanent": true },
+    { "source": "/cookie-policy/", "destination": "/privacy-policy/", "permanent": true },
+    { "source": "/grievance-redressal/", "destination": "/contact/", "permanent": true },
 
     { "source": "/financial-services/:path*", "destination": "/loans/", "permanent": true }
   ],

@@ -12,10 +12,13 @@
  * `<head>`, because at build time there is no browser and no document to mutate.
  */
 import { PRODUCTS, PRODUCT_BY_SLUG, PROCESS } from './data/products.js'
+import { VARIANTS } from './data/variants.js'
 import { AREAS, AREA_BY_SLUG, AREA_PRODUCT_SLUGS } from './data/areas.js'
 import { ALL_FAQS } from './data/faqs.js'
+import { RESOURCES } from './data/resources.js'
+import { POSTS } from './data/posts.js'
 import { LEGAL_PAGES } from './data/legal.js'
-import { COMPANY } from './data/site.js'
+import { COMPANY, SITE_URL } from './data/site.js'
 import {
   organisationSchema,
   localBusinessSchema,
@@ -24,6 +27,7 @@ import {
   breadcrumbSchema,
   howToSchema,
   itemListSchema,
+  articleSchema,
 } from './lib/schema.js'
 import { LENDERS } from './data/lenders.js'
 
@@ -151,23 +155,6 @@ const staticRoutes = [
     jsonLd: [localBusinessSchema(), breadcrumbSchema([HOME_CRUMB, { label: 'Contact', href: '/contact/' }])],
   }),
 
-  route({
-    path: '/faq/',
-    kind: 'faq',
-    priority: '0.7',
-    title: 'Loan Questions Answered. CIBIL & Costs | PayYou Advisory',
-    description:
-      'Straight answers on eligibility, low CIBIL scores, cash income, what a DSA charges, how long a file takes, and what actually delays one. No sales copy.',
-    keywords: [
-      'loan FAQ India',
-      'low CIBIL score loan Pune',
-      'cash salary loan eligibility',
-      'DSA charges loan',
-      'loan documents required Pune',
-    ],
-    breadcrumbs: [HOME_CRUMB, { label: 'FAQ', href: '/faq/' }],
-    jsonLd: [faqSchema(ALL_FAQS), breadcrumbSchema([HOME_CRUMB, { label: 'FAQ', href: '/faq/' }])],
-  }),
 
   route({
     path: '/calculators/',
@@ -182,18 +169,6 @@ const staticRoutes = [
     jsonLd: [breadcrumbSchema([HOME_CRUMB, { label: 'Calculators', href: '/calculators/' }])],
   }),
 
-  route({
-    path: '/photo-credits/',
-    kind: 'credits',
-    priority: '0.2',
-    changefreq: 'yearly',
-    title: 'Photography credits | PayYou Advisory',
-    description:
-      'Every photograph on this site, its licence and its source. All images are licensed under the Unsplash License and served from our own origin.',
-    keywords: [],
-    breadcrumbs: [HOME_CRUMB, { label: 'Photo credits', href: '/photo-credits/' }],
-    jsonLd: [breadcrumbSchema([HOME_CRUMB, { label: 'Photo credits', href: '/photo-credits/' }])],
-  }),
 
   route({
     path: '/emi-calculator/',
@@ -263,6 +238,162 @@ const staticRoutes = [
       ]),
     ],
   }),
+
+  // ── Calculators added 24 Aug 2026, from the client's specification ───────
+  //
+  // Product-specific EMI pages are not duplicates of /emi-calculator/: each
+  // opens on figures typical of that product and carries its own copy about
+  // what the arithmetic means for that kind of borrowing. "Home loan EMI
+  // calculator" is also a far larger query than the generic term.
+  ...[
+    {
+      path: '/home-loan-emi-calculator/',
+      kind: 'calc-emi-home',
+      label: 'Home Loan EMI',
+      title: 'Home Loan EMI Calculator with Amortisation | PayYou Advisory',
+      description:
+        'Work out a home loan EMI over a twenty-year tenure, with the total interest shown at the same size and the year-by-year split of principal against interest.',
+      keywords: ['home loan EMI calculator', 'housing loan EMI Pune', 'home loan interest calculator India'],
+    },
+    {
+      path: '/personal-loan-emi-calculator/',
+      kind: 'calc-emi-personal',
+      label: 'Personal Loan EMI',
+      title: 'Personal Loan EMI Calculator | PayYou Advisory',
+      description:
+        'Work out a personal loan EMI across a short tenure, and see how quickly the total interest builds on unsecured borrowing as the tenure extends.',
+      keywords: ['personal loan EMI calculator', 'personal loan interest calculator India', 'EMI calculator Pune'],
+    },
+    {
+      path: '/business-loan-emi-calculator/',
+      kind: 'calc-emi-business',
+      label: 'Business Loan EMI',
+      title: 'Business Loan EMI Calculator | PayYou Advisory',
+      description:
+        'Work out what a business facility costs to service each month, and whether the business can carry it alongside its existing obligations.',
+      keywords: ['business loan EMI calculator', 'business loan interest calculator India', 'MSME EMI calculator'],
+    },
+    {
+      path: '/sip-calculator/',
+      kind: 'calc-sip',
+      label: 'SIP Calculator',
+      title: 'SIP Calculator: What a Monthly Saving Grows To | PayYou',
+      description:
+        'Arithmetic on a return you choose, shown against a soberer assumption, with the amount you actually invested displayed at the same size as the projection.',
+      keywords: ['SIP calculator', 'monthly investment calculator India', 'systematic investment plan calculator'],
+    },
+    {
+      path: '/fd-calculator/',
+      kind: 'calc-fd',
+      label: 'FD Calculator',
+      title: 'FD & RD Calculator: Deposit Maturity Value | PayYou Advisory',
+      description:
+        'Maturity on a fixed or recurring deposit, with quarterly and annual compounding compared, and the effective yield on what you actually contributed.',
+      keywords: ['FD calculator', 'fixed deposit maturity calculator', 'RD calculator India'],
+    },
+  ].map((c) =>
+    route({
+      path: c.path,
+      kind: c.kind,
+      priority: '0.8',
+      changefreq: 'weekly',
+      title: c.title,
+      description: c.description,
+      keywords: c.keywords,
+      breadcrumbs: [
+        HOME_CRUMB,
+        { label: 'Calculators', href: '/calculators/' },
+        { label: c.label, href: c.path },
+      ],
+      jsonLd: [
+        breadcrumbSchema([
+          HOME_CRUMB,
+          { label: 'Calculators', href: '/calculators/' },
+          { label: c.label, href: c.path },
+        ]),
+      ],
+    }),
+  ),
+
+  route({
+    path: '/resources/',
+    kind: 'resources',
+    priority: '0.7',
+    title: 'Guides: Credit Score, Documents & Rates | PayYou Advisory',
+    description:
+      'Plain guides for anyone thinking about borrowing. How a credit score works and how to improve it, what documents each loan needs, and how to compare an interest rate properly.',
+    keywords: ['loan guides India', 'borrowing advice Pune', 'credit score guide', 'loan documents guide'],
+    breadcrumbs: [HOME_CRUMB, { label: 'Guides', href: '/resources/' }],
+    jsonLd: [
+      itemListSchema(
+        'Guides',
+        RESOURCES.map((r) => ({ name: r.name, href: `/${r.slug}/` })),
+      ),
+      breadcrumbSchema([HOME_CRUMB, { label: 'Guides', href: '/resources/' }]),
+    ],
+  }),
+
+  ...RESOURCES.map((r) => {
+    const crumbs = [
+      HOME_CRUMB,
+      { label: 'Guides', href: '/resources/' },
+      { label: r.shortName, href: `/${r.slug}/` },
+    ]
+    return route({
+      path: `/${r.slug}/`,
+      kind: 'resource',
+      params: { resource: r.slug },
+      priority: '0.7',
+      title: r.seo.title,
+      description: r.seo.description,
+      keywords: r.seo.keywords,
+      breadcrumbs: crumbs,
+      jsonLd: [faqSchema(r.faqs), breadcrumbSchema(crumbs)],
+    })
+  }),
+]
+
+// ── Blog routes ────────────────────────────────────────────────────────────
+//
+// `/blog/` was previously a 301 to `/faq/`, because the old site had a blog
+// that no longer existed. It is a real section again, so that redirect is gone
+// from LEGACY_REDIRECTS below: a redirect that shadows a live page is a bug
+// that only shows up in production.
+
+const blogRoutes = [
+  route({
+    path: '/blog/',
+    kind: 'blog',
+    priority: '0.7',
+    changefreq: 'weekly',
+    title: 'Notes on Borrowing | PayYou Advisory, Pune',
+    description:
+      'Plain writing on loans, rejections, interest rates and buying a home in Pune and PCMC. What we would tell you across the desk, including the parts against our own interest.',
+    keywords: ['loan blog India', 'borrowing advice Pune', 'home loan tips PCMC', 'business loan advice Pune'],
+    breadcrumbs: [HOME_CRUMB, { label: 'Blog', href: '/blog/' }],
+    jsonLd: [
+      itemListSchema(
+        'Articles',
+        POSTS.map((p) => ({ name: p.title, href: `/blog/${p.slug}/` })),
+      ),
+      breadcrumbSchema([HOME_CRUMB, { label: 'Blog', href: '/blog/' }]),
+    ],
+  }),
+  ...POSTS.map((p) => {
+    const path = `/blog/${p.slug}/`
+    const crumbs = [HOME_CRUMB, { label: 'Blog', href: '/blog/' }, { label: p.topic, href: path }]
+    return route({
+      path,
+      kind: 'post',
+      params: { post: p.slug },
+      priority: '0.6',
+      title: p.seo.title,
+      description: p.seo.description,
+      keywords: p.seo.keywords,
+      breadcrumbs: crumbs,
+      jsonLd: [articleSchema(p, `${SITE_URL}${path}`), breadcrumbSchema(crumbs)],
+    })
+  }),
 ]
 
 // ── Product routes ─────────────────────────────────────────────────────────
@@ -280,6 +411,38 @@ const productRoutes = PRODUCTS.map((p) => {
     keywords: p.seo.keywords,
     breadcrumbs: crumbs,
     jsonLd: [productSchema(p), faqSchema(p.faqs), breadcrumbSchema(crumbs)],
+  })
+})
+
+// ── Product variant routes ─────────────────────────────────────────────────
+//
+// The sub-pages beneath each product — by borrower type, by structure, by
+// end-use. Requested in the client's page specification of 24 Aug 2026; see the
+// long note at the top of src/data/variants.js on what keeps eighty of these
+// from being eighty doorway pages.
+//
+// Each variant carries its own `FAQPage`, because the questions are genuinely
+// its own rather than the parent product's repeated.
+
+const variantRoutes = VARIANTS.map((v) => {
+  const parent = PRODUCT_BY_SLUG[v.parent]
+  const crumbs = [
+    HOME_CRUMB,
+    { label: 'Loans', href: '/loans/' },
+    { label: parent.name, href: `/${parent.slug}/` },
+    { label: v.shortName, href: `/${v.slug}/` },
+  ]
+  return route({
+    path: `/${v.slug}/`,
+    kind: 'variant',
+    params: { variant: v.slug },
+    priority: '0.7',
+    changefreq: 'monthly',
+    title: v.seo.title,
+    description: v.seo.description,
+    keywords: v.seo.keywords,
+    breadcrumbs: crumbs,
+    jsonLd: [faqSchema(v.faqs), breadcrumbSchema(crumbs)],
   })
 })
 
@@ -372,6 +535,15 @@ const legalRoutes = LEGAL_PAGES.map((l) => {
 // the old sitemap and is therefore already in Google's index.
 
 export const LEGACY_REDIRECTS = [
+  // Removed 24 Aug 2026 when the site was restructured to the client's page
+  // specification. Redirected rather than deleted: these were live, indexed
+  // URLs, and a 301 passes their accumulated value to the nearest equivalent
+  // where a 404 throws it away.
+  { from: '/faq/', to: '/resources/' },
+  { from: '/photo-credits/', to: '/about/' },
+  { from: '/cookie-policy/', to: '/privacy-policy/' },
+  { from: '/grievance-redressal/', to: '/contact/' },
+
   { from: '/financial-services/', to: '/loans/' },
   { from: '/financial-services/personal-loan-pune/', to: '/personal-loan/' },
   { from: '/financial-services/business-loan-pune/', to: '/business-loan/' },
@@ -383,10 +555,16 @@ export const LEGACY_REDIRECTS = [
   { from: '/bank-nbfc-loan-partners/', to: '/lenders/' },
   { from: '/banks/', to: '/lenders/' },
   { from: '/nbfc/', to: '/lenders/' },
-  { from: '/blog/', to: '/faq/' },
 ]
 
-export const ROUTES = [...staticRoutes, ...productRoutes, ...areaRoutes, ...legalRoutes]
+export const ROUTES = [
+  ...staticRoutes,
+  ...blogRoutes,
+  ...productRoutes,
+  ...variantRoutes,
+  ...areaRoutes,
+  ...legalRoutes,
+]
 
 export const ROUTE_BY_PATH = Object.fromEntries(ROUTES.map((r) => [r.path, r]))
 

@@ -3,6 +3,8 @@ import ContactStrip from '../sections/ContactStrip.jsx'
 import EmiCalculator from '../widgets/EmiCalculator.jsx'
 import EligibilityCalculator from '../widgets/EligibilityCalculator.jsx'
 import BalanceTransferCalculator from '../widgets/BalanceTransferCalculator.jsx'
+import SipCalculator from '../widgets/SipCalculator.jsx'
+import DepositCalculator from '../widgets/DepositCalculator.jsx'
 import Disclosure from '../components/Disclosure.jsx'
 import { ArrowRight } from '../components/Icon.jsx'
 import { flatToReducing } from '../lib/finance.js'
@@ -34,11 +36,16 @@ export default function Calculators({ tool = 'all', trail }) {
         photo="calculator-papers"
       />
 
-      {(tool === 'all' || tool === 'emi') && (
+      {(tool === 'all' || tool === 'emi' || meta.initial) && (
         <Section size="md">
           <div className="container-page">
             {tool === 'all' ? <SectionHead title="EMI, and what it really costs" /> : null}
-            <EmiCalculator />
+            {/* `initial` opens the calculator on figures typical of that
+                product, so /home-loan-emi-calculator/ starts at a twenty-year
+                tenure rather than at a personal loan's five. The reader arriving
+                from that search should not have to reset three sliders before
+                the page is about the thing they searched for. */}
+            <EmiCalculator initial={meta.initial} />
           </div>
         </Section>
       )}
@@ -61,6 +68,26 @@ export default function Calculators({ tool = 'all', trail }) {
               <SectionHead title="Whether switching is worth the cost" />
             ) : null}
             <BalanceTransferCalculator />
+          </div>
+        </Section>
+      )}
+
+      {(tool === 'all' || tool === 'sip') && (
+        <Section tone="deep" size="md">
+          <div className="container-page">
+            {tool === 'all' ? (
+              <SectionHead title="What a monthly saving would grow to" />
+            ) : null}
+            <SipCalculator />
+          </div>
+        </Section>
+      )}
+
+      {(tool === 'all' || tool === 'fd') && (
+        <Section size="md">
+          <div className="container-page">
+            {tool === 'all' ? <SectionHead title="What a deposit matures at" /> : null}
+            <DepositCalculator />
           </div>
         </Section>
       )}
@@ -174,7 +201,7 @@ const TOOLS = {
   all: {
     title: 'Do the arithmetic before anyone asks for your PAN.',
     standfirst:
-      'Three calculators. Every figure you type stays in your browser. There is no form, no OTP, and no follow-up call you did not ask for.',
+      'Every figure you type stays in your browser. There is no form, no OTP, and no follow-up call you did not ask for.',
   },
   emi: {
     short: 'EMI calculator',
@@ -189,6 +216,44 @@ const TOOLS = {
     title: 'What could you actually borrow?',
     standfirst:
       'Worked the way a lender does it, on the ratio of your total EMIs to your net income. Most applicants are limited by the loans they already carry rather than by their salary, and this shows you by how much.',
+  },
+  'emi-home': {
+    short: 'Home loan EMI',
+    href: '/home-loan-emi-calculator/',
+    initial: { amount: 5000000, rate: 8.6, months: 240 },
+    title: 'What a home loan really costs over twenty years.',
+    standfirst:
+      'Opens on a twenty-year tenure, because that is what a home loan is. Look at the total interest before you choose the tenure: stretching it to reduce the instalment adds more than most people expect, and the year-by-year table below shows how little of an early EMI touches the principal.',
+  },
+  'emi-personal': {
+    short: 'Personal loan EMI',
+    href: '/personal-loan-emi-calculator/',
+    initial: { amount: 500000, rate: 14, months: 48 },
+    title: 'What a personal loan costs across a short tenure.',
+    standfirst:
+      'Unsecured borrowing is priced well above secured, and the tenures are short, so the total interest builds faster than on any other product here. Move the tenure slider and watch the two figures move in opposite directions.',
+  },
+  'emi-business': {
+    short: 'Business loan EMI',
+    href: '/business-loan-emi-calculator/',
+    initial: { amount: 2500000, rate: 12.5, months: 60 },
+    title: 'What a business facility costs to service.',
+    standfirst:
+      'The figure to test here is whether the business can carry this EMI alongside everything it already services. Lenders assess exactly that, and a file usually fails on total obligations rather than on turnover.',
+  },
+  sip: {
+    short: 'SIP calculator',
+    href: '/sip-calculator/',
+    title: 'What would a monthly saving grow to?',
+    standfirst:
+      'Arithmetic on an assumption you choose, shown alongside a soberer one, because a market return is not a contracted rate. The amount you actually put in is displayed at the same size as the projection, deliberately.',
+  },
+  fd: {
+    short: 'FD calculator',
+    href: '/fd-calculator/',
+    title: 'What a deposit matures at, and what it really yields.',
+    standfirst:
+      'Fixed and recurring deposits side by side. A recurring deposit at the same quoted rate yields noticeably less, because each instalment earns only for the time remaining, and this shows by how much.',
   },
   bt: {
     short: 'Balance transfer',

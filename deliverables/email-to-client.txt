@@ -1,0 +1,86 @@
+Subject: PayYou Advisory — demo website ready for your review
+
+Attach: PayYou-Advisory-Website.pdf
+
+---
+
+Dear Mr. Rohit,
+
+As promised, the demo for PayYou Advisory is ready.
+
+Rather than send a design mockup, we have built the website itself. It is live
+now, and you can open it on your phone and use it exactly as a customer would.
+
+    https://pay-you-advisory.vercel.app/
+
+A few pages worth opening first:
+
+    Home loan            https://pay-you-advisory.vercel.app/home-loan/
+    Business loan        https://pay-you-advisory.vercel.app/business-loan/
+    EMI calculator       https://pay-you-advisory.vercel.app/emi-calculator/
+    Business loan in Bhosari
+                         https://pay-you-advisory.vercel.app/business-loan-bhosari/
+    Our lender panel     https://pay-you-advisory.vercel.app/lenders/
+
+There are 137 pages in all. A few things we would draw your attention to.
+
+It is built on your own brand. The blue and the red come from the PayYou
+Advisory logo on your existing website. We did not choose a colour scheme of our
+own, and your logo is used as it is.
+
+Every area you serve has its own page. Alongside the eight product pages, there
+is a separate page for each of your sixteen areas — Pimpri, Chinchwad, Nigdi,
+Bhosari, Chakan, Wakad, Hinjewadi, Baner, Kothrud, Hadapsar, Baramati, Phaltan
+and the rest. Each one is written for that area, not the same page with the name
+swapped. This is what lets you appear when someone searches "business loan in
+Bhosari" rather than only for "loan in Pune". That is 112 pages of genuinely
+local content, and it is the single biggest difference between this site and the
+one you have now.
+
+Three calculators, and nothing is captured. EMI, eligibility, and balance
+transfer. They run inside the visitor's browser — there is no form, no OTP, and
+no follow-up call they did not ask for. Nothing they type reaches anyone. We have
+also shown the total interest at the same size as the monthly EMI, which most
+lenders' calculators keep out of sight. A customer who trusts your calculator is
+a customer who calls you.
+
+Your banking partners are shown with their logos, so a visitor can see who you
+work with without reading a list.
+
+It is careful about what PayYou is. The site says throughout that PayYou
+Advisory arranges and advises on loans as a Direct Selling Agent, and does not
+lend. The privacy policy, terms, disclaimer, cookie policy and a grievance
+redressal page are all written and in place.
+
+It has been checked on real screens, from a small budget Android phone through
+to a large desktop. Most of your visitors will arrive on a phone, and the site is
+built for that first.
+
+The attached document walks through the site with screenshots.
+
+Two things we would need from you:
+
+1. Your current website mentions five years of experience in one place, and a
+   company incorporation date of January 2026 in another. We have used the more
+   cautious wording for now. Please confirm which is correct so we can state it
+   properly.
+
+2. Please confirm you have the banks' and NBFCs' permission to display their
+   logos. Most DSA agreements allow it, but it is worth having in writing.
+
+The address above is a temporary one for your review. Once you are happy with
+the direction, we point it at payyouadvisory.com, and your existing page
+addresses are already set up to forward to the new ones so nothing you have
+built up in Google is lost.
+
+Please take your time going through it. Whenever you are ready, we can get on a
+call and go through the complete scope of work, the timeline, and our commercial
+proposal.
+
+Looking forward to your feedback.
+
+Best Regards,
+
+Farhan Sayyed
+DuoStack.in
+8928040454

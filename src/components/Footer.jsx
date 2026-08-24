@@ -90,20 +90,29 @@ export default function Footer() {
           ))}
         </FooterCol>
 
-        <FooterCol title="Tools" className="lg:col-span-2">
+        <FooterCol title="Tools & guides" className="lg:col-span-2">
           <FooterLink href="/emi-calculator/">EMI calculator</FooterLink>
           <FooterLink href="/eligibility-calculator/">Eligibility calculator</FooterLink>
-          <FooterLink href="/balance-transfer-calculator/">Balance transfer</FooterLink>
+          <FooterLink href="/sip-calculator/">SIP calculator</FooterLink>
+          <FooterLink href="/fd-calculator/">FD calculator</FooterLink>
           <FooterLink href="/calculators/">All calculators</FooterLink>
-          <FooterLink href="/faq/">Questions answered</FooterLink>
+          <FooterLink href="/credit-score/">Credit score guide</FooterLink>
+          <FooterLink href="/documents-required/">Documents required</FooterLink>
         </FooterCol>
 
+        {/* The client's page specification places Blog, Careers and Lenders in
+            the footer rather than in the primary navigation, so this column is
+            the only navigational route to three substantial sections. It is
+            deliberately not a list of afterthoughts. */}
         <FooterCol title="Company" className="lg:col-span-2">
           {NAV.filter((n) => !n.children).map((n) => (
             <FooterLink key={n.href} href={n.href}>
               {n.label}
             </FooterLink>
           ))}
+          <FooterLink href="/blog/">Blog</FooterLink>
+          <FooterLink href="/lenders/">Our lender panel</FooterLink>
+          <FooterLink href="/careers/">Careers</FooterLink>
           <FooterLink href="/loans/">All loan products</FooterLink>
         </FooterCol>
 
@@ -170,14 +179,6 @@ export default function Footer() {
                 </a>
               </li>
             ))}
-            <li>
-              <a
-                href="/photo-credits/"
-                className="text-2xs text-paper/50 transition-colors hover:text-accent"
-              >
-                Photo credits
-              </a>
-            </li>
           </ul>
         </div>
       </div>

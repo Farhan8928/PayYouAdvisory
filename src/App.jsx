@@ -6,15 +6,16 @@ import CtaBar from './components/CtaBar.jsx'
 import Home from './pages/Home.jsx'
 import LoansHub from './pages/LoansHub.jsx'
 import Product from './pages/Product.jsx'
+import Variant from './pages/Variant.jsx'
 import ProductArea from './pages/ProductArea.jsx'
 import Lenders from './pages/Lenders.jsx'
 import About from './pages/About.jsx'
 import Careers from './pages/Careers.jsx'
 import Contact from './pages/Contact.jsx'
-import Faq from './pages/Faq.jsx'
 import Calculators from './pages/Calculators.jsx'
+import Resource from './pages/Resource.jsx'
+import Blog from './pages/Blog.jsx'
 import Legal from './pages/Legal.jsx'
-import Credits from './pages/Credits.jsx'
 import NotFound from './pages/NotFound.jsx'
 
 /**
@@ -77,6 +78,8 @@ function renderPage(route) {
       return <LoansHub trail={trail} />
     case 'product':
       return <Product slug={route.params.product} trail={trail} />
+    case 'variant':
+      return <Variant slug={route.params.variant} trail={trail} />
     case 'product-area':
       return (
         <ProductArea
@@ -93,8 +96,6 @@ function renderPage(route) {
       return <Careers trail={trail} />
     case 'contact':
       return <Contact trail={trail} />
-    case 'faq':
-      return <Faq trail={trail} />
     case 'calculators':
       return <Calculators tool="all" trail={trail} />
     case 'calc-emi':
@@ -103,10 +104,26 @@ function renderPage(route) {
       return <Calculators tool="eligibility" trail={trail} />
     case 'calc-bt':
       return <Calculators tool="bt" trail={trail} />
+    case 'calc-emi-home':
+      return <Calculators tool="emi-home" trail={trail} />
+    case 'calc-emi-personal':
+      return <Calculators tool="emi-personal" trail={trail} />
+    case 'calc-emi-business':
+      return <Calculators tool="emi-business" trail={trail} />
+    case 'calc-sip':
+      return <Calculators tool="sip" trail={trail} />
+    case 'calc-fd':
+      return <Calculators tool="fd" trail={trail} />
+    case 'blog':
+      return <Blog trail={trail} />
+    case 'post':
+      return <Blog slug={route.params.post} trail={trail} />
+    case 'resources':
+      return <Resource trail={trail} />
+    case 'resource':
+      return <Resource slug={route.params.resource} trail={trail} />
     case 'legal':
       return <Legal slug={route.params.legal} trail={trail} />
-    case 'credits':
-      return <Credits trail={trail} />
     default:
       return <NotFound />
   }

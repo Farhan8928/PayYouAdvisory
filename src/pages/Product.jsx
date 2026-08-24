@@ -1,4 +1,5 @@
 import { PRODUCT_BY_SLUG, RATE_DEPENDS_ON } from '../data/products.js'
+import { variantGroupsFor } from '../data/variants.js'
 import { AREAS, AREA_PRODUCT_SLUGS } from '../data/areas.js'
 import { CONTACT, waLink } from '../data/site.js'
 import { telHref, inr, pct } from '../lib/format.js'
@@ -32,6 +33,7 @@ export default function Product({ slug, trail }) {
 
   const hasAreaPages = AREA_PRODUCT_SLUGS.includes(slug)
   const isInsurance = slug === 'insurance'
+  const groups = variantGroupsFor(slug)
 
   return (
     <>
@@ -40,7 +42,7 @@ export default function Product({ slug, trail }) {
         title={p.tagline}
         standfirst={p.summary}
         trail={trail}
-        photo={p.slug}
+        photo={p.photo ?? p.slug}
         aside={
           <div className="glass p-7">
             <h2 className="mb-5 text-2xs font-semibold uppercase tracking-[0.14em] text-accent">
@@ -109,6 +111,50 @@ export default function Product({ slug, trail }) {
           </div>
         </div>
       </Section>
+      ) : null}
+
+      {/* ── The variant index ─────────────────────────────────────────────
+          Every sub-page under this product, grouped the way the reader would
+          ask for them: who they are, how the money is structured, what it is
+          for. Placed high on the page deliberately. Somebody arriving at
+          /personal-loan/ who is actually a doctor, or actually wants a flexi
+          limit, should reach the page written for them in one click rather
+          than reading a general page that half-answers the question.
+
+          It is also what makes the family crawlable. Without this block the
+          variants were reachable only from each other, which tells a crawler
+          very little about which page is the hub. */}
+      {groups.length ? (
+        <Section tone="paper" size="md">
+          <div className="container-page">
+            <SectionHead
+              title={`Which ${p.name.toLowerCase()}?`}
+              standfirst={`There is no single version of this product. These are the routes we place most often, each written for the situation it belongs to.`}
+            />
+            <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16">
+              {groups.map((g) => (
+                <div key={g.title} className="lg:col-span-4">
+                  <h3 className="eyebrow text-accent">{g.title}</h3>
+                  <ul className="mt-4 border-t border-ink/15">
+                    {g.items.map((v) => (
+                      <li key={v.slug} className="border-b border-ink/15">
+                        <a
+                          href={`/${v.slug}/`}
+                          className="group flex min-h-[44px] items-baseline justify-between gap-4 py-3.5"
+                        >
+                          <span className="text-sm font-semibold text-ink transition-colors group-hover:text-accent">
+                            {v.shortName}
+                          </span>
+                          <ArrowRight className="h-3 w-3 shrink-0 -translate-x-1 self-center text-accent opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Section>
       ) : null}
 
       {/* ── Types (home loan) / property types (LAP) / covers (insurance) ── */}
@@ -376,7 +422,7 @@ export default function Product({ slug, trail }) {
         <div className="container-page grid gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-4">
             <SectionHead title={`${p.name} questions`} className="mb-6" />
-            <a href="/faq/" className="btn-ghost">
+            <a href="/resources/" className="btn-ghost">
               General questions
               <ArrowRight className="h-4 w-4" />
             </a>

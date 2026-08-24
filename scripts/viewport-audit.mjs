@@ -82,6 +82,15 @@ const PAGES = [
   { path: '/emi-calculator/', kind: 'calc-emi', stress: 'max' },
   { path: '/eligibility-calculator/', kind: 'calc-eligibility', stress: 'max' },
   { path: '/balance-transfer-calculator/', kind: 'calc-bt', stress: 'max' },
+  // Added with the 24 Aug 2026 restructure. Each is a layout kind that did not
+  // exist before: a variant page, a guide, the blog index and a post.
+  { path: '/personal-loan-for-doctors/', kind: 'variant' },
+  { path: '/loan-against-securities/', kind: 'product-new' },
+  { path: '/credit-score/', kind: 'guide' },
+  { path: '/blog/', kind: 'blog' },
+  { path: '/blog/flat-versus-reducing-interest-rate/', kind: 'post' },
+  { path: '/sip-calculator/', kind: 'calc-sip', stress: 'max' },
+  { path: '/fd-calculator/', kind: 'calc-fd', stress: 'max' },
 ]
 
 const MIME = {

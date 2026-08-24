@@ -262,3 +262,35 @@ export function itemListSchema(name, items) {
     })),
   }
 }
+
+/**
+ * `Article` for a blog post.
+ *
+ * The publisher is referenced by `@id` rather than repeated, so the
+ * organisation is described once on the site and every article points at that
+ * one node. Repeating the publisher block on each post would give Google
+ * several slightly divergent descriptions of the same entity, which is exactly
+ * the ambiguity structured data exists to remove.
+ *
+ * `author` is the organisation rather than an invented byline. Attributing
+ * these to a person who does not exist would be a fabricated E-E-A-T signal,
+ * and in a YMYL category that is the specific thing raters are told to catch.
+ * When the client supplies real named authors with credentials, this becomes a
+ * `Person` and the posts get materially stronger.
+ */
+export function articleSchema(post, url) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${url}#article`,
+    headline: post.title,
+    description: post.standfirst,
+    datePublished: post.published,
+    dateModified: post.updated ?? post.published,
+    inLanguage: 'en-IN',
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    author: { '@id': ID.org },
+    publisher: { '@id': ID.org },
+    about: post.topic,
+  }
+}

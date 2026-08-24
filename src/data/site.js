@@ -205,6 +205,18 @@ export const TESTIMONIALS = [
  * Primary navigation. `children` renders as a mega-menu panel on desktop and a
  * disclosure on mobile — the same data, two presentations, one source.
  */
+/**
+ * The primary navigation.
+ *
+ * Restructured 24 Aug 2026 to the client's page specification. That document
+ * marks Blog, Careers and Lenders as footer items rather than top-level
+ * navigation, which is why three good pages are not in this list: the footer
+ * carries them, and the sitemap and internal links still reach them.
+ *
+ * Each group's `href` is a real hub page, not a dead parent. A top-level item
+ * that only opens a menu is unusable on a keyboard and unreachable for anyone
+ * whose first tap is a navigation rather than a hover.
+ */
 export const NAV = [
   {
     label: 'Borrow',
@@ -214,7 +226,9 @@ export const NAV = [
       { label: 'Business Loan', href: '/business-loan/', meta: 'From 10.50% p.a. · up to ₹2 Cr' },
       { label: 'Home Loan', href: '/home-loan/', meta: '75–90% of property value' },
       { label: 'Loan Against Property', href: '/loan-against-property/', meta: 'Secured · up to 20 years' },
-      { label: 'Car Loan', href: '/car-loan/', meta: 'New & used vehicles' },
+      { label: 'Loan Against Securities', href: '/loan-against-securities/', meta: 'Shares · funds · deposits' },
+      { label: 'Education Loan', href: '/education-loan/', meta: 'India & abroad' },
+      { label: 'Car & Vehicle Loan', href: '/car-loan/', meta: 'New, used & two-wheeler' },
       { label: 'Gold Loan', href: '/gold-loan/', meta: 'Same-day disbursal' },
       { label: 'Working Capital & LRD', href: '/working-capital-loan/', meta: 'For established businesses' },
     ],
@@ -223,7 +237,25 @@ export const NAV = [
     label: 'Protect',
     href: '/insurance/',
     children: [
-      { label: 'Insurance Plans', href: '/insurance/', meta: 'Life · health · motor · property' },
+      { label: 'Term Insurance', href: '/term-insurance/', meta: 'Most cover per rupee' },
+      { label: 'Health Insurance', href: '/health-insurance/', meta: 'Family & individual' },
+      { label: 'Life & Savings Plans', href: '/life-insurance/', meta: 'Endowment & money-back' },
+      { label: 'Motor Insurance', href: '/motor-insurance/', meta: 'Car · bike · commercial' },
+      { label: 'Personal Accident', href: '/personal-accident-insurance/', meta: 'Disability & income loss' },
+      { label: 'Critical Illness', href: '/critical-illness-insurance/', meta: 'Lump sum on diagnosis' },
+      { label: 'Travel Insurance', href: '/travel-insurance/', meta: 'Overseas & domestic' },
+      { label: 'All insurance', href: '/insurance/', meta: '' },
+    ],
+  },
+  {
+    label: 'Invest',
+    href: '/investments/',
+    children: [
+      { label: 'Fixed Deposit', href: '/fixed-deposit/', meta: 'Banks & rated NBFCs' },
+      { label: 'Recurring Deposit', href: '/recurring-deposit/', meta: 'Save monthly' },
+      { label: 'Systematic Deposit Plan', href: '/systematic-deposit-plan/', meta: 'A deposit ladder' },
+      { label: 'Savings & Current Account', href: '/savings-and-current-account/', meta: 'Account opening' },
+      { label: 'All deposits', href: '/investments/', meta: '' },
     ],
   },
   {
@@ -231,14 +263,26 @@ export const NAV = [
     href: '/calculators/',
     children: [
       { label: 'EMI Calculator', href: '/emi-calculator/', meta: 'With full amortisation' },
+      { label: 'Home Loan EMI', href: '/home-loan-emi-calculator/', meta: 'Long tenures' },
+      { label: 'Personal Loan EMI', href: '/personal-loan-emi-calculator/', meta: 'Short tenures' },
+      { label: 'Business Loan EMI', href: '/business-loan-emi-calculator/', meta: 'For a business file' },
       { label: 'Eligibility Check', href: '/eligibility-calculator/', meta: 'What you could borrow' },
-      { label: 'Balance Transfer Saving', href: '/balance-transfer-calculator/', meta: 'What a switch would save' },
+      { label: 'SIP Calculator', href: '/sip-calculator/', meta: 'What monthly saving grows to' },
+      { label: 'FD Calculator', href: '/fd-calculator/', meta: 'Maturity on a deposit' },
       { label: 'All calculators', href: '/calculators/', meta: '' },
     ],
   },
-  { label: 'Lenders', href: '/lenders/' },
+  {
+    label: 'Guides',
+    href: '/resources/',
+    children: [
+      { label: 'Credit Score Guide', href: '/credit-score/', meta: 'Read it, improve it' },
+      { label: 'Documents Required', href: '/documents-required/', meta: 'By loan type' },
+      { label: 'Comparing Interest Rates', href: '/interest-rate-comparison/', meta: 'How to read an offer' },
+      { label: 'All guides', href: '/resources/', meta: '' },
+    ],
+  },
   { label: 'About', href: '/about/' },
-  { label: 'Careers', href: '/careers/' },
   { label: 'Contact', href: '/contact/' },
 ]
 

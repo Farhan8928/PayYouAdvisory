@@ -38,6 +38,7 @@ import { readdir, readFile } from 'node:fs/promises'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { AREAS, AREA_PRODUCT_SLUGS } from '../src/data/areas.js'
+import { VARIANTS, variantsFor } from '../src/data/variants.js'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const DIST = join(ROOT, 'dist')
@@ -106,47 +107,64 @@ async function main() {
   const results = []
   const failures = []
 
+  /** Compare two built pages and record the result. `label` names the family. */
+  async function compare(path, otherPath, label) {
+    if (!dirs.has(path) || !dirs.has(otherPath)) return
+    const mine = await shingles(path)
+    const theirs = await shingles(otherPath)
+    if (mine.size === 0) {
+      failures.push(`${path}: page body is empty`)
+      return
+    }
+    const unique = [...mine].filter((s) => !theirs.has(s)).length
+    const ratio = unique / mine.size
+    results.push({ path, otherPath, unique, total: mine.size, ratio, label })
+    if (ratio < FLOOR) {
+      failures.push(
+        `/${path}/ is only ${(ratio * 100).toFixed(0)}% distinct from /${otherPath}/ ` +
+          `(${unique} of ${mine.size} phrases), below the ${FLOOR * 100}% floor`,
+      )
+    }
+  }
+
+  // ── Product variants ─────────────────────────────────────────────────────
+  //
+  // The client's page specification asks for up to twenty sub-pages under a
+  // single product: personal loan for salaried, for doctors, for women, flexi,
+  // flexi hybrid, and so on. That is a larger doorway-page risk than the
+  // locality grid, because the pages share a subject as well as a template —
+  // and until this block existed, none of them was measured at all.
+  //
+  // The comparison is against the next variant in the same family, which is
+  // the set Google would actually be choosing between.
+  for (const product of new Set(VARIANTS.map((v) => v.parent))) {
+    const family = variantsFor(product)
+    if (family.length < 2) continue
+    for (let i = 0; i < family.length; i += 1) {
+      await compare(family[i].slug, family[(i + 1) % family.length].slug, 'variant')
+    }
+  }
+
   for (const product of AREA_PRODUCT_SLUGS) {
     for (let i = 0; i < AREAS.length; i += 1) {
       const area = AREAS[i]
       // Compare against the next area in the list, wrapping — every page gets
       // checked against a genuine sibling, and every sibling pair gets covered.
       const other = AREAS[(i + 1) % AREAS.length]
-      const path = `${product}-${area.slug}`
-      const otherPath = `${product}-${other.slug}`
-      if (!dirs.has(path) || !dirs.has(otherPath)) continue
-
-      const mine = await shingles(path)
-      const theirs = await shingles(otherPath)
-      if (mine.size === 0) {
-        failures.push(`${path}: page body is empty`)
-        continue
-      }
-
-      const unique = [...mine].filter((s) => !theirs.has(s)).length
-      const ratio = unique / mine.size
-      results.push({ path, otherPath, unique, total: mine.size, ratio })
-
-      if (ratio < FLOOR) {
-        failures.push(
-          `/${path}/ is only ${(ratio * 100).toFixed(0)}% distinct from /${otherPath}/ ` +
-            `(${unique} of ${mine.size} phrases) — below the ${FLOOR * 100}% floor`,
-        )
-      }
+      await compare(`${product}-${area.slug}`, `${product}-${other.slug}`, 'locality')
     }
   }
 
   results.sort((a, b) => a.ratio - b.ratio)
-  const mean = results.reduce((s, r) => s + r.ratio, 0) / Math.max(1, results.length)
 
-  console.log(`\nDuplication audit — ${results.length} locality pages compared against a sibling`)
-  console.log(`  mean distinctness  ${(mean * 100).toFixed(0)}%`)
-  if (results.length) {
+  console.log(`\nDuplication audit — ${results.length} generated pages compared against a sibling`)
+  for (const label of ['variant', 'locality']) {
+    const set = results.filter((r) => r.label === label)
+    if (!set.length) continue
+    const mean = set.reduce((s, r) => s + r.ratio, 0) / set.length
     console.log(
-      `  weakest            ${(results[0].ratio * 100).toFixed(0)}%  /${results[0].path}/`,
-    )
-    console.log(
-      `  strongest          ${(results[results.length - 1].ratio * 100).toFixed(0)}%  /${results[results.length - 1].path}/`,
+      `  ${label.padEnd(9)} ${String(set.length).padStart(3)} pages   mean ${(mean * 100).toFixed(0)}%   ` +
+        `weakest ${(set[0].ratio * 100).toFixed(0)}% /${set[0].path}/`,
     )
   }
 

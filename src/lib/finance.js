@@ -272,3 +272,61 @@ export function prepaymentEffect({ principal, annualRatePct, tenureMonths, extra
     newEmi: instalment,
   }
 }
+
+/**
+ * What a monthly investment grows to, compounded monthly.
+ *
+ * The standard future-value-of-an-annuity-due formula: each instalment is
+ * assumed invested at the start of its month, which is how a systematic
+ * investment plan actually behaves.
+ *
+ * The return here is an *assumption the reader supplies*, not a promise. Market
+ * returns are not contracted the way a deposit rate is, and the page rendering
+ * this says so plainly. That distinction is the whole reason this function and
+ * `depositMaturity` below are separate rather than one shared routine with a
+ * flag: conflating a projection with a contracted return is exactly the error
+ * this site exists not to make.
+ */
+export function sipFutureValue({ monthly, annualReturnPct, years }) {
+  const n = Math.round(years * 12)
+  const r = annualReturnPct / 100 / 12
+  if (n <= 0) return { invested: 0, value: 0, gain: 0 }
+  const invested = monthly * n
+  // r === 0 would divide by zero; with no growth the value is what you put in.
+  const value = r === 0 ? invested : monthly * ((Math.pow(1 + r, n) - 1) / r) * (1 + r)
+  return { invested, value, gain: value - invested }
+}
+
+/**
+ * Maturity value of a lump-sum deposit at a contracted rate.
+ *
+ * `compoundsPerYear` defaults to 4, because Indian banks conventionally
+ * compound fixed deposit interest quarterly. A deposit quoted at the same
+ * nominal rate but compounded annually matures lower, which is a real
+ * difference between institutions and one worth being able to show.
+ */
+export function depositMaturity({ principal, annualRatePct, years, compoundsPerYear = 4 }) {
+  const n = compoundsPerYear
+  const r = annualRatePct / 100
+  const value = principal * Math.pow(1 + r / n, n * years)
+  return { principal, value, interest: value - principal }
+}
+
+/**
+ * Maturity value of a recurring deposit.
+ *
+ * Each instalment compounds for only the time remaining to maturity, which is
+ * why a recurring deposit yields less than a fixed deposit at the same quoted
+ * rate. Computed instalment by instalment rather than by a closed-form
+ * approximation, so the number agrees with what a bank actually pays.
+ */
+export function recurringMaturity({ monthly, annualRatePct, months, compoundsPerYear = 4 }) {
+  const r = annualRatePct / 100
+  let value = 0
+  for (let i = 0; i < months; i += 1) {
+    const yearsRemaining = (months - i) / 12
+    value += monthly * Math.pow(1 + r / compoundsPerYear, compoundsPerYear * yearsRemaining)
+  }
+  const invested = monthly * months
+  return { invested, value, interest: value - invested }
+}

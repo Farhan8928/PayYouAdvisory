@@ -219,88 +219,8 @@ export const LEGAL_PAGES = [
   },
 
   // ────────────────────────────────────────────────────────────────────────
-  {
-    slug: 'cookie-policy',
-    title: 'Cookie Policy',
-    updated: UPDATED,
-    description:
-      'What this website stores in your browser, and what it does not. PayYou Advisory sets no advertising or tracking cookies.',
-    intro:
-      'Short version: this site sets no advertising cookies, runs no third-party trackers, and stores nothing you type into a calculator.',
-    sections: [
-      {
-        heading: 'What we set',
-        body: [
-          'This website is a set of static pages. It does not set advertising cookies, does not run third-party tracking scripts, and does not build a profile of you across other websites.',
-          'Your browser may store a small amount of data locally to remember a preference, for example, the last figures you used in a calculator, so they are still there if you come back to the page. That data stays on your device, is readable only by this site, and is never transmitted to us.',
-        ],
-      },
-      {
-        heading: 'What we measure',
-        body: [
-          'We look at aggregate traffic figures, which pages are read, and where visitors arrived from, to understand what is useful. This does not identify you individually.',
-        ],
-      },
-      {
-        heading: 'Embedded content',
-        body: [
-          'Our contact page embeds a Google Map so you can find the office. Google sets its own cookies when that map loads, governed by Google’s privacy policy rather than ours. The map is the only third-party content on the site.',
-        ],
-      },
-      {
-        heading: 'Clearing what is stored',
-        body: [
-          'Any browser will let you clear site data for a specific website, and doing so for this one has no effect other than forgetting your calculator inputs.',
-        ],
-      },
-    ],
-  },
 
   // ────────────────────────────────────────────────────────────────────────
-  {
-    slug: 'grievance-redressal',
-    title: 'Grievance Redressal',
-    updated: UPDATED,
-    description:
-      'How to raise a complaint with PayYou Advisory, what happens next, and how to escalate, including to the lender and to the RBI Ombudsman.',
-    intro:
-      'If something has gone wrong, this page tells you exactly who to contact and what to expect. It also tells you how to escalate past us, which is the part that matters if we are the problem.',
-    sections: [
-      {
-        heading: 'Step one: raise it with us',
-        body: [
-          `Call ${CONTACT.landlineDisplay} or write to ${CONTACT.email} with your name, mobile number, the product concerned and what went wrong. If you have a lender application reference, include it.`,
-          'We will acknowledge a written complaint within two working days and aim to resolve it within fifteen working days. Where a complaint needs information from a lender, that timeline depends partly on them, and we will tell you if it is going to run over.',
-        ],
-      },
-      {
-        heading: 'Step two: escalate within PayYou',
-        body: [
-          `If the response does not resolve it, ask for the matter to be escalated to the Grievance Officer, in writing, at ${CONTACT.email} or by post to ${OFFICE_LINE}. Mark the subject line "Escalation".`,
-          'You are entitled to be told the name of the person handling your complaint. Ask for it.',
-        ],
-      },
-      {
-        heading: 'Step three: take it to the lender',
-        body: [
-          'If your complaint concerns the loan itself, the rate applied, a charge levied, the servicing of the account or a recovery practice. The lender is the correct respondent, not us. Every bank and NBFC publishes a grievance redressal mechanism with defined timelines, and we will give you the current contact details for the relevant one and help you frame the complaint.',
-        ],
-      },
-      {
-        heading: 'Step four. The Ombudsman',
-        body: [
-          'Where a complaint against a bank or NBFC is not resolved within the period that institution’s own policy allows, or you are dissatisfied with its response, you may escalate to the Reserve Bank of India’s Integrated Ombudsman Scheme. Complaints can be filed online through the RBI’s complaint management portal, by post, or by email. There is no fee.',
-          'For an insurance complaint, the equivalent escalation is to the insurer’s grievance cell and then to the Insurance Ombudsman.',
-        ],
-      },
-      {
-        heading: 'What we will not do',
-        body: [
-          'We will not ask you to withdraw a complaint as a condition of assistance, and raising one has no effect on any live application we are handling for you.',
-        ],
-      },
-    ],
-  },
 ]
 
 export const LEGAL_BY_SLUG = Object.fromEntries(LEGAL_PAGES.map((l) => [l.slug, l]))
