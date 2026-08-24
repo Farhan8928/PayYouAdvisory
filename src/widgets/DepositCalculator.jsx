@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import Field, { Readout } from './Field.jsx'
 import { depositMaturity, recurringMaturity } from '../lib/finance.js'
-import { inr, pct } from '../lib/format.js'
+import { inr, inrSmart, pct } from '../lib/format.js'
 
 /**
  * Maturity value of a fixed or recurring deposit.
@@ -154,12 +154,12 @@ export default function DepositCalculator({ compact = false }) {
 
         <div className="p-6 sm:p-8">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            <Readout label="You put in" value={inr(Math.round(invested))} emphasis />
+            <Readout label="You put in" value={inrSmart(invested)} emphasis />
             <Readout
               label="Matures at"
-              value={inr(Math.round(result.value))}
+              value={inrSmart(result.value)}
               emphasis
-              sub={`${inr(Math.round(result.interest))} of interest`}
+              sub={`${inrSmart(result.interest)} of interest`}
             />
           </div>
 

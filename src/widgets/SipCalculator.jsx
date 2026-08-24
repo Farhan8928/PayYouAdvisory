@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import Field, { Readout } from './Field.jsx'
 import { sipFutureValue } from '../lib/finance.js'
-import { inr, inrCompact } from '../lib/format.js'
+import { inrCompact, inrSmart } from '../lib/format.js'
 
 /**
  * What a monthly investment might grow to.
@@ -86,10 +86,10 @@ export default function SipCalculator({ compact = false }) {
 
         <div className="p-6 sm:p-8">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            <Readout label="You would have put in" value={inr(main.invested)} emphasis />
+            <Readout label="You would have put in" value={inrSmart(main.invested)} emphasis />
             <Readout
               label={`Value at ${rate}% a year`}
-              value={inr(Math.round(main.value))}
+              value={inrSmart(main.value)}
               emphasis
               sub={`${inrCompact(Math.round(main.gain))} of it is growth`}
             />
@@ -98,7 +98,7 @@ export default function SipCalculator({ compact = false }) {
           <div className="mt-7 border-t border-ink/10 pt-6">
             <Readout
               label={`And if returns were ${Math.max(0, rate - 4)}% instead`}
-              value={inr(Math.round(lower.value))}
+              value={inrSmart(lower.value)}
               sub="Same money, a soberer assumption. The gap between these two is the risk."
             />
           </div>

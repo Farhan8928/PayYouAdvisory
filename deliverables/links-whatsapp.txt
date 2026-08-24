@@ -1,18 +1,17 @@
 *PayYou Advisory — the new website*
 https://pay-you-advisory.vercel.app/
 
-Every page below is live now. 137 pages in total.
+Every page below is live now. 218 pages in total.
 
 *Main pages*
-Home: https://pay-you-advisory.vercel.app/
-All loans compared: https://pay-you-advisory.vercel.app/loans/
-Our lender panel: https://pay-you-advisory.vercel.app/lenders/
-About PayYou: https://pay-you-advisory.vercel.app/about/
-Careers: https://pay-you-advisory.vercel.app/careers/
-Contact: https://pay-you-advisory.vercel.app/contact/
-Questions answered: https://pay-you-advisory.vercel.app/faq/
+Loan Advisory in Pune & PCMC: https://pay-you-advisory.vercel.app/
+Loans in Pune & PCMC: https://pay-you-advisory.vercel.app/loans/
+Our Bank & NBFC Panel: https://pay-you-advisory.vercel.app/lenders/
+About PayYou Advisory — A Kay Bee Bio-Organics Venture: https://pay-you-advisory.vercel.app/about/
+Financial Advisor & Loan Officer Jobs in Pune: https://pay-you-advisory.vercel.app/careers/
+Contact PayYou Advisory. Chinchwad, Baramati & Phaltan: https://pay-you-advisory.vercel.app/contact/
 
-*Loan & insurance products (8)*
+*Loan & insurance products*
 Personal Loan: https://pay-you-advisory.vercel.app/personal-loan/
 Business Loan: https://pay-you-advisory.vercel.app/business-loan/
 Home Loan: https://pay-you-advisory.vercel.app/home-loan/
@@ -21,12 +20,124 @@ Car Loan: https://pay-you-advisory.vercel.app/car-loan/
 Gold Loan: https://pay-you-advisory.vercel.app/gold-loan/
 Working Capital & LRD: https://pay-you-advisory.vercel.app/working-capital-loan/
 Insurance Plans: https://pay-you-advisory.vercel.app/insurance/
+Loan Against Securities: https://pay-you-advisory.vercel.app/loan-against-securities/
+Education Loan: https://pay-you-advisory.vercel.app/education-loan/
+Deposits & Investments: https://pay-you-advisory.vercel.app/investments/
+
+*Detailed pages by situation (67)*
+Written for the specific case rather than as one general page.
+
+*Personal Loan — in detail*
+Personal Loan for Salaried Employees: https://pay-you-advisory.vercel.app/personal-loan-for-salaried/
+Personal Loan for Self-Employed: https://pay-you-advisory.vercel.app/personal-loan-for-self-employed/
+Personal Loan for Doctors: https://pay-you-advisory.vercel.app/personal-loan-for-doctors/
+Personal Loan for CAs & Professionals: https://pay-you-advisory.vercel.app/personal-loan-for-professionals/
+Instant & Pre-Approved Personal Loan: https://pay-you-advisory.vercel.app/instant-personal-loan/
+Flexi Personal Loan: https://pay-you-advisory.vercel.app/flexi-personal-loan/
+Flexi Hybrid Personal Loan: https://pay-you-advisory.vercel.app/flexi-hybrid-personal-loan/
+Personal Term Loan (Fixed EMI): https://pay-you-advisory.vercel.app/personal-term-loan/
+Personal Loan for Women: https://pay-you-advisory.vercel.app/personal-loan-for-women/
+Personal Loan Top-Up: https://pay-you-advisory.vercel.app/personal-loan-top-up/
+Personal Loan Balance Transfer: https://pay-you-advisory.vercel.app/personal-loan-balance-transfer/
+Personal Loan for Medical Emergency: https://pay-you-advisory.vercel.app/personal-loan-for-medical-emergency/
+Personal Loan for Wedding: https://pay-you-advisory.vercel.app/personal-loan-for-wedding/
+Personal Loan for Home Renovation: https://pay-you-advisory.vercel.app/personal-loan-for-home-renovation/
+Personal Loan for Debt Consolidation: https://pay-you-advisory.vercel.app/personal-loan-for-debt-consolidation/
+Personal Loan for Education: https://pay-you-advisory.vercel.app/personal-loan-for-education/
+Personal Loan for Travel: https://pay-you-advisory.vercel.app/personal-loan-for-travel/
+Short-Term & Emergency Personal Loan: https://pay-you-advisory.vercel.app/short-term-personal-loan/
+
+*Business Loan — in detail*
+Unsecured Business Loan: https://pay-you-advisory.vercel.app/unsecured-business-loan/
+Secured Business Loan: https://pay-you-advisory.vercel.app/secured-business-loan/
+Business Term Loan: https://pay-you-advisory.vercel.app/business-term-loan/
+Business Overdraft & Cash Credit: https://pay-you-advisory.vercel.app/business-overdraft/
+MSME Loan: https://pay-you-advisory.vercel.app/msme-loan/
+Machinery & Equipment Loan: https://pay-you-advisory.vercel.app/machinery-loan/
+Invoice Discounting & Supply Chain Finance: https://pay-you-advisory.vercel.app/invoice-discounting/
+Merchant Cash Advance: https://pay-you-advisory.vercel.app/merchant-cash-advance/
+Business Loan Without ITR or for a New Business: https://pay-you-advisory.vercel.app/business-loan-without-itr/
+Business Loan on GST Returns: https://pay-you-advisory.vercel.app/business-loan-on-gst/
+Business Loan Balance Transfer: https://pay-you-advisory.vercel.app/business-loan-balance-transfer/
+Business Loan for Women Entrepreneurs: https://pay-you-advisory.vercel.app/business-loan-for-women/
+Business Loan for Doctors, CAs & Professionals: https://pay-you-advisory.vercel.app/business-loan-for-professionals/
+Structured Finance & Promoter Funding: https://pay-you-advisory.vercel.app/promoter-funding/
+
+*Home Loan — in detail*
+New Home Purchase Loan: https://pay-you-advisory.vercel.app/home-purchase-loan/
+Home Construction Loan: https://pay-you-advisory.vercel.app/home-construction-loan/
+Home Improvement Loan: https://pay-you-advisory.vercel.app/home-improvement-loan/
+Home Extension Loan: https://pay-you-advisory.vercel.app/home-extension-loan/
+Plot & Land Purchase Loan: https://pay-you-advisory.vercel.app/plot-purchase-loan/
+Home Loan Balance Transfer & Top-Up: https://pay-you-advisory.vercel.app/home-loan-balance-transfer/
+PMAY & Government Housing Schemes: https://pay-you-advisory.vercel.app/pmay-home-loan/
+Affordable Housing Loan: https://pay-you-advisory.vercel.app/affordable-housing-loan/
+NRI Home Loan: https://pay-you-advisory.vercel.app/nri-home-loan/
+
+*Loan Against Property — in detail*
+Loan Against Residential Property: https://pay-you-advisory.vercel.app/residential-property-loan/
+Loan Against Commercial Property: https://pay-you-advisory.vercel.app/commercial-property-loan/
+Lease Rental Discounting: https://pay-you-advisory.vercel.app/lease-rental-discounting/
+Mortgage Loan Takeover & Top-Up: https://pay-you-advisory.vercel.app/mortgage-loan-takeover/
+
+*Car Loan — in detail*
+Two-Wheeler Loan: https://pay-you-advisory.vercel.app/two-wheeler-loan/
+Used Car Loan: https://pay-you-advisory.vercel.app/used-car-loan/
+Consumer Durable & No-Cost EMI: https://pay-you-advisory.vercel.app/consumer-durable-loan/
+
+*Gold Loan — in detail*
+Gold Loan Rates, LTV & Valuation: https://pay-you-advisory.vercel.app/gold-loan-interest-rates/
+
+*Insurance Plans — in detail*
+Term Insurance: https://pay-you-advisory.vercel.app/term-insurance/
+Life Insurance & Savings Plans: https://pay-you-advisory.vercel.app/life-insurance/
+Health Insurance: https://pay-you-advisory.vercel.app/health-insurance/
+Motor Insurance: https://pay-you-advisory.vercel.app/motor-insurance/
+Personal Accident Insurance: https://pay-you-advisory.vercel.app/personal-accident-insurance/
+Critical Illness & Hospital Cash: https://pay-you-advisory.vercel.app/critical-illness-insurance/
+Travel Insurance: https://pay-you-advisory.vercel.app/travel-insurance/
+
+*Loan Against Securities — in detail*
+Loan Against Shares: https://pay-you-advisory.vercel.app/loan-against-shares/
+Loan Against Mutual Funds: https://pay-you-advisory.vercel.app/loan-against-mutual-funds/
+Loan Against Life Insurance Policy: https://pay-you-advisory.vercel.app/loan-against-insurance-policy/
+Loan Against Bonds & Government Securities: https://pay-you-advisory.vercel.app/loan-against-bonds/
+Loan Against Fixed Deposit: https://pay-you-advisory.vercel.app/loan-against-fixed-deposit/
+
+*Education Loan — in detail*
+Education Loan for Study in India: https://pay-you-advisory.vercel.app/domestic-education-loan/
+Study Abroad Education Loan: https://pay-you-advisory.vercel.app/study-abroad-loan/
+
+*Deposits & Investments — in detail*
+Fixed Deposit: https://pay-you-advisory.vercel.app/fixed-deposit/
+Recurring Deposit: https://pay-you-advisory.vercel.app/recurring-deposit/
+Savings & Current Account Opening: https://pay-you-advisory.vercel.app/savings-and-current-account/
+Systematic Deposit Plan: https://pay-you-advisory.vercel.app/systematic-deposit-plan/
 
 *Calculators*
-EMI calculator: https://pay-you-advisory.vercel.app/emi-calculator/
-Eligibility calculator: https://pay-you-advisory.vercel.app/eligibility-calculator/
-Balance transfer calculator: https://pay-you-advisory.vercel.app/balance-transfer-calculator/
-All three: https://pay-you-advisory.vercel.app/calculators/
+Loan Calculators. EMI & Eligibility: https://pay-you-advisory.vercel.app/calculators/
+EMI Calculator with Full Amortisation Schedule: https://pay-you-advisory.vercel.app/emi-calculator/
+Loan Eligibility Calculator. How Much?: https://pay-you-advisory.vercel.app/eligibility-calculator/
+Balance Transfer Calculator. Real Saving: https://pay-you-advisory.vercel.app/balance-transfer-calculator/
+Home Loan EMI Calculator with Amortisation: https://pay-you-advisory.vercel.app/home-loan-emi-calculator/
+Personal Loan EMI Calculator: https://pay-you-advisory.vercel.app/personal-loan-emi-calculator/
+Business Loan EMI Calculator: https://pay-you-advisory.vercel.app/business-loan-emi-calculator/
+SIP Calculator: https://pay-you-advisory.vercel.app/sip-calculator/
+FD & RD Calculator: https://pay-you-advisory.vercel.app/fd-calculator/
+
+*Guides*
+Guides: https://pay-you-advisory.vercel.app/resources/
+CIBIL Credit Score Guide: https://pay-you-advisory.vercel.app/credit-score/
+Documents Required for a Loan in Pune, by Type: https://pay-you-advisory.vercel.app/documents-required/
+How to Compare Loan Interest Rates in India: https://pay-you-advisory.vercel.app/interest-rate-comparison/
+
+*Blog*
+Notes on Borrowing: https://pay-you-advisory.vercel.app/blog/
+Why Your Loan Application Was Rejected: https://pay-you-advisory.vercel.app/blog/why-your-loan-application-was-rejected/
+What a Loan DSA Does and How We Are Paid: https://pay-you-advisory.vercel.app/blog/what-a-dsa-actually-does/
+Flat vs Reducing Interest Rate: https://pay-you-advisory.vercel.app/blog/flat-versus-reducing-interest-rate/
+Home Loan Hidden Costs in PCMC & Pune: https://pay-you-advisory.vercel.app/blog/buying-a-home-in-pcmc-what-the-loan-will-not-cover/
+What Lenders Read in Your Business Bank Statement: https://pay-you-advisory.vercel.app/blog/business-loan-what-lenders-read-in-your-bank-statement/
 
 *Local pages (112)*
 Written for each area individually, not one page with the name swapped.
@@ -158,12 +269,9 @@ Baramati: https://pay-you-advisory.vercel.app/working-capital-loan-baramati/
 Phaltan: https://pay-you-advisory.vercel.app/working-capital-loan-phaltan/
 
 *Policies*
-Privacy policy: https://pay-you-advisory.vercel.app/privacy-policy/
-Terms of use: https://pay-you-advisory.vercel.app/terms/
+Privacy Policy: https://pay-you-advisory.vercel.app/privacy-policy/
+Terms of Use: https://pay-you-advisory.vercel.app/terms/
 Disclaimer: https://pay-you-advisory.vercel.app/disclaimer/
-Cookie policy: https://pay-you-advisory.vercel.app/cookie-policy/
-Grievance redressal: https://pay-you-advisory.vercel.app/grievance-redressal/
-Photo credits: https://pay-you-advisory.vercel.app/photo-credits/
 
 *For Google Search Console*
 Site map: https://pay-you-advisory.vercel.app/sitemap.xml

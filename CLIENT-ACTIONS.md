@@ -7,6 +7,75 @@ The list is ordered by what it costs to get wrong.
 
 ---
 
+## 0. Decisions raised by your page specification of 24 August 2026
+
+The site has been rebuilt to the structure in *PAYYOUADVISORY Website Pages*.
+Four items in that document could not be built truthfully without input from
+you, and two pages were removed because the document does not list them. Both
+sets need a decision.
+
+### Three pages we did not build as specified
+
+**"Interest Rate Comparison (all lenders, all products)."** Building this means
+publishing roughly two hundred live rate figures across twenty-five lenders.
+None of them is a figure PayYou has published, all of them change without
+notice, and a borrower who telephones a bank and finds our number stale has good
+reason to distrust everything else on the site.
+
+What is live instead is `/interest-rate-comparison/`, which teaches a reader to
+read an offer: flat versus reducing basis, what the annual percentage rate
+includes, which fees sit outside the headline. That page is durable and does not
+go stale.
+
+To ship the live table we need: your current rate sheets from each lender, in
+writing; a named person who owns updating them; and an agreed review frequency.
+Without the third, the table becomes a liability within a quarter.
+
+**"Today's gold interest rate."** A rate that changes daily needs a live data
+source, not a page. `/gold-loan-interest-rates/` explains how gold loans are
+actually priced instead — purity and net weight, why making charges raise
+nothing, and the RBI cap of 75% loan-to-value, which is published regulation
+rather than a figure we invented. If you want a live rate, tell us where the
+number should come from.
+
+**"CIBIL / Credit Score Check."** Checking a score requires a bureau
+integration, a commercial agreement with the bureau and consent handling for
+personal data. That is a project rather than a page. The "improve your score"
+guide you asked for is live at `/credit-score/`. Say the word if you want us to
+scope the bureau integration separately.
+
+### One question about the Investments section
+
+The specification asks for fixed deposits, recurring deposits, savings and
+current accounts. Those pages are live at `/investments/` and beneath it.
+
+**They are written as referral, not as deposit-taking.** Every page states that
+PayYou arranges these with partner banks and finance companies, that the deposit
+is held by the institution in your name, and that PayYou does not accept
+deposits or manage money. That framing is deliberate: PayYou's DSA appointment
+covers loans, and distributing deposits or opening accounts is a different
+arrangement.
+
+**What we need:** confirmation of what your actual arrangement is with the
+institutions for deposits and account opening. If there is a distribution or
+referral agreement, we will name it. If there is not, this section should not be
+live at all, and it is better to find that out now than after it is indexed.
+
+### Two pages removed, and our recommendation on one of them
+
+Following the specification exactly, four pages were removed: the FAQ hub, photo
+credits, the cookie policy and the grievance redressal page. All four now 301
+to the nearest equivalent, so no accumulated search value is lost.
+
+**We recommend putting grievance redressal back.** A disclosed grievance
+mechanism with a named officer and an escalation path is expected of a financial
+intermediary in India, and its absence is the kind of thing that is noticed by
+exactly the wrong audience. It is one line to restore. The cookie policy matters
+less now that the privacy policy absorbs it, and photo credits was courtesy
+rather than obligation.
+
+---
+
 ## 1. Resolve a contradiction on the current site — **blocking**
 
 The existing payyouadvisory.com says two things that cannot both be true:

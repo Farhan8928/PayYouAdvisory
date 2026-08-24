@@ -82,3 +82,18 @@ export const titleFromSlug = (s) =>
     .split('-')
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(' ')
+
+/**
+ * Rupees in full below a crore, compact above it.
+ *
+ * A projection over decades can reach fifteen digits, and "₹85,08,73,13,774"
+ * is both unreadable and wide enough to break a two-column layout — which is
+ * exactly what it did on /sip-calculator/ at tablet width until the viewport
+ * audit caught it. "₹8509 Cr" is narrower and, more importantly, is the form a
+ * reader can actually take a number away in.
+ *
+ * The threshold is one crore because that is where Indian numbering itself
+ * switches unit, so the compact form stops being an approximation of a figure
+ * you wanted precisely and starts being the natural way to say it.
+ */
+export const inrSmart = (n) => (Math.abs(n) >= 1e7 ? inrCompact(n) : inr(Math.round(n)))
