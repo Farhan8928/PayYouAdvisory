@@ -42,7 +42,7 @@ export default function DepositCalculator({ compact = false }) {
             key={t.id}
             type="button"
             onClick={() => setMode(t.id)}
-            className={`rounded-xl px-4 py-2 text-xs font-extrabold transition-all ${
+            className={`flex min-h-[44px] items-center rounded-xl px-4 text-xs font-extrabold transition-all ${
               mode === t.id
                 ? 'bg-accent text-white shadow-sm'
                 : 'bg-paper text-ink-soft hover:text-ink'

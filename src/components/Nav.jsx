@@ -100,7 +100,7 @@ export default function Nav({ path = '/', overlay = false }) {
               <span className="hidden text-white/60 sm:inline">{CONTACT.hours}</span>
               <a
                 href={telHref(CONTACT.landline)}
-                className="fig flex items-center gap-1.5 font-bold text-white transition-colors hover:text-sky"
+                className="fig -my-3 flex items-center gap-1.5 py-3 font-bold text-white transition-colors hover:text-sky sm:-my-2 sm:py-2"
               >
                 <Phone className="h-2.5 w-2.5 text-accent" />
                 {CONTACT.landlineDisplay}
@@ -214,7 +214,7 @@ export default function Nav({ path = '/', overlay = false }) {
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}
-                className={`flex h-10 items-center gap-2 rounded-full border px-3.5 text-xs font-semibold transition-all duration-200 ${
+                className={`flex h-11 items-center gap-2 rounded-full border px-3.5 text-xs font-semibold transition-all duration-200 ${
                   clear
                     ? 'border-white/20 bg-white/10 text-white hover:bg-white/20'
                     : 'border-ink/12 bg-paper-deep text-ink-soft hover:border-ink/30 hover:bg-paper'
@@ -228,7 +228,7 @@ export default function Nav({ path = '/', overlay = false }) {
               {/* IDFC Odometer Rotating Customer Support Button */}
               <a
                 href="/contact/"
-                className={`hidden h-10 items-center gap-2 rounded-full border px-4 text-xs font-semibold transition-all duration-200 xl:flex ${
+                className={`hidden h-11 items-center gap-2 rounded-full border px-4 text-xs font-semibold transition-all duration-200 xl:flex ${
                   clear
                     ? 'border-white/20 bg-white/10 text-white hover:bg-white/20'
                     : 'border-ink/12 bg-paper text-ink hover:border-accent/40 hover:text-accent shadow-sm'
@@ -244,7 +244,10 @@ export default function Nav({ path = '/', overlay = false }) {
               {/* IDFC "Login" / Check Eligibility CTA */}
               <a
                 href="/eligibility-calculator/"
-                className="btn-accent btn-sm flex items-center gap-1.5 shadow-sm"
+                // min-h-[44px]: `btn-sm` is 38px tall, which fails WCAG 2.5.5
+                // for a control. The padding grows the target without changing
+                // the pill's visual weight beside the other two.
+                className="btn-accent btn-sm flex min-h-[44px] items-center gap-1.5 shadow-sm"
               >
                 <Lock className="h-3.5 w-3.5" />
                 <span>Eligibility</span>
@@ -254,7 +257,7 @@ export default function Nav({ path = '/', overlay = false }) {
               <button
                 type="button"
                 onClick={() => setDrawer(true)}
-                className={`flex h-10 w-10 items-center justify-center rounded-full lg:hidden ${
+                className={`flex h-11 w-11 items-center justify-center rounded-full lg:hidden ${
                   clear ? 'text-white' : 'text-ink'
                 }`}
                 aria-label="Open menu"
@@ -289,7 +292,7 @@ export default function Nav({ path = '/', overlay = false }) {
               <button
                 type="button"
                 onClick={() => setDrawer(false)}
-                className="flex h-10 w-10 items-center justify-center rounded-full text-ink hover:bg-paper-deep"
+                className="flex h-11 w-11 items-center justify-center rounded-full text-ink hover:bg-paper-deep"
                 aria-label="Close menu"
               >
                 <Close className="h-5 w-5" />

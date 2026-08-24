@@ -58,16 +58,54 @@ export default function Hero() {
               i === index ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
           >
-            {s.image ? (
+            {s.video || s.image ? (
               <div className="absolute inset-0 flex items-center justify-end">
                 <div className="relative h-full w-full lg:w-3/5 overflow-hidden">
+                  {/* ── Film, where one exists ──────────────────────────
+                      Deliberately inside the same right-hand 60% box as the
+                      still rather than full-bleed. The render is composed with
+                      its subject centred, so full-bleed put the coin directly
+                      behind the headline. Sharing the still's container puts
+                      the subject at roughly 70% across the band, which is
+                      where the reference site's is.
+
+                      `loop` is per slide. This first film is a resolve, not a
+                      cycle: twenty-five discs converge into one coin. Looping
+                      it snaps the finished coin back into scattered discs
+                      every eight seconds, so it plays once and holds on the
+                      final frame — which is the strongest image in the clip
+                      and the one carrying the rupee mark. */}
+                  {s.video ? (
+                    <video
+                      // `contain`, not `cover`. The film is 2.32:1 and this box is about
+                      // 1.35:1, so cover scaled it 2.3x and cropped the coin's
+                      // rupee mark clean off the top and right. Contain shows the
+                      // frame the render was composed as — and the letterboxing is
+                      // invisible because the film's stage is the same near-black
+                      // as the band behind it.
+                      className="h-full w-full object-contain opacity-95"
+                      autoPlay
+                      muted
+                      loop={s.loop !== false}
+                      playsInline
+                      preload={i === 0 ? 'auto' : 'none'}
+                      poster={s.poster ?? undefined}
+                      aria-hidden="true"
+                      tabIndex={-1}
+                    >
+                      {/* Portrait cut first: the browser takes the first
+                          source whose media query matches. */}
+                      <source src={s.video.mobile} type="video/mp4" media="(max-width: 767px)" />
+                      <source src={s.video.desktop} type="video/mp4" />
+                    </video>
+                  ) : null}
                   {/* Width, height, srcset and a blur placeholder all come
                       from `npm run hero`. A bare <img src> here meant a
                       guaranteed layout shift, the 2400px file served to a
                       360px phone, and ~2.8 MB of hero imagery — which is what
                       `npm run audit:images` failed the build over. `sizes`
                       says 60vw because the still occupies lg:w-3/5. */}
-                  {(() => {
+                  {!s.video && s.image ? (() => {
                     const img = HERO_IMAGES[s.image.replace(/^\/images\/|\.jpg$/g, '')]
                     return (
                       <img
@@ -92,7 +130,7 @@ export default function Hero() {
                         className="h-full w-full scale-105 object-cover object-center opacity-90 transition-transform duration-1000 ease-out lg:object-right"
                       />
                     )
-                  })()}
+                  })() : null}
                   {/* Left soft fade gradient so text remains ultra-crisp */}
                   <div
                     className="absolute inset-0 pointer-events-none"

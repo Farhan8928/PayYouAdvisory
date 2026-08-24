@@ -125,7 +125,7 @@ export default function Field({
               key={p.label}
               type="button"
               onClick={() => onChange(p.value)}
-              className={`rounded-full px-3 py-1 text-2xs font-bold transition-all ${
+              className={`flex min-h-[44px] items-center rounded-full px-3.5 text-2xs font-bold transition-all ${
                 value === p.value
                   ? 'bg-accent text-white shadow-sm'
                   : 'bg-paper-deep text-ink-soft hover:bg-ink/10 hover:text-ink'

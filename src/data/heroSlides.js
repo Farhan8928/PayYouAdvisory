@@ -21,8 +21,17 @@ export const HERO_SLIDES = [
     secondary: { label: 'Explore 25+ Partners', href: '/lenders/' },
     scene: 'coin',
     image: '/images/hero-slide-1.jpg',
-    video: null,
-    poster: null,
+    // Generated with Veo, then processed: AAC track stripped, the "Veo"
+    // watermark cropped out of the lower right, and cut to the band's aspect
+    // plus a portrait version for phones. See deliverables/HERO-ASSETS-BRIEF.md.
+    video: {
+      desktop: '/hero/compare-desktop.mp4',
+      mobile: '/hero/compare-mobile.mp4',
+    },
+    poster: '/hero/compare-poster.jpg',
+    // A resolve, not a cycle — hold on the finished coin rather than snapping
+    // it back into scattered discs every eight seconds.
+    loop: false,
   },
   {
     id: 'home',
