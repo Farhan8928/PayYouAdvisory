@@ -29,9 +29,12 @@ export const HERO_SLIDES = [
       mobile: '/hero/compare-mobile.mp4',
     },
     poster: '/hero/compare-poster.jpg',
-    // A resolve, not a cycle — hold on the finished coin rather than snapping
-    // it back into scattered discs every eight seconds.
-    loop: false,
+    // Loops, as the reference site's do — every one of theirs carries
+    // `loop: true`. The generated clip was a resolve rather than a cycle, so
+    // looping it raw snapped the finished coin back into scattered discs. The
+    // file is now a ping-pong built with ffmpeg: converge, hold 1.2s on the
+    // coin, disperse in reverse. Last frame and first frame differ by 0.99 on
+    // a 0-255 luma scale, so the seam is invisible.
   },
   {
     id: 'home',
