@@ -1,6 +1,7 @@
 import { useId } from 'react'
 import { clamp } from '../lib/finance.js'
 import { num } from '../lib/format.js'
+import { BRAND } from '../data/brand.js'
 
 /**
  * Modern Bank-Grade Number & Slider Field (IDFC FIRST Bank style):
@@ -87,8 +88,13 @@ export default function Field({
           step={step}
           value={clamp(value, min, max)}
           onChange={(e) => onChange(parseFloat(e.target.value))}
+          // Filled portion in the logo red, unfilled in the palette's lightest
+          // grey. Both come from src/data/brand.js rather than being written
+          // here: the first version hardcoded #e2e8f0, a Tailwind default grey
+          // that is in nobody's brand, and `npm run audit:brand` failed 156
+          // pages over it.
           style={{
-            background: `linear-gradient(to right, #e31e24 0%, #e31e24 ${pct}%, #e2e8f0 ${pct}%, #e2e8f0 100%)`,
+            background: `linear-gradient(to right, ${BRAND.accent} 0%, ${BRAND.accent} ${pct}%, ${BRAND.paperDark} ${pct}%, ${BRAND.paperDark} 100%)`,
           }}
           className="slider w-full cursor-pointer appearance-none rounded-full h-2"
         />

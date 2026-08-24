@@ -115,6 +115,7 @@ export default {
        * warning, the rule just does not exist. `npm run audit:css` catches it.
        */
       opacity: {
+        8: '0.08',
         12: '0.12',
         14: '0.14',
         18: '0.18',

@@ -3,6 +3,7 @@ import { CONTACT } from '../data/site.js'
 import { HERO_SLIDES } from '../data/heroSlides.js'
 import { ArrowRight, ChevronDown, Phone, ShieldCheck } from '../components/Icon.jsx'
 import HeroScene from '../components/HeroScene.jsx'
+import { HERO_IMAGES } from '../data/heroImages.gen.js'
 
 /**
  * IDFC FIRST Bank inspired Hero Carousel:
@@ -60,11 +61,38 @@ export default function Hero() {
             {s.image ? (
               <div className="absolute inset-0 flex items-center justify-end">
                 <div className="relative h-full w-full lg:w-3/5 overflow-hidden">
-                  <img
-                    src={s.image}
-                    alt={s.eyebrow}
-                    className="h-full w-full object-cover object-center lg:object-right opacity-90 transition-transform duration-1000 ease-out scale-105"
-                  />
+                  {/* Width, height, srcset and a blur placeholder all come
+                      from `npm run hero`. A bare <img src> here meant a
+                      guaranteed layout shift, the 2400px file served to a
+                      360px phone, and ~2.8 MB of hero imagery — which is what
+                      `npm run audit:images` failed the build over. `sizes`
+                      says 60vw because the still occupies lg:w-3/5. */}
+                  {(() => {
+                    const img = HERO_IMAGES[s.image.replace(/^\/images\/|\.jpg$/g, '')]
+                    return (
+                      <img
+                        src={img?.src ?? s.image}
+                        srcSet={img?.srcSet}
+                        sizes="(min-width: 1024px) 60vw, 100vw"
+                        width={img?.width}
+                        height={img?.height}
+                        // Decorative: the headline beside it carries the
+                        // meaning, so an alt describing the photograph would
+                        // just be read out twice. Empty alt plus aria-hidden
+                        // is the pair that tells a screen reader to skip it.
+                        alt=""
+                        aria-hidden="true"
+                        loading={i === 0 ? 'eager' : 'lazy'}
+                        decoding={i === 0 ? 'sync' : 'async'}
+                        style={
+                          img?.lqip
+                            ? { backgroundImage: `url(${img.lqip})`, backgroundSize: 'cover' }
+                            : undefined
+                        }
+                        className="h-full w-full scale-105 object-cover object-center opacity-90 transition-transform duration-1000 ease-out lg:object-right"
+                      />
+                    )
+                  })()}
                   {/* Left soft fade gradient so text remains ultra-crisp */}
                   <div
                     className="absolute inset-0 pointer-events-none"

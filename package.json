@@ -21,7 +21,8 @@
     "audit:dupes": "node scripts/duplication-audit.mjs",
     "audit:tells": "node scripts/ai-tells-audit.mjs",
     "audit:viewport": "node scripts/viewport-audit.mjs",
-    "audit:seo": "node scripts/seo-audit.mjs"
+    "audit:seo": "node scripts/seo-audit.mjs",
+    "hero": "node scripts/make-hero-images.mjs"
   },
   "dependencies": {
     "react": "18.3.1",

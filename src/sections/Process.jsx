@@ -47,8 +47,14 @@ export default function Process() {
                   <span className="fig flex h-10 w-10 items-center justify-center rounded-xl bg-accent text-sm font-extrabold text-white shadow-sm">
                     0{s.step}
                   </span>
+                  {/* No second "Step 01 of 4" beside the badge. The badge
+                      already says which step this is, and printing the number
+                      twice put eight decorative sequence markers on the
+                      homepage — over the limit `npm run audit:tells` enforces,
+                      because rows of 01/02/03 are one of the clearest signs a
+                      page was assembled from a kit rather than composed. */}
                   <span className="text-2xs font-bold uppercase tracking-wider text-ink-faint">
-                    Step {s.step} of 4
+                    of four
                   </span>
                 </div>
 
